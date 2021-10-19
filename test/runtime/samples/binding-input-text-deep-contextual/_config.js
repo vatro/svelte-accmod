@@ -19,7 +19,7 @@ export default {
 		<div><input value=three><p>three</p></div>
 	`,
 
-	async test({ assert, component, target, window }) {
+	async test({ assert, component, target, window, flush, compileOptions }) {
 		const inputs = [...target.querySelectorAll('input')];
 
 		assert.equal(inputs[0].value, 'one');
@@ -39,6 +39,7 @@ export default {
 		items[2].description = 'five';
 
 		component.items = items;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.equal(inputs[2].value, 'five');
 		assert.htmlEqual(target.innerHTML, `
 			<div><input><p>one</p></div>

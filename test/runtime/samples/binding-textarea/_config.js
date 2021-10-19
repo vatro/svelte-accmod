@@ -13,7 +13,7 @@ export default {
 		<p>some text</p>
 	`,
 
-	async test({ assert, component, target, window }) {
+	async test({ assert, component, target, window, flush, compileOptions }) {
 		const textarea = target.querySelector('textarea');
 		assert.equal(textarea.value, 'some text');
 
@@ -28,6 +28,7 @@ export default {
 		`);
 
 		component.value = 'goodbye';
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.equal(textarea.value, 'goodbye');
 		assert.htmlEqual(target.innerHTML, `
 			<textarea></textarea>
