@@ -11,10 +11,11 @@ export default {
 		]
 	},
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		const { things } = component;
 
 		component.things = things.reverse();
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<div data-c="3" data-d="4"></div>

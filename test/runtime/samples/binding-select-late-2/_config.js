@@ -9,8 +9,9 @@ export default {
 		<p>selected: two</p>
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.items = [ 'one', 'two', 'three' ];
+		compileOptions.accessorsAsync ? flush() : null;
 
 		const options = target.querySelectorAll('option');
 		assert.ok(!options[0].selected);

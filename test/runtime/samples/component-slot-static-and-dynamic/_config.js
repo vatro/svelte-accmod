@@ -6,8 +6,9 @@ export default {
 		</div>
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.dynamic += 1;
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<div>

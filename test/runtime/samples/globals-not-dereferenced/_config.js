@@ -5,8 +5,9 @@ export default {
 
 	html: '5',
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.x = 3;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual( target.innerHTML, '3' );
 	}
 };

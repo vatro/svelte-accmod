@@ -7,8 +7,13 @@ export default {
 		loading...
 	`,
 
-	async test({ assert, component, target }) {
-		await (component.thePromise = Promise.resolve({ error: 'error message' }));
+	async test({ assert, component, target, flush, compileOptions }) {
+		async function a1() {
+			component.thePromise = Promise.resolve({ error: 'error message' });
+			compileOptions.accessorsAsync ? flush() : null;
+		}
+
+		await a1();
 
 		assert.htmlEqual(
 			target.innerHTML,
@@ -18,7 +23,12 @@ export default {
 			`
 		);
 
-		await (component.thePromise = Promise.resolve({ result: '42' }));
+		async function a2() {
+			component.thePromise = Promise.resolve({ result: '42' });
+			compileOptions.accessorsAsync ? flush() : null;
+		}
+
+		await a2();
 
 		assert.htmlEqual(
 			target.innerHTML,
@@ -28,10 +38,15 @@ export default {
 			`
 		);
 
-		try {
-			await (component.thePromise = Promise.reject({
+		async function a3() {
+			component.thePromise = Promise.reject({
 				error: { message: 'oops', code: '123' }
-			}));
+			});
+			compileOptions.accessorsAsync ? flush() : null;
+		}
+
+		try {
+			await a3();
 		} catch (e) {
 			// do nothing
 		}
@@ -44,10 +59,15 @@ export default {
 			`
 		);
 
-		try {
-			await (component.thePromise = Promise.reject({
+		async function a4() {
+			component.thePromise = Promise.reject({
 				error: { message: 'timeout', code: '456' }
-			}));
+			});
+			compileOptions.accessorsAsync ? flush() : null;
+		}
+
+		try {
+			await a4();
 		} catch (e) {
 			// do nothing
 		}

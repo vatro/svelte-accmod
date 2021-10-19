@@ -4,10 +4,11 @@ export default {
 		y: true
 	},
 
-	test({ assert, component, target, raf }) {
+	test({ assert, component, target, raf, flush, compileOptions }) {
 		// first, toggle x — first element should snap in
 		// and out while second one transitions
 		component.x = true;
+		compileOptions.accessorsAsync ? flush() : null;
 
 		let divs = target.querySelectorAll('div');
 		assert.equal(divs[0].foo, undefined);
@@ -20,6 +21,7 @@ export default {
 		raf.tick(100);
 
 		component.x = false;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			<div>snaps if x changes</div>
 			<div>transitions if x changes</div>
@@ -34,8 +36,11 @@ export default {
 
 		// then toggle y
 		component.y = false;
+		compileOptions.accessorsAsync ? flush() : null;
 		component.x = true;
+		compileOptions.accessorsAsync ? flush() : null;
 		component.y = true;
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<div>snaps if x changes</div>
@@ -52,6 +57,7 @@ export default {
 		assert.equal(divs[1].foo, 1);
 
 		component.y = false;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			<div>snaps if x changes</div>
 			<div>transitions if x changes</div>

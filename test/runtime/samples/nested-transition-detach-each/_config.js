@@ -11,8 +11,10 @@ export default {
 		dev: true
 	},
 
-	test({ assert, component, target, raf }) {
+
+	test({ assert, component, target, raf, flush, compileOptions }) {
 		component.visible = true;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			<div class="row">
 				<div class="cell">1, a</div>
@@ -32,6 +34,7 @@ export default {
 		`);
 
 		component.visible = false;
+		compileOptions.accessorsAsync ? flush() : null;
 		raf.tick(0);
 		raf.tick(100);
 		assert.htmlEqual(target.innerHTML, '');

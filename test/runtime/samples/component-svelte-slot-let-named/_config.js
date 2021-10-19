@@ -10,8 +10,9 @@ export default {
 			<div slot="foo"><span>3</span></div>
 		</div>`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.things = [1, 2, 3, 4];
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			<div>
 				<div slot="foo"><span>1</span></div>

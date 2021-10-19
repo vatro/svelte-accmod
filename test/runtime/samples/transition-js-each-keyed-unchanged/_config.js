@@ -3,11 +3,12 @@ export default {
 		numbers: [1, 2, 3, 4, 5]
 	},
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		const divs1 = target.querySelectorAll('div');
 		assert.equal(divs1[0].foo, undefined);
 
 		component.numbers = [1, 2, 5, 4, 3];
+		compileOptions.accessorsAsync ? flush() : null;
 		const divs2 = target.querySelectorAll('div');
 
 		assert.equal(divs1[0], divs2[0]);

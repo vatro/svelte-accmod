@@ -9,8 +9,9 @@ export default {
 		<pre>{}</pre>
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.a = 2;
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<pre>{"a":2,"b":[1],"c":42}</pre>

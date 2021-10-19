@@ -5,8 +5,9 @@ export default {
 
 	html: '<div class="test-class primary" role="button"></div>',
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.primary = true;
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(
 			target.innerHTML,
