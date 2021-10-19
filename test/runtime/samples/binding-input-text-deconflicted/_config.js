@@ -15,7 +15,7 @@ export default {
 		<input value=world>
 	`,
 
-	async test({ assert, component, target, window }) {
+	async test({ assert, component, target, window, flush, compileOptions }) {
 		const input = target.querySelector('input');
 		assert.equal(input.value, 'world');
 
@@ -31,6 +31,7 @@ export default {
 		`);
 
 		component.component = { name: 'goodbye' };
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.equal(input.value, 'goodbye');
 		assert.htmlEqual(target.innerHTML, `
 			<h1>Hello goodbye!</h1>

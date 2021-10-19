@@ -12,8 +12,9 @@ export default {
 		after
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.animals = [];
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			before
 			<p>no animals, but rather something else</p>
@@ -21,6 +22,7 @@ export default {
 		`);
 
 		component.foo = 'something other';
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			before
 			<p>no animals, but rather something other</p>
@@ -28,6 +30,7 @@ export default {
 		`);
 
 		component.animals = ['wombat'];
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			before
 			<p>wombat</p>

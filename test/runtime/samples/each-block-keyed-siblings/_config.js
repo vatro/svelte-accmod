@@ -9,8 +9,9 @@ export default {
 		<div>2</div>
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.ones = [{ text: '11' }];
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<div>11</div>

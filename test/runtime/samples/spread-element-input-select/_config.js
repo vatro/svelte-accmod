@@ -1,5 +1,6 @@
 export default {
-	async test({ assert, component, target }) {
+
+	async test({ assert, component, target, flush, compileOptions }) {
 		const select = target.querySelector('select');
 		const [option1, option2] = select.childNodes;
 
@@ -9,6 +10,7 @@ export default {
 		assert.ok(selections.includes(option2));
 
 		component.value = 'Hello';
+		compileOptions.accessorsAsync ? flush() : null;
 
 		selections = Array.from(select.selectedOptions);
 		assert.equal(selections.length, 1);
@@ -16,6 +18,7 @@ export default {
 		assert.ok(!selections.includes(option2));
 
 		component.spread = { value: 'World' };
+		compileOptions.accessorsAsync ? flush() : null;
 
 		selections = Array.from(select.selectedOptions);
 		assert.equal(selections.length, 1);

@@ -35,7 +35,7 @@ export default {
 		<label><input type="checkbox" value="3" checked> 3</label>
 		<p>3</p>
 	`,
-	async test({ assert, component, target, window }) {
+	async test({ assert, component, target, window, flush, compileOptions }) {
 		const inputs = target.querySelectorAll('input');
 		assert.equal(inputs[0].checked, true);
 		assert.equal(inputs[1].checked, false);
@@ -130,7 +130,9 @@ export default {
 		`);
 
 		component.selected_array_1 = [[3], [1]];
+		compileOptions.accessorsAsync ? flush() : null;
 		component.selected_array_2 = [[], [2]];
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.equal(inputs[0].checked, false);
 		assert.equal(inputs[1].checked, false);

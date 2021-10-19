@@ -11,8 +11,9 @@ export default {
 		<p>10</p>
 	`,
 
-	test({ assert, target, component }) {
+	test({ assert, target, component, flush, compileOptions }) {
 		component.obj = { a: 2, b: 50, c: 30 };
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			<p>2</p>
 			<p>50</p>
@@ -21,6 +22,7 @@ export default {
 		`);
 
 		component.c = 22;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			<p>2</p>
 			<p>50</p>
@@ -29,6 +31,7 @@ export default {
 		`);
 
 		component.d = 44;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			<p>2</p>
 			<p>50</p>
@@ -37,6 +40,7 @@ export default {
 		`);
 		
 		component.obj = { a: 9, b: 12 };
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			<p>9</p>
 			<p>12</p>
@@ -45,6 +49,7 @@ export default {
 		`);
 
 		component.c = 88;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			<p>9</p>
 			<p>12</p>
