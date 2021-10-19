@@ -3,7 +3,8 @@ export default {
 		<p>override default slot</p>
 	`,
 
-	test({ component }) {
+	test({ component, flush, compileOptions }) {
 		component.nested.foo = 'b';
+		compileOptions.accessorsAsync ? flush() : null;
 	}
 };

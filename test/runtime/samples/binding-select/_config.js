@@ -15,7 +15,7 @@ export default {
 		selected: 'one'
 	},
 
-	async test({ assert, component, target, window }) {
+	async test({ assert, component, target, window, flush, compileOptions }) {
 		const select = target.querySelector('select');
 		const options = [...target.querySelectorAll('option')];
 
@@ -41,5 +41,6 @@ export default {
 		`);
 
 		component.selected = 'three';
+		compileOptions.accessorsAsync ? flush() : null;
 	}
 };

@@ -8,8 +8,13 @@ export default {
 		<div><p>loading...</p></div>
 	`,
 
-	async test({ assert, component, target }) {
-		await (component.thePromise = Promise.resolve({ value: 'success', Component: component.Component }));
+	async test({ assert, component, target, flush, compileOptions }) {
+		async function a1() {
+			component.thePromise = Promise.resolve({ value: 'success', Component: component.Component });
+			compileOptions.accessorsAsync ? flush() : null;
+		}
+
+		await a1();
 
 		assert.htmlEqual(
 			target.innerHTML,
@@ -22,6 +27,7 @@ export default {
 		);
 
 		component.count = 5;
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(
 			target.innerHTML,
@@ -33,8 +39,13 @@ export default {
 			`
 		);
 
+		async function a2() {
+			component.thePromise = Promise.reject({ value: 'failure', Component: component.Component });
+			compileOptions.accessorsAsync ? flush() : null;
+		}
+
 		try {
-			await (component.thePromise = Promise.reject({ value: 'failure', Component: component.Component }));
+			await a2();
 		} catch (error) {
 			// ignore
 		}
@@ -50,6 +61,7 @@ export default {
 		);
 
 		component.count = 10;
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(
 			target.innerHTML,

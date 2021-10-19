@@ -30,7 +30,7 @@ export default {
 		<pre>ONE SOURCE\nTWO SOURCE</pre>
 	`,
 
-	async test({ assert, component, target, window }) {
+	async test({ assert, component, target, window, flush, compileOptions }) {
 		const event = new window.MouseEvent('input');
 		const textarea = target.querySelector('textarea');
 
@@ -61,6 +61,7 @@ export default {
 		// console.log(`select.__value`, select.__value)
 		// select.dispatchEvent(new window.Event('change'));
 		component.selectedComponent = components[1];
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.equal(textarea.value, 'two source');
 

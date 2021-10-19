@@ -6,8 +6,9 @@ export default {
 	<div><span class="name">item 3</span><span>something</span></div>
 	</div>
 	`,
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.sortById = false;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual( target.innerHTML, `
 		<div>
 		<div><span class="name">item 3</span><span>something</span></div>

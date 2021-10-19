@@ -5,7 +5,7 @@ export default {
 
 	intro: true,
 
-	test({ assert, component, target, raf }) {
+	test({ assert, component, target, raf, flush, compileOptions }) {
 		let divs = target.querySelectorAll('div');
 		assert.equal(divs[0].foo, 0);
 		assert.equal(divs[1].foo, 0);
@@ -17,6 +17,7 @@ export default {
 		assert.equal(divs[2].foo, 0.5);
 
 		component.things = ['a', 'b', 'c', 'd'];
+		compileOptions.accessorsAsync ? flush() : null;
 		divs = target.querySelectorAll('div');
 		assert.equal(divs[0].foo, 0.5);
 		assert.equal(divs[1].foo, 0.5);

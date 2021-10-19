@@ -13,7 +13,7 @@ export default {
 		<p>true</p>
 	`,
 
-	async test({ assert, component, target, window }) {
+	async test({ assert, component, target, window, flush, compileOptions }) {
 		const input = target.querySelector('input');
 		assert.equal(input.checked, true);
 
@@ -28,6 +28,7 @@ export default {
 		`);
 
 		component.foo = true;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.equal(input.checked, true);
 		assert.htmlEqual(target.innerHTML, `
 			<input type="checkbox">
