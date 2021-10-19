@@ -17,7 +17,7 @@ export default {
 		<input type="checkbox">
 	`,
 
-	test({ assert, component, target, window }) {
+	test({ assert, component, target, window, flush, compileOptions }) {
 		const { cats } = component;
 		const newCats = cats.slice();
 		newCats.push({
@@ -25,6 +25,7 @@ export default {
 			checked: false
 		});
 		component.cats = newCats;
+		compileOptions.accessorsAsync ? flush() : null;
 
 		let inputs = target.querySelectorAll('input');
 		assert.equal(inputs.length, 3);

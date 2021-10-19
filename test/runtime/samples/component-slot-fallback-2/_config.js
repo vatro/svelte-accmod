@@ -2,7 +2,7 @@ export default {
 	html: '<input> <input> <input>',
 	ssrHtml: '<input value="Blub"> <input value="Blub"> <input value="Blub">',
 
-	async test({ assert, target, component, window }) {
+	async test({ assert, target, component, window, flush, compileOptions }) {
 		const [input1, input2, inputFallback] = target.querySelectorAll('input');
 
 		assert.equal(component.getSubscriberCount(), 3);
@@ -16,6 +16,7 @@ export default {
 		assert.equal(inputFallback.value, 'ab');
 
 		component.props = 'hello';
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(
 			target.innerHTML,
@@ -27,6 +28,7 @@ export default {
 		);
 
 		component.fallback = 'world';
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(
 			target.innerHTML,
 			`

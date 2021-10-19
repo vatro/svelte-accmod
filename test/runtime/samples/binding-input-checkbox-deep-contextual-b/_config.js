@@ -23,7 +23,7 @@ export default {
 		</div>
 	`,
 
-	async test({ assert, component, target, window }) {
+	async test({ assert, component, target, window, flush, compileOptions }) {
 		const inputs = [ ...target.querySelectorAll('input') ];
 
 		const event = new window.Event('change');
@@ -32,6 +32,7 @@ export default {
 		await inputs[1].dispatchEvent(event);
 
 		await component.clear();
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<div><input type="checkbox"><p>one</p></div>
@@ -42,6 +43,7 @@ export default {
 		await inputs[1].dispatchEvent(event);
 
 		await component.clear();
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<div><input type="checkbox"><p>one</p></div>

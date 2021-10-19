@@ -8,11 +8,12 @@ export default {
 		bar
 	},
 
-	test({ assert, component, window }) {
+	test({ assert, component, window, flush, compileOptions }) {
 		assert.equal(window.document.head.innerHTML.includes(foo), false);
 		assert.equal(window.document.head.innerHTML.includes(bar), true);
 
 		component.condition = true;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.equal(window.document.head.innerHTML.includes(foo), true);
 		assert.equal(window.document.head.innerHTML.includes(bar), false);
 	}

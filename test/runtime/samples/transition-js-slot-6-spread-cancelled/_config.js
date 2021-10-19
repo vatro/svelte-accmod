@@ -12,7 +12,7 @@ export default {
 		props: 'Foo'
 	},
 
-	async test({ assert, component, target, raf }) {
+	async test({ assert, component, target, raf, flush, compileOptions }) {
 		await component.hide();
 		const [, div] = target.querySelectorAll('div');
 
@@ -20,6 +20,7 @@ export default {
 		assert.equal(div.foo, 0.5);
 
 		component.props = 'Bar';
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			<div>outside Bar Bar Bar</div>
 			<div>inside Foo Foo Foo</div>

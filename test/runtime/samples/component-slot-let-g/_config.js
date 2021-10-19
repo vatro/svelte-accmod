@@ -3,8 +3,9 @@ export default {
 		<span slot="foo" class="1">1</span>
 		0
 	`,
-	async test({ assert, target, component, window }) {
+	async test({ assert, target, component, window, flush, compileOptions }) {
 		component.x = 2;
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<span slot="foo" class="2">2</span>
