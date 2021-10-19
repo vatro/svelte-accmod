@@ -23,10 +23,11 @@ export default {
 
 	html: step.expected,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		for (let i = 0; i < 100; i++) {
 			step = permute();
 			component.values = step.data;
+			compileOptions.accessorsAsync ? flush() : null;
 			assert.htmlEqual( target.innerHTML, step.expected );
 		}
 	}

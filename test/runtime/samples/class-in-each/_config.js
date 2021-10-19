@@ -10,8 +10,9 @@ export default {
 		<div></div>
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.selected = 'three';
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			<div></div>
 			<div class=""></div>

@@ -14,7 +14,7 @@ export default {
 		<p>selected: two, three</p>
 	`,
 
-	async test({ assert, component, target, window }) {
+	async test({ assert, component, target, window, flush, compileOptions }) {
 		const select = target.querySelector( 'select' );
 		const options = [ ...target.querySelectorAll( 'option' ) ];
 
@@ -49,6 +49,7 @@ export default {
 		` );
 
 		component.selected = [ 'one', 'two' ];
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.ok( options[0].selected );
 		assert.ok( options[1].selected );

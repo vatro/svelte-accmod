@@ -7,8 +7,14 @@ export default {
 		loading...
 	`,
 
-	async test({ assert, component, target }) {
-		await (component.thePromise = Promise.resolve([1, 2]));
+	async test({ assert, component, target, flush, compileOptions }) {
+
+		async function a1() {
+			component.thePromise = Promise.resolve([1, 2]);
+			compileOptions.accessorsAsync ? flush() : null;
+		}
+
+		await a1();
 
 		assert.htmlEqual(
 			target.innerHTML,
@@ -18,7 +24,13 @@ export default {
 			`
 		);
 
-		await (component.thePromise = Promise.resolve([4, 5]));
+
+		async function a2() {
+			component.thePromise = Promise.resolve([4, 5]);
+			compileOptions.accessorsAsync ? flush() : null;
+		}
+
+		await a2();
 
 		assert.htmlEqual(
 			target.innerHTML,
@@ -28,8 +40,14 @@ export default {
 			`
 		);
 
+
+		async function a3() {
+			component.thePromise = Promise.reject(['a', [6, 7]]);
+			compileOptions.accessorsAsync ? flush() : null;
+		}
+
 		try {
-			await (component.thePromise = Promise.reject(['a', [6, 7]]));
+			await a3();
 		} catch (e) {
 			// do nothing
 		}
@@ -43,8 +61,13 @@ export default {
 			`
 		);
 
+		async function a4() {
+			component.thePromise = Promise.reject(['b', [8, 9]]);
+			compileOptions.accessorsAsync ? flush() : null;
+		}
+
 		try {
-			await (component.thePromise = Promise.reject(['b', [8, 9]]));
+			await a4();
 		} catch (e) {
 			// do nothing
 		}
@@ -57,5 +80,6 @@ export default {
 				<p>e: 9</p>
 			`
 		);
+
 	}
 };

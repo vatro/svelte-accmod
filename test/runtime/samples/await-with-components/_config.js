@@ -1,10 +1,11 @@
 export default {
-	async test({ assert, component, target }) {
+	async test({ assert, component, target, flush, compileOptions }) {
 		let resolve;
 		let reject;
 		let promise = new Promise(ok => resolve = ok);
 
 		component.promise = promise;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, 'Loading...');
 
 		resolve(42);
@@ -13,6 +14,7 @@ export default {
 
 		promise = new Promise((ok, fail) => reject = fail);
 		component.promise = promise;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, 'Loading...');
 
 		reject(99);
@@ -21,6 +23,7 @@ export default {
 
 		promise = new Promise(ok => resolve = ok);
 		component.promise = promise;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, 'Loading...');
 
 		resolve(1);
