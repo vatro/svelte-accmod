@@ -8,8 +8,9 @@ export default {
 		<span>1</span>
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.x = 2;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			<span>2</span>
 		`);

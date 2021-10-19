@@ -1,8 +1,9 @@
 export default {
 	html: '',
 
-	async test({ assert, component, target }) {
+	async test({ assert, component, target, flush, compileOptions }) {
 		component.visible = true;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			<p>a</p>
 		`);

@@ -3,8 +3,9 @@ export default {
 		things: ['a', 'b', 'c']
 	},
 
-	test({ assert, component, target, raf }) {
+	test({ assert, component, target, raf, flush, compileOptions }) {
 		component.things = [];
+		compileOptions.accessorsAsync ? flush() : null;
 		const div = target.querySelector('div');
 		assert.equal(div.foo, 0);
 

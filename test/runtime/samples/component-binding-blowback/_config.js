@@ -1,5 +1,5 @@
 export default {
-	test({ assert, component }) {
+	test({ assert, component, flush, compileOptions }) {
 		let count = 0;
 
 		component.$on('state', ({ changed }) => {
@@ -7,6 +7,7 @@ export default {
 		});
 
 		component.x = true;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.equal(count, 0);
 	}
 };

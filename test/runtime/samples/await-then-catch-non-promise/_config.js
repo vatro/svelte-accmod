@@ -7,8 +7,9 @@ export default {
 		<p>the value is not actually a promise</p>
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.thePromise = 'still not a promise';
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<p>the value is still not a promise</p>

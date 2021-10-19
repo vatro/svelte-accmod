@@ -1,6 +1,8 @@
 export default {
-	test({ assert, component, target, raf }) {
+
+	test({ assert, component, target, raf, flush, compileOptions }) {
 		component.visible = true;
+		compileOptions.accessorsAsync ? flush() : null;
 		let div = target.querySelector('div');
 		assert.equal(div.foo, 0);
 
@@ -14,6 +16,7 @@ export default {
 		assert.equal(div.foo, 1);
 
 		component.visible = false;
+		compileOptions.accessorsAsync ? flush() : null;
 		raf.tick(600);
 		assert.equal(div.foo, 1);
 		assert.equal(div.bar, 0.75);
@@ -25,12 +28,14 @@ export default {
 		// test outro before intro complete
 		raf.tick(1000);
 		component.visible = true;
+		compileOptions.accessorsAsync ? flush() : null;
 		div = target.querySelector('div');
 
 		raf.tick(1200);
 		assert.equal(div.foo, 0.5);
 
 		component.visible = false;
+		compileOptions.accessorsAsync ? flush() : null;
 		raf.tick(1300);
 		assert.equal(div.foo, 0.75);
 		assert.equal(div.bar, 0.75);

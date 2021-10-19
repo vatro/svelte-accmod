@@ -4,7 +4,7 @@ export default {
 		things: ['a', 'b', 'c']
 	},
 
-	test({ assert, component, target, raf }) {
+	test({ assert, component, target, raf, flush, compileOptions }) {
 		assert.htmlEqual(target.innerHTML, `
 			<div>a</div>
 			<div>b</div>
@@ -12,6 +12,7 @@ export default {
 		`);
 
 		component.things = ['a'];
+		compileOptions.accessorsAsync ? flush() : null;
 
 		raf.tick(100);
 		assert.htmlEqual(target.innerHTML, `
@@ -19,6 +20,7 @@ export default {
 		`);
 
 		component.visible = false;
+		compileOptions.accessorsAsync ? flush() : null;
 
 		raf.tick(200);
 		assert.htmlEqual(target.innerHTML, '');

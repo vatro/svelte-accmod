@@ -5,8 +5,14 @@ export default {
 
 	html: '',
 
-	async test({ assert, component, target }) {
-		await (component.thePromise = Promise.resolve({ result: 1 }));
+	async test({ assert, component, target, flush, compileOptions }) {
+
+		async function a1() {
+			component.thePromise = Promise.resolve({ result: 1 });
+			compileOptions.accessorsAsync ? flush() : null;
+		}
+
+		await a1();
 
 		assert.htmlEqual(
 			target.innerHTML,
