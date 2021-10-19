@@ -4,8 +4,9 @@ export default {
 		things: [ 'a', 'b', 'c' ]
 	},
 
-	test({ assert, component, target, raf }) {
+	test({ assert, component, target, raf, flush, compileOptions }) {
 		component.visible = true;
+		compileOptions.accessorsAsync ? flush() : null;
 		const divs = target.querySelectorAll('div');
 		assert.equal(divs[0].foo, 0);
 		assert.equal(divs[1].foo, 0);
@@ -17,6 +18,7 @@ export default {
 		assert.equal(divs[2].foo, 0.5);
 
 		component.visible = false;
+		compileOptions.accessorsAsync ? flush() : null;
 
 		raf.tick(70);
 		assert.equal(divs[0].foo, 0.7);
@@ -28,6 +30,7 @@ export default {
 		assert.equal(divs[2].bar, 0.8);
 
 		component.visible = true;
+		compileOptions.accessorsAsync ? flush() : null;
 
 		raf.tick(100);
 		assert.equal(divs[0].foo, 0.3);

@@ -11,13 +11,14 @@ export default {
 		<p>drink milk</p>
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		const [ p1, p2 ] = target.querySelectorAll('p');
 
 		component.todos = [
 			{ id: 123, description: 'buy beer' },
 			{ id: 234, description: 'drink beer' }
 		];
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			<p>buy beer</p>
 			<p>drink beer</p>
