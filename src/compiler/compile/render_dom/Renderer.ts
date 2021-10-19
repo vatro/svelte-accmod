@@ -7,6 +7,7 @@ import { Node, Identifier, MemberExpression, Literal, Expression, BinaryExpressi
 import flatten_reference from '../utils/flatten_reference';
 import { reserved_keywords } from '../utils/reserved_keywords';
 import { renderer_invalidate } from './invalidate';
+import { generate } from '../../../../node_modules/astring/dist/astring.js';
 
 interface ContextMember {
 	name: string;
@@ -15,6 +16,13 @@ interface ContextMember {
 	is_non_contextual: boolean;
 	variable: Var;
 	priority: number;
+}
+
+interface CtyLookUpMember {
+	head_ctx_i: number,
+	members_str: string,
+	members: any[],
+	index: number
 }
 
 type BitMasks = Array<{
@@ -27,6 +35,8 @@ export default class Renderer {
 	options: CompileOptions;
 
 	context: ContextMember[] = [];
+	cty = [];
+	cty_lookup: Map<number, CtyLookUpMember> = new Map();
 	initial_context: ContextMember[] = [];
 	context_lookup: Map<string, ContextMember> = new Map();
 	context_overflow: boolean;
@@ -166,6 +176,131 @@ export default class Renderer {
 		}
 
 		return member;
+	}
+
+	key_to_string(key) {
+		const str = generate(key);
+		return str;
+	}
+
+	add_to_cty(start: string, head_ctx_i: any, expression_keys: any[]) {
+		let has_chain: boolean = false;
+		let index: number;
+		let member: { start: string, members_cty_i: number };
+
+		// for easier comparisson
+		const expression_keys_str_parts = [];
+
+		for (let i = 0; i < expression_keys.length; i++) {
+			const key = expression_keys[i];
+
+			if (key.type === 'CallExpression' || key.type === 'TemplateLiteral') {
+				expression_keys_str_parts.push(this.key_to_string(key));
+			} else {
+				expression_keys_str_parts.push(`${key}`);
+			}
+		}
+
+		// for easier comparisson
+		const expression_keys_str = expression_keys_str_parts.join('.');
+
+		for (const value of this.cty_lookup.values()) {
+			if (value.head_ctx_i === Number(head_ctx_i) && value.members_str === expression_keys_str) {
+				has_chain = true;
+				index = value.index;
+				break;
+			}
+		}
+
+		if (has_chain) {
+			member = { start, members_cty_i: index };
+		} else {
+			index = this.cty_lookup.size;
+			this.cty_lookup.set(index, { head_ctx_i, members_str: expression_keys_str, members: expression_keys, index });
+			member = { start, members_cty_i: index };
+		}
+
+		this.cty.push(member);
+		return member;
+	}
+
+	get_cty() {
+		const props = [];
+
+		this.cty_lookup.forEach((value, key) => {
+
+			const members_elements = value.members.map(item => {
+				// if expression_key is not a 'Literal' (string or number --> don't have '.type')
+				if (!item.type) {
+					if (!isNaN(Number(item))) {
+						return {
+							type: 'Literal',
+							value: Number(item)
+						};
+					} else {
+						return {
+							type: 'Literal',
+							value: item
+						};
+					}
+				} else if (item.type === 'CallExpression') {
+					return {
+						type: 'CallExpression',
+						callee: {
+							type: 'Identifier',
+							name: item.callee.name
+						},
+						arguments: item.arguments
+					};
+				} else if (item.type === 'TemplateLiteral') {
+					return {
+						type: 'TemplateLiteral',
+						quasis: item.quasis,
+						expressions: item.expressions
+					};
+				}
+			});
+
+			props.push({
+				type: 'Property',
+				key: {
+					type: 'Identifier',
+					name: key
+				},
+				value: {
+					type: 'ObjectExpression',
+					properties: [
+						{
+							type: 'Property',
+							key: {
+								type: 'Identifier',
+								name: 'head_ctx_i'
+							},
+							value: {
+								type: 'Literal',
+								value: value.head_ctx_i
+							}
+						}, {
+							type: 'Property',
+							key: {
+								type: 'Identifier',
+								name: 'members'
+							},
+							value: {
+								type: 'ArrayExpression',
+								elements: members_elements
+							}
+						}
+					]
+				}
+			});
+		});
+	
+		const obj = {
+			type: 'ObjectExpression', properties: props
+		};
+	
+		return obj;
 	}
 
 	invalidate(name: string, value?, main_execution_context: boolean = false) {

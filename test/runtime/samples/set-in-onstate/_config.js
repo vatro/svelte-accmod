@@ -6,8 +6,9 @@ export default {
 		<p>2</p>
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.foo = 2;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			<p>2</p>
 			<p>4</p>

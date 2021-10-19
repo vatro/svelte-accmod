@@ -9,8 +9,9 @@ export default {
 		<p>capybara</p>
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.animals = [];
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual( target.innerHTML, `
 			<p>no animals</p>
 		` );
@@ -18,13 +19,16 @@ export default {
 		// trigger an 'update' of the else block, to ensure that
 		// non-existent update method is not called
 		component.animals = [];
+		compileOptions.accessorsAsync ? flush() : null;
 
 		component.animals = ['wombat'];
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual( target.innerHTML, `
 			<p>wombat</p>
 		` );
 
 		component.animals = ['dinosaur'];
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual( target.innerHTML, `
 			<p>dinosaur</p>
 		` );

@@ -5,13 +5,14 @@ export default {
 		foo: 'a'
 	},
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		const options = target.querySelectorAll( 'option' );
 
 		assert.equal( options[0].selected, true );
 		assert.equal( options[1].selected, false );
 
 		component.foo = 'b';
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.equal( options[0].selected, false );
 		assert.equal( options[1].selected, true );

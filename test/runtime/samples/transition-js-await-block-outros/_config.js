@@ -8,7 +8,7 @@ export default {
 	},
 	intro: true,
 
-	async test({ assert, target, component, raf }) {
+	async test({ assert, target, component, raf, flush, compileOptions }) {
 		assert.htmlEqual(target.innerHTML, '<p class="pending" foo="0.0">loading...</p>');
 
 		let time = 0;
@@ -40,6 +40,7 @@ export default {
 		component.promise = new Promise((f) => {
 			fulfil = f;
 		});
+		compileOptions.accessorsAsync ? flush() : null;
 		await Promise.resolve();
 
 		assert.htmlEqual(target.innerHTML, `
@@ -68,6 +69,7 @@ export default {
 		component.promise = new Promise((f) => {
 			fulfil = f;
 		});
+		compileOptions.accessorsAsync ? flush() : null;
 		await Promise.resolve();
 
 		assert.htmlEqual(target.innerHTML, `
@@ -98,7 +100,9 @@ export default {
 		component.promise = new Promise((f) => {
 			fulfil = f;
 		});
+		compileOptions.accessorsAsync ? flush() : null;
 		await Promise.resolve();
+
 		assert.htmlEqual(target.innerHTML, `
 			<p class="then" foo="1.0">44</p>
 			<p class="pending" foo="0.0">loading...</p>
@@ -128,6 +132,7 @@ export default {
 		component.promise = new Promise((f) => {
 			fulfil = f;
 		});
+		compileOptions.accessorsAsync ? flush() : null;
 		await Promise.resolve();
 
 		assert.htmlEqual(target.innerHTML, `

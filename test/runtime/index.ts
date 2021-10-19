@@ -83,6 +83,8 @@ describe('runtime', () => {
 			compileOptions.hydratable = hydrate;
 			compileOptions.immutable = config.immutable;
 			compileOptions.accessors = 'accessors' in config ? config.accessors : true;
+			compileOptions.useAccMod = true;
+			compileOptions.accessorsAsync = true;
 
 			cleanRequireCache();
 
@@ -210,7 +212,8 @@ describe('runtime', () => {
 							target,
 							window,
 							raf,
-							compileOptions
+							compileOptions,
+							flush
 						})).then(() => {
 							component.$destroy();
 
