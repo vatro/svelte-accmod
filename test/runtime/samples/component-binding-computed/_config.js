@@ -8,7 +8,7 @@ export default {
 		<label>lastname <input value=""></label>
 	`,
 
-	async test({ assert, component, target, window }) {
+	async test({ assert, component, target, window, flush, compileOptions }) {
 		const input = new window.Event('input');
 		const inputs = target.querySelectorAll('input');
 
@@ -30,6 +30,7 @@ export default {
 			firstname: 'Grace',
 			lastname: 'Hopper'
 		};
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.equal(inputs[0].value, 'Grace');
 		assert.equal(inputs[1].value, 'Hopper');
 	}

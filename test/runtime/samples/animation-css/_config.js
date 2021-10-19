@@ -17,7 +17,7 @@ export default {
 		<div>e</div>
 	`,
 
-	test({ assert, component, target, raf }) {
+	test({ assert, component, target, raf, flush, compileOptions }) {
 		let divs = target.querySelectorAll('div');
 		divs.forEach(div => {
 			div.getBoundingClientRect = function() {
@@ -41,6 +41,7 @@ export default {
 			{ id: 1, name: 'a' }
 		];
 
+		compileOptions.accessorsAsync ? flush() : null;
 		divs = target.querySelectorAll('div');
 		assert.ok(~divs[0].style.animation.indexOf('__svelte'));
 		assert.equal(divs[1].style.animation, '');

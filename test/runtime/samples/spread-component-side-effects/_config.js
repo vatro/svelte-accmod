@@ -7,8 +7,9 @@ export default {
 		<p>qux: named</p>
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.foo = 'lol';
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<div><p>i: 2</p>

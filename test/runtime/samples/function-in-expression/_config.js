@@ -5,8 +5,9 @@ export default {
 
 	html: '1, 3, 5, 7, 9',
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.numbers = [10, 11, 12, 13, 14, 15, 16];
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, '11, 13, 15');
 	}

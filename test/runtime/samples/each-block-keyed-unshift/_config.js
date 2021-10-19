@@ -8,8 +8,9 @@ export default {
 		<p>c</p>
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.titles = [{ name: 'a' }, { name: 'b' }, { name: 'c' }];
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<p>a</p>
