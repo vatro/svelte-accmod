@@ -1,6 +1,7 @@
 export default {
 	html: '<div>1</div>',
-	async test({ assert, component, target }) {
+
+	async test({ assert, component, target, flush, compileOptions }) {
 		let div = target.querySelector('div');
 		await component.append(2);
 		assert.htmlEqual(target.innerHTML, '<div>1,2</div>');
@@ -9,6 +10,7 @@ export default {
 		div = target.querySelector('div');
 
 		component.array = [3, 4];
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, '<div>3,4</div>');
 		assert.notStrictEqual(div, target.querySelector('div'));
 	}

@@ -5,8 +5,9 @@ export default {
 		<p>Hello Charles</p>
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.people = [ 'Alice', 'Charles', 'Bob' ];
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual( target.innerHTML, `
 			<p>Hello Alice</p>

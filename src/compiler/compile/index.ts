@@ -22,6 +22,8 @@ const valid_options = [
 	'sveltePath',
 	'dev',
 	'accessors',
+	'useAccMod',
+	'accessorsAsync',
 	'immutable',
 	'hydratable',
 	'legacy',

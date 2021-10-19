@@ -7,13 +7,14 @@ export default {
 		]
 	},
 
-	test({ assert, component, target, raf }) {
+	test({ assert, component, target, raf, flush, compileOptions }) {
 		const divs = target.querySelectorAll( 'div' );
 
 		component.things = [
 			{ name: 'a' },
 			{ name: 'c' }
 		];
+		compileOptions.accessorsAsync ? flush() : null;
 
 		const divs2 = target.querySelectorAll( 'div' );
 		assert.strictEqual( divs[0], divs2[0] );

@@ -8,7 +8,7 @@ export default {
 		<input>
 	`,
 
-	async test({ assert, component, target, window }) {
+	async test({ assert, component, target, window, flush, compileOptions }) {
 		let input = target.querySelector('input');
 		input.value = 'abc';
 		await input.dispatchEvent(new window.Event('input'));
@@ -16,6 +16,7 @@ export default {
 		assert.equal(component.y, 'abc');
 
 		component.x = false;
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<p>bar</p>

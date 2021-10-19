@@ -11,6 +11,8 @@ import {
 	shouldUpdateExpected
 } from '../helpers';
 
+import { flush } from '../../internal';
+
 let compileOptions = null;
 
 const sveltePath = process.cwd();
@@ -53,6 +55,8 @@ describe('hydration', () => {
 
 			compileOptions = config.compileOptions || {};
 			compileOptions.accessors = 'accessors' in config ? config.accessors : true;
+			compileOptions.useAccMod = true;
+			compileOptions.accessorsAsync = true;
 
 			const window = env();
 
@@ -107,7 +111,7 @@ describe('hydration', () => {
 				}
 
 				if (config.test) {
-					config.test(assert, target, snapshot, component, window);
+					config.test(assert, target, snapshot, component, window, compileOptions.accessorsAsync, flush);
 				} else {
 					component.$destroy();
 					assert.equal(target.innerHTML, '');
