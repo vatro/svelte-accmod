@@ -1,5 +1,6 @@
 export default {
-	async test({ assert, component, target, raf }) {
+
+	async test({ assert, component, target, raf, flush, compileOptions }) {
 		const t = target.querySelector('#t');
 
 		await (component.condition = false);
@@ -14,7 +15,11 @@ export default {
 
 		// toggling back in the middle of the out transition
 		// will reuse the previous element
-		await (component.condition = true);
+		async function a1() {
+			component.condition = true;
+			compileOptions.accessorsAsync ? flush() : null;
+		}
+		await a1();
 
 		assert.htmlEqual(target.innerHTML, `
 			<div id="f">FALSE</div>

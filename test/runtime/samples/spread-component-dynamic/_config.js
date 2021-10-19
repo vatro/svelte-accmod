@@ -9,10 +9,11 @@ export default {
 		<p>a: 1</p>
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.props = {
 			a: 2
 		};
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, '<p>a: 2</p>');
 	}

@@ -63,6 +63,11 @@ describe('ssr', () => {
 				const compileOptions = {
 					sveltePath,
 					...config.compileOptions,
+					//# I believe I have to add this here, but am not sure
+					accessors: true,
+					useAccMod: true,
+					accessorsAsync: true,
+					// ---
 					generate: 'ssr',
 					format: 'cjs'
 				};
@@ -166,6 +171,11 @@ describe('ssr', () => {
 				const compileOptions = {
 					sveltePath,
 					...config.compileOptions,
+					//# I believe I have to add this here, but am not sure
+					accessors: true,
+					useAccMod: true,
+					accessorsAsync: true,
+					// ---
 					generate: 'ssr',
 					format: 'cjs'
 				};

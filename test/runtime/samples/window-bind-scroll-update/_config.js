@@ -24,12 +24,13 @@ export default {
 		clock = null;
 	},
 
-	async test({ assert, component, window }) {
+	async test({ assert, component, window, flush, compileOptions }) {
 		assert.equal(window.pageYOffset, 0);
 
 		// clear the previous 'scrolling' state
 		clock.flush();
 		component.scrollY = 100;
+		compileOptions.accessorsAsync ? flush() : null;
 
 		clock.flush();
 		assert.equal(window.pageYOffset, 100);

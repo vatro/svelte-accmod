@@ -1,8 +1,10 @@
 export default {
 	html: '<div>0</div>',
-	async test({ assert, component, target, raf }) {
-		component.value = 2;
 
+	async test({ assert, component, target, raf, flush, compileOptions }) {
+		component.value = 2;
+		compileOptions.accessorsAsync ? flush() : null;
+		
 		const [div1, div2] = target.querySelectorAll('div');
 
 		assert.htmlEqual(div1.outerHTML, '<div>0</div>');

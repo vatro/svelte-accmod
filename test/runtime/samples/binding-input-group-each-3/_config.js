@@ -110,7 +110,7 @@ export default {
 			<p>Gamma</p>
 		</div>
 	`,
-	async test({ assert, component, target, window }) {
+	async test({ assert, component, target, window, flush, compileOptions }) {
 		const inputs = target.querySelectorAll('input');
 		assert.equal(inputs[0].checked, false);
 		assert.equal(inputs[1].checked, true);
@@ -277,6 +277,7 @@ export default {
 		`);
 
 		component.selected_array = [[values[1], values[2]], [values[2]]];
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.equal(inputs[0].checked, false);
 		assert.equal(inputs[1].checked, true);

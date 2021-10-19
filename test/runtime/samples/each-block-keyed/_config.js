@@ -11,12 +11,13 @@ export default {
 		<p>2: implement client-side hydration</p>
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		const [ p1, p2 ] = target.querySelectorAll('p');
 
 		component.todos = [
 			{ id: 234, description: 'implement client-side hydration' }
 		];
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, '<p>1: implement client-side hydration</p>');
 
 		const [ p3 ] = target.querySelectorAll('p');

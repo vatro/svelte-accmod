@@ -1,8 +1,10 @@
 export default {
-	test({ assert, component, target, raf }) {
+
+	test({ assert, component, target, raf, flush, compileOptions }) {
 		assert.equal(target.querySelector('div'), component.no);
 
 		component.x = true;
+		compileOptions.accessorsAsync ? flush() : null;
 
 		raf.tick(25);
 		assert.equal(component.yes.foo, undefined);

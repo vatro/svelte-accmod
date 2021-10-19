@@ -28,7 +28,7 @@ export default {
 		</div>
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.list = [{
 			foo: 'lol',
 			baz: 40 + 3,
@@ -41,6 +41,7 @@ export default {
 			quux: 'heartxx'
 		}];
 
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			<div>
 				<p>foo: lol</p>
@@ -57,6 +58,7 @@ export default {
 		`);
 
 		component.qux = 1;
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<div>

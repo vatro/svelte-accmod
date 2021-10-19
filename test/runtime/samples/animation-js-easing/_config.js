@@ -17,7 +17,7 @@ export default {
 		<div>e</div>
 	`,
 
-	test({ assert, component, raf }) {
+	test({ assert, component, raf, flush, compileOptions }) {
 		let divs = document.querySelectorAll('div');
 		divs.forEach(div => {
 			div.getBoundingClientRect = function() {
@@ -41,6 +41,7 @@ export default {
 			{ id: 1, name: 'a' }
 		];
 
+		compileOptions.accessorsAsync ? flush() : null;
 		divs = document.querySelectorAll('div');
 		assert.equal(divs[0].dy, 120);
 		assert.equal(divs[4].dy, -120);
