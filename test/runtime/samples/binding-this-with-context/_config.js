@@ -4,7 +4,7 @@ export default {
 	<ul><li><p>foo</p></li><li><p>bar</p></li><li><p>baz</p></li></ul>
 	<ul><li><hr /></li><li><hr /></li><li><hr /></li></ul>`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		let elems = target.querySelectorAll('div');
 		assert.equal(component.divs.length, 3, 'three divs are registered (unkeyed array)');
 		component.divs.forEach((e, i) => {
@@ -30,6 +30,7 @@ export default {
 		});
 
 		component.items = ['foo', 'baz'];
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.equal(component.divs.length, 3, 'the divs array is still 3 long');
 		assert.equal(component.divs[2], null, 'the last div is unregistered');
 		assert.equal(component.ps[2], null, 'the last p is unregistered');

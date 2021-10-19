@@ -13,7 +13,7 @@ export default {
 		<p>number 42</p>
 	`,
 
-	async test({ assert, component, target, window }) {
+	async test({ assert, component, target, window, flush, compileOptions }) {
 		const input = target.querySelector('input');
 		assert.equal(input.value, '42');
 
@@ -29,6 +29,7 @@ export default {
 		`);
 
 		component.count = 44;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.equal(input.value, '44');
 		assert.htmlEqual(target.innerHTML, `
 			<input type='number'>

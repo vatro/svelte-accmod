@@ -1,20 +1,24 @@
 export default {
 	html: '<div>000</div>',
-	async test({ assert, component, target }) {
+
+	async test({ assert, component, target, flush, compileOptions }) {
 		let div = target.querySelector('div');
 		component.value = 2;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, '<div>200</div>');
 		assert.notStrictEqual(div, target.querySelector('div'));
 
 		div = target.querySelector('div');
 
 		component.anotherValue = 5;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, '<div>250</div>');
 		assert.notStrictEqual(div, target.querySelector('div'));
 
 		div = target.querySelector('div');
 
 		component.thirdValue = 9;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, '<div>259</div>');
 		assert.strictEqual(div, target.querySelector('div'));
 

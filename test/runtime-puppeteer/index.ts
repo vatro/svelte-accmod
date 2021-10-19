@@ -120,6 +120,9 @@ describe('runtime (puppeteer)', function() {
 									import SvelteComponent from ${JSON.stringify(path.join(__dirname, 'samples', dir, 'main.svelte'))};
 									import config from ${JSON.stringify(path.join(__dirname, 'samples', dir, '_config.js'))};
 									import * as assert from 'assert';
+									import { flush } from 'svelte/internal';
+
+									const accessorsAsync = true
 
 									export default async function (target) {
 										let unhandled_rejection = false;
@@ -150,6 +153,8 @@ describe('runtime (puppeteer)', function() {
 													component,
 													target,
 													window,
+													accessorsAsync,
+													flush
 												});
 
 												component.$destroy();
@@ -187,7 +192,9 @@ describe('runtime (puppeteer)', function() {
 									...config.compileOptions,
 									hydratable: hydrate,
 									immutable: config.immutable,
-									accessors: 'accessors' in config ? config.accessors : true
+									accessors: 'accessors' in config ? config.accessors : true,
+									useAccMod: true,
+									accessorsAsync: true
 								});
 
 								const out_dir = `${__dirname}/samples/${dir}/_output/${hydrate ? 'hydratable' : 'normal'}`;

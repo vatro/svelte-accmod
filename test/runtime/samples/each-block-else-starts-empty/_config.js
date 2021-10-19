@@ -10,8 +10,9 @@ export default {
 		after
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		component.animals = ['wombat'];
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, `
 			before
 			<p>wombat</p>
