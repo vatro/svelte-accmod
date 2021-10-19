@@ -19,9 +19,11 @@ export default {
 			</div>
 		</div>
 	`,
-	test({ component, assert, target }) {
+	test({ component, assert, target, accessorsAsync, flush }) {
 		component.railColor1 = 'yellow';
+		accessorsAsync ? flush() : null;
 		component.trackColor2 = 'orange';
+		accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<div style="display: contents; --rail-color:yellow; --track-color:red;">

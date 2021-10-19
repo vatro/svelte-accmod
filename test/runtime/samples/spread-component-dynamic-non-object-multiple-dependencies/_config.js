@@ -13,7 +13,7 @@ export default {
 		<p>corge: b</p>
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		const html = `
 			<div><p>foo: undefined</p>
 			<p>baz: undefined</p>
@@ -23,30 +23,37 @@ export default {
 
 		// test undefined
 		component.props = undefined;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, html);
 
 		// set object props
 		component.props = this.props.props;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, this.html);
 
 		// test null
 		component.props = null;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, html);
 
 		// set object props
 		component.props = this.props.props;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, this.html);
 
 		// test boolean
 		component.props = true;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, html);
 
 		// set object props
 		component.props = this.props.props;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, this.html);
 
 		// test number
 		component.props = 123;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, html);
 
 	}

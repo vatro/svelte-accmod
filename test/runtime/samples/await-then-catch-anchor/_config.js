@@ -13,7 +13,7 @@ export default {
 		<div><p>loading...</p></div>
 	`,
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		fulfil(42);
 
 		return thePromise
@@ -29,6 +29,7 @@ export default {
 				});
 
 				component.thePromise = thePromise;
+				compileOptions.accessorsAsync ? flush() : null;
 
 				assert.htmlEqual(target.innerHTML, `
 					<div><p>loading...</p></div>
