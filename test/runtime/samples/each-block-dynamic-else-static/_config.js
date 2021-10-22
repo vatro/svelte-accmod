@@ -1,6 +1,6 @@
 export default {
 	props: {
-		animals: [ 'alpaca', 'baboon', 'capybara' ]
+		animals: ['alpaca', 'baboon', 'capybara']
 	},
 
 	html: `
@@ -9,27 +9,27 @@ export default {
 		<p>capybara</p>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.animals = [];
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual( target.innerHTML, `
+		flush();
+		assert.htmlEqual(target.innerHTML, `
 			<p>no animals</p>
 		` );
 
 		// trigger an 'update' of the else block, to ensure that
 		// non-existent update method is not called
 		component.animals = [];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		component.animals = ['wombat'];
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual( target.innerHTML, `
+		flush();
+		assert.htmlEqual(target.innerHTML, `
 			<p>wombat</p>
 		` );
 
 		component.animals = ['dinosaur'];
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual( target.innerHTML, `
+		flush();
+		assert.htmlEqual(target.innerHTML, `
 			<p>dinosaur</p>
 		` );
 	}

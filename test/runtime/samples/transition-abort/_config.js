@@ -7,9 +7,9 @@ export default {
 		<div>a</div>
 	`,
 
-	async test({ assert, component, target, raf, flush, compileOptions }) {
+	async test({ assert, component, target, raf, flush }) {
 		component.visible = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		// abort halfway through the outro transition
 		raf.tick(50);

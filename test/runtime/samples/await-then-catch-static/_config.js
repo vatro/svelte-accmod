@@ -13,7 +13,7 @@ export default {
 		<p>loading...</p>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		fulfil(42);
 
 		return promise
@@ -27,7 +27,7 @@ export default {
 				});
 
 				component.promise = promise;
-				compileOptions.accessorsAsync ? flush() : null;
+				flush();
 
 				assert.htmlEqual(target.innerHTML, `
 					<p>loading...</p>
@@ -35,7 +35,7 @@ export default {
 
 				fulfil(43);
 
-				return promise.then(() => {});
+				return promise.then(() => { });
 			})
 			.then(() => {
 				assert.htmlEqual(target.innerHTML, `

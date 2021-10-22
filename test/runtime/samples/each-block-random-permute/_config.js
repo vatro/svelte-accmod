@@ -1,11 +1,11 @@
-const VALUES = Array.from( 'abcdefghijklmnopqrstuvwxyz' );
+const VALUES = Array.from('abcdefghijklmnopqrstuvwxyz');
 
-function permute () {
+function permute() {
 	const values = VALUES.slice();
 	const number = Math.floor(Math.random() * VALUES.length);
 	const permuted = [];
 	for (let i = 0; i < number; i++) {
-		permuted.push( ...values.splice( Math.floor( Math.random() * ( number - i ) ), 1 ) );
+		permuted.push(...values.splice(Math.floor(Math.random() * (number - i)), 1));
 	}
 
 	return {
@@ -23,12 +23,12 @@ export default {
 
 	html: step.expected,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		for (let i = 0; i < 100; i++) {
 			step = permute();
 			component.values = step.data;
-			compileOptions.accessorsAsync ? flush() : null;
-			assert.htmlEqual( target.innerHTML, step.expected );
+			flush();
+			assert.htmlEqual(target.innerHTML, step.expected);
 		}
 	}
 };

@@ -3,32 +3,32 @@ export default {
 		name: 'world'
 	},
 
-	test({ assert, component, target, raf, flush, compileOptions }) {
+	test({ assert, component, target, raf, flush }) {
 		global.count = 0;
 
 		component.visible = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(global.count, 1);
 		const div = target.querySelector('div');
 		assert.equal(div.foo, 0);
 
 		raf.tick(75);
 		component.name = 'everybody';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(div.foo, 0.75);
 		assert.htmlEqual(div.innerHTML, 'hello everybody!');
 
 		component.visible = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component.name = 'again';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(div.innerHTML, 'hello everybody!');
 
 		raf.tick(125);
 		assert.equal(div.foo, 0.25);
 
 		component.visible = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		raf.tick(175);
 		assert.equal(div.foo, 0.75);
 		assert.htmlEqual(div.innerHTML, 'hello again!');

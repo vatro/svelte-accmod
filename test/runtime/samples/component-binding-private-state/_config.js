@@ -4,9 +4,9 @@ export default {
 		<p>x in parent: undefined</p>
 	`,
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 		component.a = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<p>Bar: no</p>
@@ -14,10 +14,10 @@ export default {
 		`);
 
 		component.a = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(component.x, undefined);
 		component.x = 'maybe';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<p>Foo: yes</p>
@@ -25,7 +25,7 @@ export default {
 		`);
 
 		component.a = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<p>Bar: no</p>

@@ -22,20 +22,20 @@ export default {
 		count_b = 0;
 	},
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		assert.equal(count_a, 1);
 		assert.equal(count_b, 0);
 
 		a = false;
 		component.foo = 'soup';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(count_a, 2);
 		assert.equal(count_b, 1);
 
 		assert.htmlEqual(target.innerHTML, '<p>SOUP</p>');
 
 		component.foo = 'salad';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(count_a, 3);
 		assert.equal(count_b, 1);
 

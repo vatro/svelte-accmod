@@ -3,9 +3,9 @@ export default {
 		A
 	`,
 
-	test({ assert, component, window, flush, compileOptions }) {
+	test({ assert, component, window, flush }) {
 		component.x = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		const meta = window.document.querySelectorAll('meta');
 

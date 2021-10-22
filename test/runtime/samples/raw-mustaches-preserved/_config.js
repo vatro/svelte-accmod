@@ -7,11 +7,11 @@ export default {
 
 	html: '<div><p>does not change</p></div>',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		const p = target.querySelector('p');
 
 		component.raw = '<p>does not change</p>';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(target.innerHTML, '<div><p>does not change</p></div>');
 		assert.strictEqual(target.querySelector('p'), p);
 	}

@@ -1,10 +1,10 @@
 export default {
 
-	test({ assert, component, flush, compileOptions }) {
+	test({ assert, component, flush }) {
 		assert.equal(component.qux, 2);
 
 		component.foo = 2;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(component.qux, 4);
 	}
 };
