@@ -9,24 +9,24 @@ export default {
 		<p>not bar</p>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.foo = false;
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual( target.innerHTML, `
+		flush();
+		assert.htmlEqual(target.innerHTML, `
 			<p>not foo</p>
 			<p>not bar</p>
 		` );
 
 		component.bar = true;
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual( target.innerHTML, `
+		flush();
+		assert.htmlEqual(target.innerHTML, `
 			<p>not foo</p>
 			<p>bar</p>
 		` );
 
 		component.foo = true;
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual( target.innerHTML, `
+		flush();
+		assert.htmlEqual(target.innerHTML, `
 			<p>foo</p>
 			<p>bar</p>
 		` );

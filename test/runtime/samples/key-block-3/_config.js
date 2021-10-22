@@ -2,11 +2,11 @@
 export default {
 	html: '<div></div>',
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 		const div = target.querySelector('div');
 
 		component.value = 5;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, '<div></div>');
 		assert.notStrictEqual(div, target.querySelector('div'));
 	}

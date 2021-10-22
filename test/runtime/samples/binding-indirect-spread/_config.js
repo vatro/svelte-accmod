@@ -8,7 +8,7 @@ export default {
 		<input type="checkbox" value="check2" checked>
 		<input type="checkbox" value="check3">
 	`,
-	async test({ assert, component, target, window, flush, compileOptions }) {
+	async test({ assert, component, target, window, flush }) {
 		const event = new window.MouseEvent('click');
 
 		const [radio1, radio2, radio3] = target.querySelectorAll('input[type=radio]');
@@ -18,7 +18,7 @@ export default {
 		assert.ok(!radio3.checked);
 
 		component.radio = 'radio1';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.ok(radio1.checked);
 		assert.ok(!radio2.checked);
@@ -38,7 +38,7 @@ export default {
 		assert.ok(!check3.checked);
 
 		component.check = ['check1', 'check2'];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.ok(check1.checked);
 		assert.ok(check2.checked);

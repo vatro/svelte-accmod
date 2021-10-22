@@ -5,11 +5,11 @@ export default {
 
 	html: '',
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 
 		async function a1() {
 			component.thePromise = Promise.resolve({ result: 1 });
-			compileOptions.accessorsAsync ? flush() : null;
+			flush();
 		}
 
 		await a1();

@@ -41,7 +41,7 @@ export default {
 		<p>remaining:one / done:two / remaining:three</p>
 	`,
 
-	async test({ assert, component, target, window, flush, compileOptions }) {
+	async test({ assert, component, target, window, flush }) {
 		function set_text(i, text) {
 			const input = target.querySelectorAll('input[type="text"]')[i];
 			input.value = text;
@@ -55,7 +55,7 @@ export default {
 		}
 
 		component.filter = 'remaining';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<div>
@@ -109,7 +109,7 @@ export default {
 		]);
 
 		component.filter = 'done';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<div>

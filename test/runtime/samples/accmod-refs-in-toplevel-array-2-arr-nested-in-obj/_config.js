@@ -1,6 +1,6 @@
 export default {
 
-	test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 
 		// on init / on mount
 
@@ -26,7 +26,7 @@ export default {
 		//	 the child0.subchild0.children.all array (only using references inside it)!
 
 		component.set_foo_of_child0_subchild0_children_all_0(2);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updated: 1
@@ -61,7 +61,7 @@ export default {
 	
 		// don't change value
 		component.set_foo_of_child0_subchild0_children_all_0(3);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updated: 1

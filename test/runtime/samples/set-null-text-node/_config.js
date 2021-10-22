@@ -3,13 +3,13 @@ export default {
 
 	html: 'foo is null',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.foo = 42;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, 'foo is 42');
 
 		component.foo = null;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, 'foo is null');
 	}
 };

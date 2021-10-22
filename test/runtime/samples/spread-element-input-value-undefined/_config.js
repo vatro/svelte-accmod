@@ -1,14 +1,14 @@
 export default {
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 		const input = target.querySelector('input');
 		component.value = undefined;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.equal(input.value, 'undefined');
 
 		component.value = 'foobar';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.equal(input.value, 'foobar');
 	}

@@ -1,6 +1,6 @@
 export default {
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 
 		// on mount / after first update.
 		// REMARK: accessors are async! before first update per default.
@@ -27,19 +27,19 @@ export default {
 		// - update ONLY the referenced 'SubSubChild0'-component (main.child0.subchild0.children.subsubchild0) -> do NOT update 'main', 'child0' or 'subchild0' components! (this is different in unmodified Svelte)
 		// - don't trigger object's reactive statements -> we haven't changed the main.child0.subchild0.children object! (this is different in unmodified Svelte)
 		component.set_foo_of_subsubchild0_a(2);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		component.set_foo_of_subsubchild0_b(3);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		component.set_foo_of_subsubchild0_c(4);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		component.set_foo_of_subsubchild0_d(5);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		component.set_foo_of_subsubchild0_e(6);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main-updated:1
@@ -54,7 +54,7 @@ export default {
 
 		/**/
 		component.set_foo_of_subsubchild0_f(7);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main-updated:1
@@ -70,7 +70,7 @@ export default {
 
 
 		component.set_foo_of_subsubchild0_g(8);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main-updated:1
@@ -85,7 +85,7 @@ export default {
 
 
 		component.set_foo_of_subsubchild0_h(9);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main-updated:1
@@ -100,7 +100,7 @@ export default {
 
 
 		component.set_foo_of_subsubchild0_i(10);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main-updated:1
@@ -115,7 +115,7 @@ export default {
 
 
 		component.set_foo_of_subsubchild0_j(11);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main-updated:1
@@ -130,7 +130,7 @@ export default {
 
 
 		component.set_foo_of_subsubchild0_j(12);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main-updated:1
@@ -144,7 +144,7 @@ export default {
 		`);
 
 		component.set_foo_of_subsubchild0_k(13);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main-updated:1
@@ -158,7 +158,7 @@ export default {
 		`);
 
 		component.set_foo_of_subsubchild0_l(14);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main-updated:1

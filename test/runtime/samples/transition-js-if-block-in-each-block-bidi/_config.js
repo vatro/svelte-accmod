@@ -13,7 +13,7 @@ export default {
 
 	intro: true,
 
-	test({ assert, component, target, raf, flush, compileOptions }) {
+	test({ assert, component, target, raf, flush }) {
 		const divs = target.querySelectorAll('div');
 
 		assert.equal(divs[0].foo, 0);
@@ -22,7 +22,7 @@ export default {
 		assert.equal(divs[0].foo, 1);
 
 		component.threshold = 4;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(divs[4].foo, 1);
 
 		raf.tick(200);
@@ -34,7 +34,7 @@ export default {
 		`);
 
 		component.threshold = 3;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(divs[3].foo, 1);
 
 		raf.tick(300);

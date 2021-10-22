@@ -17,9 +17,9 @@ export default {
 		<p class="mammal">leopard - unknown - 30kg (66 lb) - 50cm - 10</p>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.animalEntries = [{ animal: 'cow', class: 'mammal', species: '‎B. taurus' }];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, `
 			<p class="mammal">cow - ‎B. taurus - 50kg (110 lb) - 30cm - 0.05555555555555555</p>
 		`);
