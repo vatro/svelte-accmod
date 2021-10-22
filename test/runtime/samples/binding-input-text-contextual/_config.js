@@ -27,7 +27,7 @@ export default {
 		</div>
 	`,
 
-	async test({ assert, component, target, window, flush, compileOptions }) {
+	async test({ assert, component, target, window, flush }) {
 		const inputs = [...target.querySelectorAll('input')];
 		const items = component.items;
 		const event = new window.Event('input');
@@ -53,7 +53,7 @@ export default {
 		items[2] = 'five';
 
 		component.items = items;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(inputs[2].value, 'five');
 		assert.htmlEqual(target.innerHTML, `
 			<div>

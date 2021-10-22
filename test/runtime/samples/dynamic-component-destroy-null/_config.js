@@ -3,8 +3,8 @@ export default {
 		x: true
 	},
 
-	test({ component, flush, compileOptions }) {
+	test({ component, flush }) {
 		component.x = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 	}
 };

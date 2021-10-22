@@ -13,7 +13,7 @@ export default {
 		<p>hello world</p>
 	`,
 
-	async test({ assert, component, target, window, flush, compileOptions }) {
+	async test({ assert, component, target, window, flush }) {
 		const input = target.querySelector('input');
 		assert.equal(input.value, 'world');
 
@@ -28,7 +28,7 @@ export default {
 		`);
 
 		component.name = 'goodbye';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(input.value, 'goodbye');
 		assert.htmlEqual(target.innerHTML, `
 			<input>

@@ -18,10 +18,10 @@ export default {
 		<div>foo</div>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		value = 'bar';
 		component.id = 1;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.equal(count, 4);
 		assert.htmlEqual(target.innerHTML, `

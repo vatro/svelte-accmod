@@ -11,23 +11,23 @@ export default {
 		<p class='2'></p>
 	`,
 
-	test({ assert, component, flush, compileOptions }) {
+	test({ assert, component, flush }) {
 		counter.count = 0;
 
 		component.x = 3;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(counter.count, 0);
 
 		component.x = 4;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component.y = 5;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(counter.count, 1);
 
 		component.x = 5;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component.y = 5;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(counter.count, 1);
 	}
 };

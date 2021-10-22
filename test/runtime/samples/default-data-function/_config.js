@@ -1,9 +1,9 @@
 export default {
 	html: '<h1>Hello world!</h1>',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.name = () => 'everybody';
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual( target.innerHTML, '<h1>Hello everybody!</h1>' );
+		flush();
+		assert.htmlEqual(target.innerHTML, '<h1>Hello everybody!</h1>');
 	}
 };

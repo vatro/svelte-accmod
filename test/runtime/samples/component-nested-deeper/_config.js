@@ -3,8 +3,8 @@ export default {
 		values: [1, 2, 3, 4]
 	},
 
-	test({ component, flush, compileOptions }) {
+	test({ component, flush }) {
 		component.values = [2, 3];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 	}
 };

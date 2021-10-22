@@ -1,6 +1,6 @@
 export default {
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 
 		// on mount / after first update.
 		// REMARK: accessors are async! before first update per default.
@@ -16,7 +16,7 @@ export default {
 
 		// change value
 		component.set_foo_of_child1_via_child1_ref_in_child0(2);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updated: 1
@@ -29,7 +29,7 @@ export default {
 
 		// change value again
 		component.set_foo_of_child1_via_child1_ref_in_child0(3);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updated: 1
@@ -41,7 +41,7 @@ export default {
 
 		// dons't change value
 		component.set_foo_of_child1_via_child1_ref_in_child0(3);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updated: 1
@@ -57,7 +57,7 @@ export default {
 		component.set_foo_of_child1_via_child1_ref_in_child0(5);
 		component.set_foo_of_child1_via_child1_ref_in_child0(6);
 		component.set_foo_of_child1_via_child1_ref_in_child0(7);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updated: 1

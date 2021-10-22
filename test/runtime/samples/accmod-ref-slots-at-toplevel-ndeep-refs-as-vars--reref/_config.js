@@ -1,6 +1,6 @@
 export default {
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 
 		// on mount / after first update.
 		// REMARK: accessors are 'async' (won't trigger immediate flush) before first update per default.
@@ -18,7 +18,7 @@ export default {
 
 		// Change 'foo' of the deepest slot
 		component.set_foo_in_max_depth_childslot(4);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1, foo: 0, rs_foo: 0
@@ -30,7 +30,7 @@ export default {
 		`);
 
 		component.set_foo_in_childslot_depth_0(5);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1, foo: 0, rs_foo: 0
@@ -42,7 +42,7 @@ export default {
 		`);
 
 		component.set_foo_in_childslot_depth_1(6);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1, foo: 0, rs_foo: 0
@@ -54,7 +54,7 @@ export default {
 		`);
 
 		component.set_foo_in_childslot_depth_2(7);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1, foo: 0, rs_foo: 0
@@ -66,7 +66,7 @@ export default {
 		`);
 
 		component.set_main_foo(8);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 2, foo: 8, rs_foo: 1
@@ -78,7 +78,7 @@ export default {
 		`);
 
 		component.set_child_foo(9);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 2, foo: 8, rs_foo: 1
