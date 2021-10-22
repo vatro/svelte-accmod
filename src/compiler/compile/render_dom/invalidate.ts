@@ -45,7 +45,7 @@ export function invalidate(renderer: Renderer, scope: Scope, node: Node, names: 
 		// The logic below will go through all references used to define the 'head' of the current 'MembersExpression' until it finds
 		// its 'origin' (top-level / main execution context reference) which will - if any - then be used in 'cty' / '$cty_config' (along with all other chain-members found),
 		// in order to perform correct updating.
-		if (component.component_options.useAccMod && node.type === 'AssignmentExpression' && node.left.type === 'MemberExpression') {
+		if (node.type === 'AssignmentExpression' && node.left.type === 'MemberExpression') {
 
 			const exp_head = Array.from(names)[0]; //  TODO : when do we get multiple names here?!
 			const exp_head_decl_node: Node = scope.declarations.get(exp_head);
@@ -157,8 +157,6 @@ export function invalidate(renderer: Renderer, scope: Scope, node: Node, names: 
 		let wrapNode = false;
 		let ccms = undefined;
 
-		if (component.component_options.useAccMod) {
-
 			// ### MODIFICATION -> if 'head' is available!
 			if (pass_value) {
 
@@ -217,17 +215,6 @@ export function invalidate(renderer: Renderer, scope: Scope, node: Node, names: 
 					wrapNode = false;
 				}
 			}
-		} else {
-			// ### ORIGINAL
-			if (pass_value) {
-				extra_args.unshift({
-					type: 'Identifier',
-					name: head.name
-				});
-			}
-		}
-
-		if (component.component_options.useAccMod) {
 
 			if (wrapNode) {
 				// ### Wrapping `${node}` in an arrow function prevents immediate accessors-assigment execution on `$$invalidate(...)` call.
@@ -241,11 +228,6 @@ export function invalidate(renderer: Renderer, scope: Scope, node: Node, names: 
 				// ### ORIGINAL
 				invalidate = x`$$invalidate(${renderer.context_lookup.get(head.name).index}, ${node}, ${extra_args})`;
 			}
-
-		} else {
-			// ### ORIGINAL
-			invalidate = x`$$invalidate(${renderer.context_lookup.get(head.name).index}, ${node}, ${extra_args})`;
-		}
 
 	} else {
 		// skip `$$invalidate` if it is in the main execution context
