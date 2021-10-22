@@ -12,15 +12,15 @@ export default {
 		};
 	},
 
-	test(assert, target, snapshot, component, window, accessorsAsync, flush) {
+	test(assert, target, snapshot, component, window, flush) {
 		const p = target.querySelector('p');
 
 		assert.equal(p, snapshot.p);
 
 		component.foo = false;
-		accessorsAsync ? flush() : null;
+		flush();
 		component.bar = true;
-		accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, '<p>bar!</p>');
 	}
 };
