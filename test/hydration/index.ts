@@ -54,9 +54,8 @@ describe('hydration', () => {
 			const cwd = path.resolve(`${__dirname}/samples/${dir}`);
 
 			compileOptions = config.compileOptions || {};
-			compileOptions.accessors = 'accessors' in config ? config.accessors : true;
-			compileOptions.useAccMod = true;
-			compileOptions.accessorsAsync = true;
+			// Using 'accmod' as default, accessors always on -> default syntax.
+			compileOptions.accessors = true;
 
 			const window = env();
 
@@ -111,7 +110,7 @@ describe('hydration', () => {
 				}
 
 				if (config.test) {
-					config.test(assert, target, snapshot, component, window, compileOptions.accessorsAsync, flush);
+					config.test(assert, target, snapshot, component, window, flush);
 				} else {
 					component.$destroy();
 					assert.equal(target.innerHTML, '');
