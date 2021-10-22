@@ -3,14 +3,14 @@ export default {
 		1
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.desks = [
 			{
 				id: 1,
 				teams: []
 			}
 		];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, '');
 	}

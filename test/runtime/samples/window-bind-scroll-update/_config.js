@@ -3,7 +3,7 @@ import { env, useFakeTimers } from '../../../helpers';
 let clock;
 
 export default {
-	before_test()  {
+	before_test() {
 		clock = useFakeTimers();
 
 		const window = env();
@@ -24,13 +24,13 @@ export default {
 		clock = null;
 	},
 
-	async test({ assert, component, window, flush, compileOptions }) {
+	async test({ assert, component, window, flush }) {
 		assert.equal(window.pageYOffset, 0);
 
 		// clear the previous 'scrolling' state
 		clock.flush();
 		component.scrollY = 100;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		clock.flush();
 		assert.equal(window.pageYOffset, 100);

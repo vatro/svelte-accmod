@@ -1,11 +1,11 @@
 export default {
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.q = 42;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component.foo = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
-		assert.htmlEqual( target.innerHTML, `
+		assert.htmlEqual(target.innerHTML, `
 			<p>42</p>
 		` );
 	}

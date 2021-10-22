@@ -3,11 +3,11 @@ export default {
 		condition: false
 	},
 
-	test({ assert, component, window, flush, compileOptions }) {
+	test({ assert, component, window, flush }) {
 		assert.equal(window.document.title, '');
 
 		component.condition = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(window.document.title, 'woo!!!');
 	}
 };

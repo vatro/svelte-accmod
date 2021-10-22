@@ -1,11 +1,11 @@
 export default {
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		const items = component.items;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		items.forEach(item => item.completed = false);
 
 		component.currentFilter = 'all';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<ul><li>one</li><li>two</li><li>three</li></ul>

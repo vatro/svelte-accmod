@@ -1,13 +1,13 @@
 import container from './container.js';
 
 export default {
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		container.div = null;
 
 		const div = target.querySelector('div');
 
 		component.visible = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(container.div, div);
 	}
 };
