@@ -3,11 +3,11 @@ export default {
 		z: 'z'
 	},
 
-	test({ assert, component, target, raf, flush, compileOptions }) {
+	test({ assert, component, target, raf, flush }) {
 		assert.equal(target.querySelector('div'), component.no);
 
 		component.x = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		raf.tick(25);
 		assert.equal(component.yes.foo, undefined);

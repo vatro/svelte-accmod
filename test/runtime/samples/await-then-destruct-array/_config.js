@@ -1,17 +1,17 @@
 export default {
 	props: {
-		thePromise: new Promise(_ => {})
+		thePromise: new Promise(_ => { })
 	},
 
 	html: `
 		loading...
 	`,
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 
 		async function a1() {
 			component.thePromise = Promise.resolve([1, 2]);
-			compileOptions.accessorsAsync ? flush() : null;
+			flush();
 		}
 
 		await a1();
@@ -27,7 +27,7 @@ export default {
 
 		async function a2() {
 			component.thePromise = Promise.resolve([4, 5]);
-			compileOptions.accessorsAsync ? flush() : null;
+			flush();
 		}
 
 		await a2();
@@ -43,7 +43,7 @@ export default {
 
 		async function a3() {
 			component.thePromise = Promise.reject(['a', [6, 7]]);
-			compileOptions.accessorsAsync ? flush() : null;
+			flush();
 		}
 
 		try {
@@ -63,7 +63,7 @@ export default {
 
 		async function a4() {
 			component.thePromise = Promise.reject(['b', [8, 9]]);
-			compileOptions.accessorsAsync ? flush() : null;
+			flush();
 		}
 
 		try {

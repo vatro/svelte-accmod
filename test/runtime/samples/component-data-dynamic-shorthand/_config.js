@@ -5,10 +5,10 @@ export default {
 
 	html: '<div><p>foo: 42</p></div>',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.foo = 99;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
-		assert.equal( target.innerHTML, '<div><p>foo: 99</p></div>' );
+		assert.equal(target.innerHTML, '<div><p>foo: 99</p></div>');
 	}
 };

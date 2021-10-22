@@ -14,11 +14,11 @@ export default {
 	before_test() {
 		count = 0;
 	},
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		assert.equal(count, 1);
 
 		component.foo = 'soup';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(count, 1);
 
 		assert.htmlEqual(target.innerHTML, '<p>soup</p>');

@@ -3,9 +3,9 @@ export default {
 		visible: true
 	},
 
-	test({ assert, component, target, raf, flush, compileOptions }) {
+	test({ assert, component, target, raf, flush }) {
 		component.visible = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		const outer = target.querySelector('.outer');
 		const inner = target.querySelector('.inner');

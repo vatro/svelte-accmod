@@ -25,7 +25,7 @@ export default {
 
 		<p>1, 2, 3</p>`,
 
-	async test({ assert, component, target, window, flush, compileOptions }) {
+	async test({ assert, component, target, window, flush }) {
 		const inputs = target.querySelectorAll('input');
 		assert.equal(inputs[0].checked, true);
 		assert.equal(inputs[1].checked, true);
@@ -51,7 +51,7 @@ export default {
 		`);
 
 		component.selected = [[1, 3]];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(inputs[0].checked, true);
 		assert.equal(inputs[1].checked, false);
 		assert.equal(inputs[2].checked, true);

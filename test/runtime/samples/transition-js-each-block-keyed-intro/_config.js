@@ -9,7 +9,7 @@ export default {
 
 	intro: true,
 
-	test({ assert, component, target, raf, flush, compileOptions }) {
+	test({ assert, component, target, raf, flush }) {
 		let divs = target.querySelectorAll('div');
 		assert.equal(divs[0].foo, 0);
 		assert.equal(divs[1].foo, 0);
@@ -26,7 +26,7 @@ export default {
 			{ name: 'b' },
 			{ name: 'c' }
 		];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, `
 			<div>a</div>
 			<div>woo!</div>

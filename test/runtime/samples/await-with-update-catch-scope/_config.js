@@ -1,18 +1,18 @@
 export default {
 	props: {
-		thePromise: new Promise((_) => {})
+		thePromise: new Promise((_) => { })
 	},
 
 	html: `
 		<div>error: undefined</div>
 	`,
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 		async function a1() {
 			component.thePromise = Promise.resolve('abc');
-			compileOptions.accessorsAsync ? flush() : null;
+			flush();
 		}
-		
+
 		await a1();
 
 		assert.htmlEqual(
@@ -26,7 +26,7 @@ export default {
 		);
 
 		component.error = 'external error occurred';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(
 			target.innerHTML,
@@ -40,7 +40,7 @@ export default {
 
 		async function a2() {
 			component.thePromise = Promise.reject('failure');
-			compileOptions.accessorsAsync ? flush() : null;
+			flush();
 		}
 
 		try {
