@@ -1,5 +1,5 @@
 export default {
-	test({ assert, target, window, component, flush, compileOptions }) {
+	test({ assert, target, window, component, flush }) {
 		const input = target.querySelector('input');
 		const inputEvent = new window.InputEvent('input');
 		assert.equal(component.value, 5);
@@ -25,7 +25,7 @@ export default {
 		assert.equal(input.value, '5.50');
 
 		component.value = 1;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(component.value, 1);
 		assert.equal(input.value, '1');
 	}

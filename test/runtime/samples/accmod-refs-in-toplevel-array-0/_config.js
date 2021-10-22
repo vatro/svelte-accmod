@@ -1,6 +1,6 @@
 export default {
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 
 		// on mount / after first update.
 		// REMARK: accessors are async! before first update per default.
@@ -23,7 +23,7 @@ export default {
 		// - update ONLY the referenced 'Child0'-component (main.children[0]) -> do NOT update 'main'-component! (this is different in unmodified Svelte)
 		// - don't trigger array's reactive statements -> we haven't changed the main.children array! (this is different in unmodified Svelte)
 		component.set_foo_of_children_0(2);
-		compileOptions.accessorsAsync ? flush() :  null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updated: 1
@@ -36,7 +36,7 @@ export default {
 
 		// change value again
 		component.set_foo_of_children_0(3);
-		compileOptions.accessorsAsync ? flush() :  null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updated: 1
@@ -49,7 +49,7 @@ export default {
 
 		// don't change value
 		component.set_foo_of_children_0(3);
-		compileOptions.accessorsAsync ? flush() :  null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updated: 1

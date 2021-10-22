@@ -40,7 +40,7 @@ export default {
 
 		<p>Beta</p>`,
 
-	async test({ assert, component, target, window, flush, compileOptions }) {
+	async test({ assert, component, target, window, flush }) {
 		const inputs = target.querySelectorAll('input');
 		assert.equal(inputs[0].checked, false);
 		assert.equal(inputs[1].checked, true);
@@ -72,7 +72,7 @@ export default {
 		assert.equal(inputs[2].checked, false);
 
 		component.selected = values[2];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(inputs[0].checked, false);
 		assert.equal(inputs[1].checked, false);
 		assert.equal(inputs[2].checked, true);

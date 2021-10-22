@@ -5,9 +5,9 @@ export default {
 
 	html: 'potato',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.x = 3;
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual( target.innerHTML, 'potato' );
+		flush();
+		assert.htmlEqual(target.innerHTML, 'potato');
 	}
 };

@@ -25,11 +25,11 @@ export default {
 
 	html: '',
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 		assert.equal(subscribers.length, 0);
 
 		component.visible = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.equal(subscribers.length, 1);
 		assert.htmlEqual(target.innerHTML, `
@@ -44,7 +44,7 @@ export default {
 		`);
 
 		component.visible = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.equal(subscribers.length, 0);
 	}

@@ -1,9 +1,9 @@
 export default {
 	html: '<span>waiting</span>',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.x = 'ready';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, `
 			<span>ready</span>
 		`);

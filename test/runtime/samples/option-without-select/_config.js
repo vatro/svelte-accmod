@@ -5,9 +5,9 @@ export default {
 
 	html: "<option value='hello'>hello</option>",
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.foo = 'goodbye';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, `
 			<option value='goodbye'>goodbye</option>
 		`);

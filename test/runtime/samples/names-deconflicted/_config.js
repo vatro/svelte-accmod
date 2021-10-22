@@ -1,13 +1,13 @@
 export default {
 	html: '<p>1: foo</p><p>2: bar</p><p>3: baz</p>',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.widgets = [
 			{ name: 'bish' },
 			{ name: 'bosh' }
 		];
 
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual( target.innerHTML, '<p>1: bish</p><p>2: bosh</p>' );
+		flush();
+		assert.htmlEqual(target.innerHTML, '<p>1: bish</p><p>2: bosh</p>');
 	}
 };

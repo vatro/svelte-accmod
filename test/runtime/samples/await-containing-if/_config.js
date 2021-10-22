@@ -14,7 +14,7 @@ export default {
 		<div><p>loading...</p></div>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		fulfil(42);
 
 		return thePromise
@@ -24,11 +24,11 @@ export default {
 				`);
 
 				component.show = false;
-				compileOptions.accessorsAsync ? flush() : null;
+				flush();
 				assert.htmlEqual(target.innerHTML, '<div></div>');
 
 				component.show = true;
-				compileOptions.accessorsAsync ? flush() : null;
+				flush();
 				assert.htmlEqual(target.innerHTML, `
 					<div><p>the value is 42</p></div>
 				`);

@@ -40,16 +40,16 @@ export default {
 	<p>2</p>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.reads = {};
 
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component._0 = 'a';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component._1 = 'b';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component._2 = 'c';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<p>d1</p>

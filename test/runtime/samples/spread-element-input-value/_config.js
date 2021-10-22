@@ -1,5 +1,5 @@
 export default {
-	async test({ assert, component, target, window, flush, compileOptions }) {
+	async test({ assert, component, target, window, flush }) {
 		const [input1, input2] = target.querySelectorAll('input');
 
 		// we are not able emulate user interaction in jsdom,
@@ -13,15 +13,15 @@ export default {
 
 		const spy1 = spyOnValueSetter(input1, input1.value);
 		const spy2 = spyOnValueSetter(input2, input2.value);
-		
+
 		const event = new window.Event('input');
-		
+
 		input1.value = '12345';
 		spy1.reset();
 		await input1.dispatchEvent(event);
 
 		assert.ok(!spy1.isSetCalled());
-		
+
 		input2.value = '12345';
 		spy2.reset();
 		await input2.dispatchEvent(event);
@@ -30,12 +30,12 @@ export default {
 
 		spy1.reset();
 		component.val1 = '56789';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.ok(spy1.isSetCalled());
 
 		spy2.reset();
 		component.val2 = '56789';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.ok(spy2.isSetCalled());
 	}
 };

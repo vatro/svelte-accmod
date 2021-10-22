@@ -3,7 +3,7 @@ export default {
 		value: 1
 	},
 
-	test({ assert, component, target, window, flush, compileOptions }) {
+	test({ assert, component, target, window, flush }) {
 		const buttons = target.querySelectorAll('button');
 		const click = new window.MouseEvent('click');
 
@@ -16,7 +16,7 @@ export default {
 		buttons[1].dispatchEvent(click);
 
 		component.value = 2;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		buttons[0].dispatchEvent(click);
 		buttons[1].dispatchEvent(click);
