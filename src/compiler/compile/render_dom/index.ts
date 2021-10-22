@@ -152,31 +152,17 @@ export default function dom(
 		if (component.component_options.accessors) {
 			if (variable.writable && !renderer.readonly.has(prop.name)) {
 
-				// ### SYNC / ASYNC ACCESSORS
-				// If compiler option `accessorsAsync` is set to `true` -> accessors will be asynchronous: `flush()` will be omitted.
-				// If compiler option `accessorsAsync` is set to `false` -> accessors will be synchronous: standard / original functionality.
-				if (component.component_options.accessorsAsync) {
-					// omit `flush()` from the prop-setter
-					accessors.push({
-						type: 'MethodDefinition',
-						kind: 'set',
-						key: { type: 'Identifier', name: prop.export_name },
-						value: x`function(${prop.name}) {
-								this.$set({ ${prop.export_name}: ${prop.name} });
-							}`
-					});
-				} else {
-					// ### ORIGINAL
-					accessors.push({
-						type: 'MethodDefinition',
-						kind: 'set',
-						key: { type: 'Identifier', name: prop.export_name },
-						value: x`function(${prop.name}) {
+				// ### ASYNC ACCESSORS
+				// Using 'accmod' as default, accessors always on -> default syntax.
+				// omit `flush()` from the prop-setter
+				accessors.push({
+					type: 'MethodDefinition',
+					kind: 'set',
+					key: { type: 'Identifier', name: prop.export_name },
+					value: x`function(${prop.name}) {
 							this.$set({ ${prop.export_name}: ${prop.name} });
-							@flush();
 						}`
-					});
-				}
+				});
 			} else if (component.compile_options.dev) {
 				accessors.push({
 					type: 'MethodDefinition',
@@ -238,30 +224,6 @@ export default function dom(
 			}
 		});
 	});
-
-	// ### Compiler option 'useAccMod' was added only for testing purposes / faster functionality comparison,
-	// it's not intended to be a feature / an additional compiler option. 
-	if (component.component_options.useAccMod) {
-		accessors.push({
-			type: 'MethodDefinition',
-			kind: 'get',
-			key: { type: 'Identifier', name: '$accMod' },
-			value: x`function() {
-		  return true;
-		}`
-		});
-
-		if (component.component_options.accessors) {
-			accessors.push({
-				type: 'MethodDefinition',
-				kind: 'get',
-				key: { type: 'Identifier', name: '$acc' },
-				value: x`function() {
-				  return { async : ${component.component_options.accessorsAsync ? 'true' : 'false'} }
-			}`
-			});
-		}
-	}
 
 	if (component.compile_options.dev) {
 		// checking that expected ones were passed
@@ -364,16 +326,14 @@ export default function dom(
 
 	// ### push `cty_config` as accessor
 	// ### works from here! (`renderer.get_cty()` not returning an empty object)
-	if (component.component_options.useAccMod) {
-		accessors.push({
-			type: 'MethodDefinition',
-			kind: 'get',
-			key: { type: 'Identifier', name: '$cty_config' },
-			value: x`function() {
-				return ${renderer.get_cty()}
-			}`
-		});
-	}
+	accessors.push({
+		type: 'MethodDefinition',
+		kind: 'get',
+		key: { type: 'Identifier', name: '$cty_config' },
+		value: x`function() {
+			return ${renderer.get_cty()}
+		}`
+	});
 
 	const args = [x`$$self`];
 	const has_invalidate = props.length > 0 ||
