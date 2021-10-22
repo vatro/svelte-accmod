@@ -60,10 +60,9 @@ describe('ssr', () => {
 			const compileOptions = {
 				sveltePath,
 				...config.compileOptions,
-				//# I believe I have to add this here, but am not sure
+				// ### I believe I have to modify this part, but I'm not sure.
+				// Using 'accmod' as default, accessors always on -> default syntax.
 				accessors: true,
-				useAccMod: true,
-				accessorsAsync: true,
 				// ---
 				generate: 'ssr',
 				format: 'cjs'
@@ -169,9 +168,8 @@ describe('ssr', () => {
 					sveltePath,
 					...config.compileOptions,
 					//# I believe I have to add this here, but am not sure
+					// Using 'accmod' as default, accessors always on -> default syntax.
 					accessors: true,
-					useAccMod: true,
-					accessorsAsync: true,
 					// ---
 					generate: 'ssr',
 					format: 'cjs'
