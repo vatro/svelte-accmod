@@ -3,7 +3,7 @@ export default {
 		<p style="opacity: 0.5; color: red">color: red</p>
 	`,
 
-	test({ assert, component, target, window, flush, compileOptions }) {
+	test({ assert, component, target, window, flush }) {
 		const p = target.querySelector('p');
 
 		let styles = window.getComputedStyle(p);
@@ -11,7 +11,7 @@ export default {
 		assert.equal(styles.color, 'red');
 
 		component.styles = 'font-size: 20px';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		styles = window.getComputedStyle(p);
 		assert.equal(styles.opacity, '0.5');

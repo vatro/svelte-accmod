@@ -6,15 +6,15 @@ export default {
 		<h1>hello</h1>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.visible = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, `
 			<div>The text is missing</div>
 		`);
 
 		component.visible = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, `
 			<div>The text is hello</div>
 			<h1>hello</h1>

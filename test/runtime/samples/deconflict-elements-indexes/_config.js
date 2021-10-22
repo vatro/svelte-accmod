@@ -7,11 +7,11 @@ export default {
 
 	preserveIdentifiers: true,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		const { tagList } = component;
 		tagList.push('two');
 		component.tagList = tagList;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<div>

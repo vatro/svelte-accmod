@@ -6,13 +6,13 @@ export default {
 
 	html: '<div></div>',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.show = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component.fields = [1, 2, 3];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
-		assert.htmlEqual( target.innerHTML, `
+		assert.htmlEqual(target.innerHTML, `
 			<div>
 				<span>1</span>
 				<span>2</span>
@@ -21,9 +21,9 @@ export default {
 		` );
 
 		component.fields = [1, 2, 3, 4];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
-		assert.htmlEqual( target.innerHTML, `
+		assert.htmlEqual(target.innerHTML, `
 			<div>
 				<span>1</span>
 				<span>2</span>

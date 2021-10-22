@@ -9,7 +9,7 @@ export default {
 
 	intro: true,
 
-	test({ assert, component, target, raf, flush, compileOptions }) {
+	test({ assert, component, target, raf, flush }) {
 		const divs = target.querySelectorAll('div');
 		divs[0].i = 0; // for debugging
 		divs[1].i = 1;
@@ -28,7 +28,7 @@ export default {
 			{ name: 'a' },
 			{ name: 'c' }
 		];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		const divs2 = target.querySelectorAll('div');
 		assert.strictEqual(divs[0], divs2[0]);
@@ -45,7 +45,7 @@ export default {
 			{ name: 'b' },
 			{ name: 'c' }
 		];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		raf.tick(175);
 		assert.equal(divs[0].foo, 1);

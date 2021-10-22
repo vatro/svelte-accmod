@@ -1,6 +1,6 @@
 export default {
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 
 		// on mount / after first update.
 		// REMARK: accessors are 'async' (won't trigger immediate flush) before first update per default.
@@ -14,7 +14,7 @@ export default {
 
 		// change 'foo' of all slots (at depth 0)
 		component.change_foo();
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 2, foo: 22, rs_foo: 1

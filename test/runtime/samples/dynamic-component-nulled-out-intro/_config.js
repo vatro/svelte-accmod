@@ -1,6 +1,6 @@
 export default {
-	test({ component, flush, compileOptions }) {
+	test({ component, flush }) {
 		component.visible = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 	}
 };

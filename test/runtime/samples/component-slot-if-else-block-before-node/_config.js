@@ -3,9 +3,9 @@ export default {
 		<p>disabled</p>
 		<p>unconditional</p>`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.enabled = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, `
 			<p>enabled</p>
 			<p>unconditional</p>

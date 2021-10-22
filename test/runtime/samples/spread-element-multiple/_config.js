@@ -14,17 +14,17 @@ export default {
 		<div data-one="1" data-two="2" data-b="overridden" data-d="deeeeee" >test</div>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.a = {
 			'data-one': 10
 		};
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component.c = {
 			'data-c': 'new'
 		};
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component.d = 'DEEEEEE';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(
 			target.innerHTML,

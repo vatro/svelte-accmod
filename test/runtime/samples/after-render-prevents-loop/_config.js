@@ -10,9 +10,9 @@ export default {
 		<p>hello!</p>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.value = 'goodbye!';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, `
 			<p>goodbye!</p>
 			<p>goodbye!</p>

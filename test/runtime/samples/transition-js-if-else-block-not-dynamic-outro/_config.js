@@ -1,6 +1,6 @@
 export default {
 
-	async test({ assert, component, target, raf, flush, compileOptions }) {
+	async test({ assert, component, target, raf, flush }) {
 		const t = target.querySelector('#t');
 
 		await (component.condition = false);
@@ -17,7 +17,7 @@ export default {
 		// will reuse the previous element
 		async function a1() {
 			component.condition = true;
-			compileOptions.accessorsAsync ? flush() : null;
+			flush();
 		}
 		await a1();
 
