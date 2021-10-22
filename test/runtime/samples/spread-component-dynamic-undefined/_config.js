@@ -7,11 +7,11 @@ export default {
 
 	html: '',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.props = {
 			a: 2
 		};
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, '');
 	}

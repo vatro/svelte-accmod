@@ -13,34 +13,34 @@ export default {
 		<p>loading...</p>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		fulfil(42);
 
 		return promise
-		.then(() => {
-			assert.htmlEqual(target.innerHTML, `
+			.then(() => {
+				assert.htmlEqual(target.innerHTML, `
 				<p>loaded</p>
 			`);
 
-			let reject;
+				let reject;
 
-			promise = new Promise((f, r) => {
-				reject = r;
-			});
+				promise = new Promise((f, r) => {
+					reject = r;
+				});
 
-			component.promise = promise;
-			compileOptions.accessorsAsync ? flush() : null;
+				component.promise = promise;
+				flush();
 
-			assert.htmlEqual(target.innerHTML, `
+				assert.htmlEqual(target.innerHTML, `
 				<p>loading...</p>
 			`);
 
-			reject(new Error('this error should be thrown'));
-			return promise;
-		})
-		.catch((err) => {
-			assert.equal(err.message, 'this error should be thrown');
-			assert.htmlEqual(target.innerHTML, '');
-		});
+				reject(new Error('this error should be thrown'));
+				return promise;
+			})
+			.catch((err) => {
+				assert.equal(err.message, 'this error should be thrown');
+				assert.htmlEqual(target.innerHTML, '');
+			});
 	}
 };

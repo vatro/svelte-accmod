@@ -15,7 +15,7 @@ export default {
 		<p>Doctor Who</p>
 	`,
 
-	async test({ assert, component, target, window, flush, compileOptions }) {
+	async test({ assert, component, target, window, flush }) {
 		const inputs = target.querySelectorAll('input');
 
 		inputs[1].value = 'Oz';
@@ -35,7 +35,7 @@ export default {
 
 		people[0].name.first = 'Frank';
 		component.people = people;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<input>

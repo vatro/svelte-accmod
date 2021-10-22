@@ -11,7 +11,7 @@ export default {
 
 	html: 'waiting',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		fulfil(9000);
 
 		return thePromise
@@ -25,13 +25,13 @@ export default {
 				});
 
 				component.thePromise = thePromise;
-				compileOptions.accessorsAsync ? flush() : null;
+				flush();
 
 				assert.htmlEqual(target.innerHTML, 'waiting');
 
 				reject(new Error('something broke'));
 
-				return thePromise.catch(() => {});
+				return thePromise.catch(() => { });
 			})
 			.then(() => {
 				assert.htmlEqual(target.innerHTML, 'rejected');

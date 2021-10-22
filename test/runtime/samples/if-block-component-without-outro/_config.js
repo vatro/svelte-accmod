@@ -5,9 +5,9 @@ export default {
 
 	html: '<div>A wild component appears</div>',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.foo = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, '');
 	}
 };

@@ -5,10 +5,10 @@ export default {
 		<p>3, 6, 9</p>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.numbers = [4, 5];
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual( target.innerHTML, `
+		flush();
+		assert.htmlEqual(target.innerHTML, `
 			<p>16, 20</p>
 			<p>20, 25</p>
 		` );

@@ -7,9 +7,9 @@ export default {
 		<div></div>
 	`,
 
-	test({ assert, component, target, raf, flush, compileOptions }) {
+	test({ assert, component, target, raf, flush }) {
 		component.visible = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		const p = target.querySelector('p');
 		assert.equal(p.foo, 0);
 
@@ -17,7 +17,7 @@ export default {
 		assert.equal(p.foo, 0.5);
 
 		component.visible = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		raf.tick(75);
 		assert.equal(p.foo, 0.25);

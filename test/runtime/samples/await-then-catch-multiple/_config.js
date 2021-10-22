@@ -14,7 +14,7 @@ export default {
 		<p>loading...</p>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		fulfil(42);
 
 		return thePromise
@@ -31,7 +31,7 @@ export default {
 				});
 
 				component.thePromise = thePromise;
-				compileOptions.accessorsAsync ? flush() : null;
+				flush();
 
 				assert.htmlEqual(target.innerHTML, `
 					<p>loading...</p>
@@ -40,7 +40,7 @@ export default {
 
 				reject(new Error('something broke'));
 
-				return thePromise.catch(() => {});
+				return thePromise.catch(() => { });
 			})
 			.then(() => {
 				assert.htmlEqual(target.innerHTML, `

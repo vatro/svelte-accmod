@@ -11,9 +11,9 @@ export default {
 		<input type=text value=x>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.x = 'y';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, `
 			<div>A wild component appears</div>
 			<p>y</p>

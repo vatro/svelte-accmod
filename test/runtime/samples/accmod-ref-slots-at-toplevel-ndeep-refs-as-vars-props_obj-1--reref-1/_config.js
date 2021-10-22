@@ -1,6 +1,6 @@
 export default {
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 
 		// on mount / after first update.
 		// IMPORTANT : accessors are 'async' before first update per default (won't trigger immediate flush per statement).
@@ -19,7 +19,7 @@ export default {
 		// - modified props should trigger related reactive statements on change!
 
 		component.set_foo_and_props_obj_in_max_depth_childslot(1, 7, 8, 9);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1, foo: 0, rs_foo: 0
@@ -32,7 +32,7 @@ export default {
 
 		// again - confirm behavior
 		component.set_foo_and_props_obj_in_max_depth_childslot(2, 10, 11, 12);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1, foo: 0, rs_foo: 0
@@ -45,7 +45,7 @@ export default {
 
 
 		component.set_main_foo(1);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 2, foo: 1, rs_foo: 1
@@ -57,7 +57,7 @@ export default {
 		`);
 
 		component.set_child_foo(1);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 2, foo: 1, rs_foo: 1

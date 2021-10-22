@@ -1,8 +1,8 @@
 export default {
 	html: 'b baz',
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.foo = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(
 			target.innerHTML,
 			'a baz'
