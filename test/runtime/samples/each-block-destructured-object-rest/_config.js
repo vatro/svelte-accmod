@@ -11,9 +11,9 @@ export default {
 		<p class="bird">eagle</p>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.animalEntries = [{ animal: 'cow', class: 'mammal' }];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, `
 			<p class="mammal">cow</p>
 		`);

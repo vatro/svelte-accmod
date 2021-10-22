@@ -14,14 +14,14 @@ export default {
 			<span>3</span>
 		</div>`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.things = [
 			{ num: 1 },
 			{ num: 2 },
 			{ num: 3 },
 			{ num: 4 }
 		];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<div>

@@ -3,12 +3,12 @@ export default {
 		raw: '<span>foo</span>'
 	},
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		const span = target.querySelector('span');
 		assert.ok(!span.previousSibling);
 
 		component.raw = '<span>bar</span>';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, '<div><span>bar</span></div>');
 	}
 };

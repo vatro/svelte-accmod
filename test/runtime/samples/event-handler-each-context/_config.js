@@ -7,7 +7,7 @@ export default {
 		bar: 'right'
 	},
 
-	test({ assert, component, target, window, flush, compileOptions }) {
+	test({ assert, component, target, window, flush }) {
 		const button = target.querySelector('button');
 		const event = new window.MouseEvent('click');
 
@@ -15,7 +15,7 @@ export default {
 		assert.equal(component.foo, 'right');
 
 		component.bar = 'left';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		button.dispatchEvent(event);
 		assert.equal(component.foo, 'left');
 	}

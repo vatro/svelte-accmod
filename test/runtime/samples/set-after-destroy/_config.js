@@ -3,9 +3,9 @@ export default {
 		x: 1
 	},
 
-	test({ component, flush, compileOptions }) {
+	test({ component, flush }) {
 		component.$destroy();
 		component.x = 2;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 	}
 };

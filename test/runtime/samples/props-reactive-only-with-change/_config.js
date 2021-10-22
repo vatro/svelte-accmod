@@ -11,22 +11,22 @@ export default {
 		callbacks = [];
 	},
 
-	async test({ assert, component, flush, compileOptions }) {
+	async test({ assert, component, flush }) {
 		assert.equal(callbacks.length, 2);
 		assert.equal(JSON.stringify(callbacks), '["1","2"]');
 
 		component.val1 = '3';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(callbacks.length, 3);
 		assert.equal(JSON.stringify(callbacks), '["1","2","1"]');
 
 		component.val1 = '4';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(callbacks.length, 4);
 		assert.equal(JSON.stringify(callbacks), '["1","2","1","1"]');
 
 		component.val2 = '5';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(callbacks.length, 5);
 		assert.equal(JSON.stringify(callbacks), '["1","2","1","1","2"]');
 	}

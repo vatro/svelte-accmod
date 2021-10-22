@@ -9,13 +9,13 @@ export default {
 		<button disabled>click me</button>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		const button = target.querySelector('button');
 
 		assert.ok(button.disabled);
 
 		component.props = { disabled: false };
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(
 			target.innerHTML,

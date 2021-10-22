@@ -1,7 +1,7 @@
 export default {
-	test({ assert, component, target, window, raf, flush, compileOptions }) {
+	test({ assert, component, target, window, raf, flush }) {
 		component.visible = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		const div = target.querySelector('div');
 		assert.equal(window.getComputedStyle(div).opacity, 0);
 

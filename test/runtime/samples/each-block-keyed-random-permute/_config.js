@@ -24,12 +24,12 @@ export default {
 
 	html: '(a)(b)(c)',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		function test(sequence) {
 			const previous = target.textContent;
 			const expected = sequence.split('').map(x => `(${x})`).join('');
 			component.values = toObjects(sequence);
-			compileOptions.accessorsAsync ? flush() : null;
+			flush();
 			assert.htmlEqual(
 				target.innerHTML,
 				expected,

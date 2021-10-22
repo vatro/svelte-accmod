@@ -19,9 +19,9 @@ export default {
 		<h1>1</h1>
 	`,
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 		component.foo = fakeStore(5);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, '<h1>5</h1>');
 

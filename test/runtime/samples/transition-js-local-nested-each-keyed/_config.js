@@ -4,9 +4,9 @@ export default {
 		things: ['a']
 	},
 
-	test({ assert, component, target, raf, flush, compileOptions }) {
+	test({ assert, component, target, raf, flush }) {
 		component.x = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		const div1 = target.querySelector('div');
 		assert.equal(div1.foo, undefined);
@@ -15,7 +15,7 @@ export default {
 		assert.equal(div1.foo, undefined);
 
 		component.things = ['a', 'b'];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, '<div></div><div></div>');
 
 		const div2 = target.querySelector('div:last-child');
@@ -27,7 +27,7 @@ export default {
 		assert.equal(div2.foo, 1);
 
 		component.x = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, '');
 	}
 };

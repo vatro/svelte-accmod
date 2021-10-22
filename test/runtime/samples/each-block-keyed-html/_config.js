@@ -3,9 +3,9 @@ export default {
 		JohnJill
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.names = component.names.reverse();
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, 'JillJohn');
 	}
 };
