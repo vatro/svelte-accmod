@@ -122,8 +122,6 @@ describe('runtime (puppeteer)', function() {
 									import * as assert from 'assert';
 									import { flush } from 'svelte/internal';
 
-									const accessorsAsync = true
-
 									export default async function (target) {
 										let unhandled_rejection = false;
 										function unhandled_rejection_handler(event) {
@@ -153,7 +151,6 @@ describe('runtime (puppeteer)', function() {
 													component,
 													target,
 													window,
-													accessorsAsync,
 													flush
 												});
 
@@ -192,9 +189,8 @@ describe('runtime (puppeteer)', function() {
 									...config.compileOptions,
 									hydratable: hydrate,
 									immutable: config.immutable,
-									accessors: 'accessors' in config ? config.accessors : true,
-									useAccMod: true,
-									accessorsAsync: true
+									// Using 'accmod' as default, accessors always on -> default syntax.
+									accessors: true
 								});
 
 								const out_dir = `${__dirname}/samples/${dir}/_output/${hydrate ? 'hydratable' : 'normal'}`;
