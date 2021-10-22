@@ -12,11 +12,11 @@ export default {
 		<div>5</div>
 	`,
 
-	test({ assert, component, target, raf, flush, compileOptions }) {
+	test({ assert, component, target, raf, flush }) {
 		raf.tick(100);
 
 		component.threshold = 4;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		raf.tick(200);
 		assert.htmlEqual(target.innerHTML, `

@@ -3,16 +3,16 @@
 export default {
 	html: '<input>',
 
-	test({ assert, component, flush, compileOptions }) {
+	test({ assert, component, flush }) {
 		component.input.focus();
 
 		// this should NOT trigger blur event
 		component.visible = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.ok(!component.blurred);
 
 		component.visible = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component.input.focus();
 
 		// this SHOULD trigger blur event

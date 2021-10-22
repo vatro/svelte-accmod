@@ -47,29 +47,29 @@ export default {
 		<p>0</p>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.reads = {};
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		component._0 = 'a';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component._30 = 'b';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component._31 = 'c';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component._32 = 'd';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component._40 = 'e';
 
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component._5 = 'f';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component._6 = 'g';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component._36 = 'h';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component._37 = 'i';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<p>a</p>

@@ -1,11 +1,11 @@
 export default {
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		const promise = Promise.resolve().then(() => {
 			component.answer = 42;
 		});
 
 		component.promise = promise;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, '<p>wait for it...</p>');
 

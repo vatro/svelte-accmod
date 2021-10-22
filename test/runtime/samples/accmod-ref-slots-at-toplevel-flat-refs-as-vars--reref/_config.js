@@ -1,6 +1,6 @@
 export default {
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 
 		// on mount / after first update.
 		// REMARK: accessors are 'async' (won't trigger immediate flush) before first update per default.
@@ -19,7 +19,7 @@ export default {
 
 		// change 'foo' of all slots (at depth 0)
 		component.change_all_slots_foo(1, 2, 3);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1, foo: 0, rs_foo: 0
@@ -32,7 +32,7 @@ export default {
 
 		// double-check
 		component.change_all_slots_foo(4, 5, 6);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1, foo: 0, rs_foo: 0
@@ -45,7 +45,7 @@ export default {
 
 		// change foo of single slot (first at depth 0)
 		component.change_childslot_0_foo(10);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1, foo: 0, rs_foo: 0
@@ -58,7 +58,7 @@ export default {
 
 		// change foo of single slot (second at depth 0)
 		component.change_childslot_1_foo(20);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1, foo: 0, rs_foo: 0
@@ -71,7 +71,7 @@ export default {
 
 		// change foo of single slot (third at depth 0)
 		component.change_childslot_2_foo(30);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1, foo: 0, rs_foo: 0
@@ -84,7 +84,7 @@ export default {
 
 		// change foo of main
 		component.change_main_foo(40);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 2, foo: 40, rs_foo: 1
@@ -96,7 +96,7 @@ export default {
 
 		// change foo of child
 		component.change_child_foo(50);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 2, foo: 40, rs_foo: 1

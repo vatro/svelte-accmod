@@ -5,9 +5,9 @@ export default {
 
 	html: '<div class="container"><p>a</p><p>b</p><p>c</p></div>',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.titles = [{ name: 'b' }, { name: 'c' }, { name: 'a' }];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, '<div class="container"><p>b</p><p>c</p><p>a</p></div>');
 	}

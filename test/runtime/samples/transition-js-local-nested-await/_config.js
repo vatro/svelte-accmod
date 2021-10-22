@@ -10,9 +10,9 @@ export default {
 		promise
 	},
 
-	test({ assert, component, target, raf, flush, compileOptions }) {
+	test({ assert, component, target, raf, flush }) {
 		component.x = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		fulfil();
 
 		return promise.then(() => {
@@ -23,7 +23,7 @@ export default {
 			assert.equal(div.foo, 1);
 
 			component.x = false;
-			compileOptions.accessorsAsync ? flush() : null;
+			flush();
 			assert.htmlEqual(target.innerHTML, '');
 
 			raf.tick(150);

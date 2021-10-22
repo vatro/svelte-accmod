@@ -1,9 +1,9 @@
 export default {
 	html: '<div id="foo"></div>',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.id = 'bar';
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.equal( target.innerHTML, '<div id="bar"></div>' );
+		flush();
+		assert.equal(target.innerHTML, '<div id="bar"></div>');
 	}
 };

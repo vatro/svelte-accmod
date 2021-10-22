@@ -4,13 +4,13 @@ export default {
 		Inner
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.foo = false;
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual( target.innerHTML, '' );
+		flush();
+		assert.htmlEqual(target.innerHTML, '');
 
 		component.foo = true;
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual( target.innerHTML, 'One\nInner' );
+		flush();
+		assert.htmlEqual(target.innerHTML, 'One\nInner');
 	}
 };

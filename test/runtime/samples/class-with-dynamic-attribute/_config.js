@@ -5,9 +5,9 @@ export default {
 
 	html: '<div class="one two three"></div>',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.myClass = 'one';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<div class="one three"></div>

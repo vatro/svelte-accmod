@@ -6,12 +6,12 @@ export default {
 
 	html: '<p>i am visible</p>',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.a = false;
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual( target.innerHTML, '' );
+		flush();
+		assert.htmlEqual(target.innerHTML, '');
 		component.b = true;
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual( target.innerHTML, '<p>i am visible</p>' );
+		flush();
+		assert.htmlEqual(target.innerHTML, '<p>i am visible</p>');
 	}
 };
