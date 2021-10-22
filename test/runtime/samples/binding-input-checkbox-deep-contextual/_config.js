@@ -33,8 +33,8 @@ export default {
 		<p>1 completed</p>
 	`,
 
-	async test({ assert, component, target, window, flush, compileOptions }) {
-		const inputs = [ ...target.querySelectorAll('input') ];
+	async test({ assert, component, target, window, flush }) {
+		const inputs = [...target.querySelectorAll('input')];
 
 		assert.ok(inputs[0].checked);
 		assert.ok(!inputs[1].checked);
@@ -55,7 +55,7 @@ export default {
 		items[2].completed = true;
 
 		component.items = items;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.ok(inputs[2].checked);
 		assert.htmlEqual(target.innerHTML, `
 			<div><input type="checkbox"><p>one</p></div><div><input type="checkbox"><p>two</p></div><div><input type="checkbox"><p>three</p></div>

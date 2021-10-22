@@ -20,7 +20,7 @@ export default {
 		<pre>{"foo":"a","bar":"b","baz":"c"}</pre>
 	`,
 
-	async test({ assert, component, target, window, flush, compileOptions }) {
+	async test({ assert, component, target, window, flush }) {
 		const input = target.querySelector('input');
 		const event = new window.Event('input');
 
@@ -37,7 +37,7 @@ export default {
 
 		// edit baz
 		component.prop = 'baz';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(input.value, 'c');
 
 		input.value = 'f';
@@ -50,7 +50,7 @@ export default {
 
 		// edit foo
 		component.prop = 'foo';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(input.value, 'a');
 
 		input.value = 'd';

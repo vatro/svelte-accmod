@@ -9,18 +9,18 @@ export default {
 		after
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.visible = false;
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual( target.innerHTML, `
+		flush();
+		assert.htmlEqual(target.innerHTML, `
 			before
 
 			after
 		` );
 
 		component.visible = true;
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual( target.innerHTML, `
+		flush();
+		assert.htmlEqual(target.innerHTML, `
 			before
 			<p>Widget</p>
 			after

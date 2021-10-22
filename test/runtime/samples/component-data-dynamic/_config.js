@@ -13,15 +13,15 @@ export default {
 		<p>quux: core</p></div>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.bar = 'wut';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component.x = 3;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component.compound = 'rather boring';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component.go = { deeper: 'heart' };
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<div><p>foo: wut</p>

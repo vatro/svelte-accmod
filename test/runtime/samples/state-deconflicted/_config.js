@@ -22,7 +22,7 @@ export default {
 		</ul>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.states = [
 			'Maine',
 			'Maryland',
@@ -33,9 +33,9 @@ export default {
 			'Missouri',
 			'Montana'
 		];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
-		assert.htmlEqual( target.innerHTML, `
+		assert.htmlEqual(target.innerHTML, `
 			<p>Current state: deconflicted</p>
 
 			<ul>

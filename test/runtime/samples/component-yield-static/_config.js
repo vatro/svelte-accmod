@@ -3,10 +3,10 @@ export default {
 		<b>Hello</b>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.name = 'World';
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual( target.innerHTML, `
+		flush();
+		assert.htmlEqual(target.innerHTML, `
 			<b>Hello</b> World
 		` );
 	}

@@ -14,7 +14,7 @@ export default {
 		<p>selected: null</p>
 	`,
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 		const select = target.querySelector('select');
 		const options = [...target.querySelectorAll('option')];
 
@@ -26,7 +26,7 @@ export default {
 		assert.ok(!options[0].selected);
 
 		component.selected = 'a'; // first option should now be selected
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(select.value, 'a');
 		assert.ok(options[0].selected);
 
@@ -43,7 +43,7 @@ export default {
 		`);
 
 		component.selected = 'd'; // doesn't match an option
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		// now no option should be selected again
 		assert.equal(select.value, '');

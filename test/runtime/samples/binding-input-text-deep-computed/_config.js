@@ -16,7 +16,7 @@ export default {
 		<p>hello alice</p>
 	`,
 
-	async test({ assert, component, target, window, flush, compileOptions }) {
+	async test({ assert, component, target, window, flush }) {
 		const input = target.querySelector('input');
 
 		assert.equal(input.value, 'alice');
@@ -35,7 +35,7 @@ export default {
 		user.name = 'carol';
 
 		component.user = user;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(input.value, 'carol');
 		assert.htmlEqual(target.innerHTML, `
 			<input>
