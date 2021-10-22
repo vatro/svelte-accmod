@@ -82,9 +82,8 @@ describe('runtime', () => {
 			compileOptions.sveltePath = sveltePath;
 			compileOptions.hydratable = hydrate;
 			compileOptions.immutable = config.immutable;
-			compileOptions.accessors = 'accessors' in config ? config.accessors : true;
-			compileOptions.useAccMod = 'useAccMod' in config ? config.useAccMod : true;
-			compileOptions.accessorsAsync = 'accessorsAsync' in config ? config.accessorsAsync : true;
+			// Using 'accmod' as default, accessors always on -> default syntax.
+			compileOptions.accessors = true;
 
 			cleanRequireCache();
 
