@@ -43,8 +43,6 @@ interface ComponentOptions {
 	tag?: string;
 	immutable?: boolean;
 	accessors?: boolean;
-	useAccMod?: boolean;
-	accessorsAsync?: boolean;
 	preserveWhitespace?: boolean;
 }
 
@@ -1454,12 +1452,8 @@ export default class Component {
 function process_component_options(component: Component, nodes) {
 	const component_options: ComponentOptions = {
 		immutable: component.compile_options.immutable || false,
-		useAccMod: 'useAccMod' in component.compile_options ? component.compile_options.useAccMod : false,
-		accessorsAsync: 'accessorsAsync' in component.compile_options ? component.compile_options.accessorsAsync : false,
-		accessors:
-			'accessors' in component.compile_options
-				? component.compile_options.accessors
-				: !!component.compile_options.customElement,
+		// ### Using 'accmod' as default, accessors always on -> default syntax.
+		accessors: true,
 		preserveWhitespace: !!component.compile_options.preserveWhitespace,
 		namespace: component.compile_options.namespace
 	};
@@ -1527,8 +1521,6 @@ function process_component_options(component: Component, nodes) {
 					}
 
 					case 'accessors':
-					case 'useAccMod':	
-					case 'accessorsAsync':
 					case 'immutable':
 					case 'preserveWhitespace': {
 						const value = get_value(attribute, compiler_errors.invalid_attribute_value(name));
