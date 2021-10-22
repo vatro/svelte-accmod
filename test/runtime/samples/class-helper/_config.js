@@ -5,9 +5,9 @@ export default {
 
 	html: '<div class="active"></div>',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.user = { active: false };
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<div class></div>

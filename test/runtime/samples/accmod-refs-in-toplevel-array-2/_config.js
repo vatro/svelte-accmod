@@ -1,6 +1,6 @@
 export default {
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 
 		// on mount / after first update.
 		// REMARK:  accessors are async! before first update per default.
@@ -25,7 +25,7 @@ export default {
 		// - update ONLY the referenced 'SubSubChild0'-component (child0.subchild0.children[0]) -> do NOT update 'main', 'Child0' or 'SubChild0' components!
 		// - don't trigger 'children'-array's reactive statements -> we haven't changed the child0.subchild0.children array!
 		component.set_foo_of_child0_subchild0_children_0(2);
-		compileOptions.accessorsAsync ? flush() :  null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updated: 1
@@ -40,7 +40,7 @@ export default {
 
 		// change value again
 		component.set_foo_of_child0_subchild0_children_0(3);
-		compileOptions.accessorsAsync ? flush() :  null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updated: 1
@@ -55,7 +55,7 @@ export default {
 
 		// don't change value (correct: no effect)
 		component.set_foo_of_child0_subchild0_children_0(3);
-		compileOptions.accessorsAsync ? flush() :  null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updated: 1

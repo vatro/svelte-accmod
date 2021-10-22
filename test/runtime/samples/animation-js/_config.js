@@ -17,10 +17,10 @@ export default {
 		<div>e</div>
 	`,
 
-	test({ assert, component, raf, flush, compileOptions }) {
+	test({ assert, component, raf, flush }) {
 		let divs = document.querySelectorAll('div');
 		divs.forEach(div => {
-			div.getBoundingClientRect = function() {
+			div.getBoundingClientRect = function () {
 				const index = [...this.parentNode.children].indexOf(this);
 				const top = index * 30;
 
@@ -41,7 +41,7 @@ export default {
 			{ id: 1, name: 'a' }
 		];
 
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		divs = document.querySelectorAll('div');
 		assert.equal(divs[0].dy, 120);
 		assert.equal(divs[4].dy, -120);
@@ -62,7 +62,7 @@ export default {
 			{ id: 5, name: 'e' }
 		];
 
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		divs = document.querySelectorAll('div');
 
 		assert.equal(divs[0].dy, 120);

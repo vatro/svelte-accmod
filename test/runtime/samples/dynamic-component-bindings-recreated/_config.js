@@ -8,18 +8,18 @@ export default {
 		<p>green one</p>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.x = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<p>red one</p>
 		`);
 
 		component.foo = 'two';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component.x = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<p>green two</p>

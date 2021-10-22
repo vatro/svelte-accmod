@@ -10,9 +10,9 @@ export default {
 		<p>waiting...</p>
 	`,
 
-	async test({ assert, component, target, raf, flush, compileOptions }) {
+	async test({ assert, component, target, raf, flush }) {
 		component.visible = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<p>introstart</p>
@@ -39,7 +39,7 @@ export default {
 		`);
 
 		component.visible = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<p>outrostart</p>
@@ -57,7 +57,7 @@ export default {
 		assert.equal(component.outro_count, 0);
 
 		component.visible = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		await raf.tick(250);
 		assert.deepEqual(component.intros.sort(), ['a', 'a', 'b', 'b', 'c', 'c', 'd', 'd']);

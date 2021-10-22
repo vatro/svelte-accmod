@@ -11,7 +11,7 @@ export default {
 		<p>indeterminate? true</p>
 	`,
 
-	async test({ assert, component, target, window, flush, compileOptions }) {
+	async test({ assert, component, target, window, flush }) {
 		const input = target.querySelector('input');
 		assert.equal(input.checked, false);
 		assert.equal(input.indeterminate, true);
@@ -31,7 +31,7 @@ export default {
 		`);
 
 		component.indeterminate = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(input.indeterminate, true);
 		assert.equal(input.checked, true);
 		assert.htmlEqual(target.innerHTML, `

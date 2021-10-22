@@ -9,9 +9,9 @@ export default {
 		<p>c</p>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.titles = [{ name: 'b' }, { name: 'c' }];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<p>b</p>
@@ -19,7 +19,7 @@ export default {
 		`);
 
 		component.titles = [{ name: 'c' }];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<p>c</p>

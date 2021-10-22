@@ -13,12 +13,12 @@ export default {
 	// the hydrated html will still contain that attribute
 	ssrHtml: "<input type='checkbox' indeterminate=''>",
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		const input = target.querySelector('input');
 
 		assert.ok(input.indeterminate);
 		component.indeterminate = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.ok(!input.indeterminate);
 	}
 };

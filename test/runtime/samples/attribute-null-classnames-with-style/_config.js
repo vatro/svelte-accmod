@@ -6,48 +6,48 @@ export default {
 
 	html: '<div class="test1test2 svelte-x1o6ra"></div>',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		const div = target.querySelector('div');
 		assert.equal(div.className, 'test1test2 svelte-x1o6ra');
 
 		component.testName1 = null;
 		component.testName2 = null;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(div.className, '0 svelte-x1o6ra');
 
 		component.testName1 = null;
 		component.testName2 = 'test';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(div.className, 'nulltest svelte-x1o6ra');
 
 		component.testName1 = undefined;
 		component.testName2 = 'test';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(div.className, 'undefinedtest svelte-x1o6ra');
 
 		component.testName1 = undefined;
 		component.testName2 = undefined;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(div.className, 'NaN svelte-x1o6ra');
 
 		component.testName1 = null;
 		component.testName2 = 1;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(div.className, '1 svelte-x1o6ra');
 
 		component.testName1 = undefined;
 		component.testName2 = 1;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(div.className, 'NaN svelte-x1o6ra');
 
 		component.testName1 = null;
 		component.testName2 = 0;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(div.className, '0 svelte-x1o6ra');
 
 		component.testName1 = undefined;
 		component.testName2 = 0;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(div.className, 'NaN svelte-x1o6ra');
 	}
 };
