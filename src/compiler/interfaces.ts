@@ -174,8 +174,6 @@ export interface CompileOptions {
 
 	dev?: boolean;
 	accessors?: boolean;
-	useAccMod?: boolean;
-	accessorsAsync?: boolean;
 	immutable?: boolean;
 	hydratable?: boolean;
 	legacy?: boolean;
