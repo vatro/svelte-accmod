@@ -1,16 +1,16 @@
 export default {
 	props: {
-		thePromise: new Promise(_ => {})
+		thePromise: new Promise(_ => { })
 	},
 
 	html: `
 		loading...
 	`,
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 		async function a1() {
 			component.thePromise = Promise.resolve({ error: 'error message' });
-			compileOptions.accessorsAsync ? flush() : null;
+			flush();
 		}
 
 		await a1();
@@ -25,7 +25,7 @@ export default {
 
 		async function a2() {
 			component.thePromise = Promise.resolve({ result: '42' });
-			compileOptions.accessorsAsync ? flush() : null;
+			flush();
 		}
 
 		await a2();
@@ -42,7 +42,7 @@ export default {
 			component.thePromise = Promise.reject({
 				error: { message: 'oops', code: '123' }
 			});
-			compileOptions.accessorsAsync ? flush() : null;
+			flush();
 		}
 
 		try {
@@ -63,7 +63,7 @@ export default {
 			component.thePromise = Promise.reject({
 				error: { message: 'timeout', code: '456' }
 			});
-			compileOptions.accessorsAsync ? flush() : null;
+			flush();
 		}
 
 		try {

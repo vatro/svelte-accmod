@@ -3,16 +3,16 @@ export default {
 		visible: true
 	},
 
-	test({ assert, component, target, raf, flush, compileOptions }) {
+	test({ assert, component, target, raf, flush }) {
 		component.visible = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		const span = target.querySelector('span');
 
 		raf.tick(50);
 		assert.equal(span.foo, 0.5);
 
 		component.visible = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(span.foo, 1);
 
 		raf.tick(75);

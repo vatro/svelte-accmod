@@ -7,30 +7,30 @@ export default {
 		<input>
 	`,
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 		const input = target.querySelector('input');
 		assert.equal(input.value, '');
 
 		component.x = null;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(input.value, '');
 
 		component.x = undefined;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(input.value, '');
 
 		component.x = 'string';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component.x = undefined;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(input.value, '');
 
 		component.x = 0;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(input.value, '0');
 
 		component.x = undefined;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(input.value, '');
 	}
 };

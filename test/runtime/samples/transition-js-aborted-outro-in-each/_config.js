@@ -7,11 +7,11 @@ export default {
 		]
 	},
 
-	test({ assert, component, target, raf, flush, compileOptions }) {
+	test({ assert, component, target, raf, flush }) {
 		const { things } = component;
 
 		component.things = [];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		const spans = target.querySelectorAll('span');
 
 		raf.tick(25);
@@ -25,7 +25,7 @@ export default {
 		assert.equal(spans[2].foo, 0.75);
 
 		component.things = things;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		raf.tick(225);
 
 		assert.htmlEqual(target.innerHTML, `

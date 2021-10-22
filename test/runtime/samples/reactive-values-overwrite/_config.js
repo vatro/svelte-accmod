@@ -3,9 +3,9 @@ export default {
 		<p>doubled: 2</p>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.a = 2;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.equal(component.doubled, 4);
 		assert.htmlEqual(target.innerHTML, `
@@ -13,7 +13,7 @@ export default {
 		`);
 
 		component.doubled = 3;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.equal(component.doubled, 3);
 		assert.htmlEqual(target.innerHTML, `

@@ -15,7 +15,7 @@ export default {
 		<p>the promise is pending</p>
 	`,
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 		fulfil();
 
 		await thePromise;
@@ -35,7 +35,7 @@ export default {
 		});
 
 		component.thePromise = thePromise;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<br>
@@ -44,9 +44,9 @@ export default {
 		`);
 
 		reject(new Error('something broke'));
-		
-		await thePromise.catch(() => {});
-		
+
+		await thePromise.catch(() => { });
+
 		assert.htmlEqual(target.innerHTML, `
 			<p>oh no! something broke</p>
 			<br>

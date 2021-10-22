@@ -1,6 +1,6 @@
 export default {
 	props: {
-		animals: [ 'alpaca', 'baboon', 'capybara' ]
+		animals: ['alpaca', 'baboon', 'capybara']
 	},
 
 	html: `
@@ -9,10 +9,10 @@ export default {
 		<p>capybara</p>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
-		component.animals = [ 'alpaca', 'baboon', 'caribou', 'dogfish' ];
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual( target.innerHTML, `
+	test({ assert, component, target, flush }) {
+		component.animals = ['alpaca', 'baboon', 'caribou', 'dogfish'];
+		flush();
+		assert.htmlEqual(target.innerHTML, `
 			<p>alpaca</p>
 			<p>baboon</p>
 			<p>caribou</p>
@@ -20,7 +20,7 @@ export default {
 		` );
 
 		component.animals = [];
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual( target.innerHTML, '' );
+		flush();
+		assert.htmlEqual(target.innerHTML, '');
 	}
 };
