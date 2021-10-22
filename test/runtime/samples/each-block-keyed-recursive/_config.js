@@ -1,8 +1,8 @@
 export default {
 	props: {
 		tree: [
-			{id: 1, sub: null},
-			{id: 2, sub: [{id: 11}]}
+			{ id: 1, sub: null },
+			{ id: 2, sub: [{ id: 11 }] }
 		]
 	},
 
@@ -11,12 +11,12 @@ export default {
 		<div>2\n<div>11</div></div>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.tree = [
-			{id: 1, sub: null},
-			{id: 2, sub: null}
+			{ id: 1, sub: null },
+			{ id: 2, sub: null }
 		];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<div>1</div>

@@ -4,9 +4,9 @@ export default {
 		<p>3 * 3 = 9</p>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.a = 3;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(component.c, 5);
 		assert.equal(component.cSquared, 25);
 		assert.htmlEqual(target.innerHTML, `

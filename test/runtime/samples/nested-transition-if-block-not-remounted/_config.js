@@ -11,7 +11,7 @@ export default {
 		</div>
 	`,
 
-	test({ component, target, flush, compileOptions }) {
+	test({ component, target, flush }) {
 		const div = target.querySelector('div');
 
 		div.appendChild = div.insertBefore = () => {
@@ -19,6 +19,6 @@ export default {
 		};
 
 		component.value = 'two';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 	}
 };

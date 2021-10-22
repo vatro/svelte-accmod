@@ -1,7 +1,7 @@
 export default {
-	test({ assert, component, target, raf, flush, compileOptions }) {
+	test({ assert, component, target, raf, flush }) {
 		component.visible = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		return Promise.resolve().then(() => {
 			const div = target.querySelector('div');

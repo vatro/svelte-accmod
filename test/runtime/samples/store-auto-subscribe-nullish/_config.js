@@ -4,9 +4,9 @@ export default {
 	html: `
 		<p>undefined</p>
 	`,
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 		component.store = writable('foo');
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, `
 			<p>foo</p>
 		`);

@@ -10,7 +10,7 @@ export default {
 		</div>
 	`,
 
-	async test({ assert, component, target, window, flush, compileOptions }) {
+	async test({ assert, component, target, window, flush }) {
 		const click = new window.MouseEvent('click');
 		let buttons = target.querySelectorAll('button');
 
@@ -28,7 +28,7 @@ export default {
 		`);
 
 		component.show_medium = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<div class="tabs">
@@ -59,7 +59,7 @@ export default {
 		`);
 
 		component.show_medium = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<div class="tabs">
