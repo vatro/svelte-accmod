@@ -6,9 +6,9 @@ export default {
 
 	html: '<div><div>Apple</div><div>Banana</div><div>Tomato</div></div>',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.dummy = true;
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual(target.innerHTML, '<div><div>Apple</div><div>Banana</div><div>Tomato</div></div>' );
+		flush();
+		assert.htmlEqual(target.innerHTML, '<div><div>Apple</div><div>Banana</div><div>Tomato</div></div>');
 	}
 };

@@ -8,11 +8,11 @@ export default {
 		<p>green green</p>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.foo = undefined;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component.x = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<p>parent red</p>
@@ -20,9 +20,9 @@ export default {
 		`);
 
 		component.foo = undefined;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		component.x = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			<p>parent green</p>

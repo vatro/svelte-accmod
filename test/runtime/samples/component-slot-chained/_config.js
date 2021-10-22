@@ -1,9 +1,9 @@
 export default {
 	html: 'one',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.text = 'two';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, 'two');
 	}
 };

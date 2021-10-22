@@ -1,6 +1,6 @@
 export default {
 	props: {
-		thePromise: new Promise((_) => {}),
+		thePromise: new Promise((_) => { }),
 		count: 0
 	},
 
@@ -8,10 +8,10 @@ export default {
 		<div><p>loading...</p></div>
 	`,
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 		async function a1() {
 			component.thePromise = Promise.resolve({ value: 'success', Component: component.Component });
-			compileOptions.accessorsAsync ? flush() : null;
+			flush();
 		}
 
 		await a1();
@@ -27,7 +27,7 @@ export default {
 		);
 
 		component.count = 5;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(
 			target.innerHTML,
@@ -41,7 +41,7 @@ export default {
 
 		async function a2() {
 			component.thePromise = Promise.reject({ value: 'failure', Component: component.Component });
-			compileOptions.accessorsAsync ? flush() : null;
+			flush();
 		}
 
 		try {
@@ -61,7 +61,7 @@ export default {
 		);
 
 		component.count = 10;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(
 			target.innerHTML,

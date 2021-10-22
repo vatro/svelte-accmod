@@ -1,6 +1,6 @@
 export default {
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 
 		// on mount / after first update.
 		// REMARK: accessors are async! before first update per default.
@@ -15,7 +15,7 @@ export default {
 
 
 		component.set_subsubchild0_foo(1);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updated: 1
@@ -29,7 +29,7 @@ export default {
 
 		//again
 		component.set_subsubchild0_foo(2);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updated: 1
@@ -43,7 +43,7 @@ export default {
 
 		//and again to make really sure
 		component.set_subsubchild0_foo(3);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updated: 1

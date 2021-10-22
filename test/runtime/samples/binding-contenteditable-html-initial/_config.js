@@ -9,7 +9,7 @@ export default {
 		<p>hello undefined</p>
 	`,
 
-	async test({ assert, component, target, window, flush, compileOptions }) {
+	async test({ assert, component, target, window, flush }) {
 		assert.equal(component.name, '<b>world</b>');
 
 		const el = target.querySelector('editor');
@@ -31,7 +31,7 @@ export default {
 		`);
 
 		component.name = 'good<span>bye</span>';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.equal(el.innerHTML, 'good<span>bye</span>');
 		assert.htmlEqual(target.innerHTML, `
 			<editor contenteditable="true">good<span>bye</span></editor>
