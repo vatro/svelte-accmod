@@ -122,6 +122,42 @@ class Component extends SvelteComponent {
 			offsetWidth: 3
 		});
 	}
+
+	get currentTime() {
+		return this.$$.ctx[0];
+	}
+
+	set currentTime(currentTime) {
+		this.$set({ currentTime });
+	}
+
+	get videoHeight() {
+		return this.$$.ctx[1];
+	}
+
+	set videoHeight(videoHeight) {
+		this.$set({ videoHeight });
+	}
+
+	get videoWidth() {
+		return this.$$.ctx[2];
+	}
+
+	set videoWidth(videoWidth) {
+		this.$set({ videoWidth });
+	}
+
+	get offsetWidth() {
+		return this.$$.ctx[3];
+	}
+
+	set offsetWidth(offsetWidth) {
+		this.$set({ offsetWidth });
+	}
+
+	get $cty_config() {
+		return {};
+	}
 }
 
 export default Component;
