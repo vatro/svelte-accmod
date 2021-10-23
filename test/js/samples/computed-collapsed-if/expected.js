@@ -25,12 +25,24 @@ class Component extends SvelteComponent {
 		init(this, options, instance, null, safe_not_equal, { x: 0, a: 1, b: 2 });
 	}
 
+	get x() {
+		return this.$$.ctx[0];
+	}
+
+	set x(x) {
+		this.$set({ x });
+	}
+
 	get a() {
 		return this.$$.ctx[1];
 	}
 
 	get b() {
 		return this.$$.ctx[2];
+	}
+
+	get $cty_config() {
+		return {};
 	}
 }
 

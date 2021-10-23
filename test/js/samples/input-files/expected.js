@@ -61,6 +61,18 @@ class Component extends SvelteComponent {
 		super();
 		init(this, options, instance, create_fragment, safe_not_equal, { files: 0 });
 	}
+
+	get files() {
+		return this.$$.ctx[0];
+	}
+
+	set files(files) {
+		this.$set({ files });
+	}
+
+	get $cty_config() {
+		return {};
+	}
 }
 
 export default Component;

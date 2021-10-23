@@ -20,6 +20,10 @@ class Component extends SvelteComponent {
 	get foo() {
 		return foo;
 	}
+
+	get $cty_config() {
+		return {};
+	}
 }
 
 export default Component;
