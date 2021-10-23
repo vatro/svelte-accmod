@@ -170,7 +170,6 @@ export function invalidate(renderer: Renderer, scope: Scope, node: Node, names: 
 
 					// don't wrap `${node}` if there are no expression keys left (after filtering out the ones named '_index')
 					if (cty_chain_keys?.length) {
-
 						const head_context_member = renderer.context_lookup.get(head.name);
 						const head_index = head_context_member.index.value;
 
