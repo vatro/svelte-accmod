@@ -58,6 +58,34 @@ class Component extends SvelteComponent {
 		super();
 		init(this, options, instance, create_fragment, safe_not_equal, { color: 0, x: 1, y: 2 });
 	}
+
+	get color() {
+		return this.$$.ctx[0];
+	}
+
+	set color(color) {
+		this.$set({ color });
+	}
+
+	get x() {
+		return this.$$.ctx[1];
+	}
+
+	set x(x) {
+		this.$set({ x });
+	}
+
+	get y() {
+		return this.$$.ctx[2];
+	}
+
+	set y(y) {
+		this.$set({ y });
+	}
+
+	get $cty_config() {
+		return {};
+	}
 }
 
 export default Component;
