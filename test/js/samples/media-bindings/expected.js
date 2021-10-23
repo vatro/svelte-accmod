@@ -229,6 +229,98 @@ class Component extends SvelteComponent {
 			ended: 10
 		});
 	}
+
+	get buffered() {
+		return this.$$.ctx[0];
+	}
+
+	set buffered(buffered) {
+		this.$set({ buffered });
+	}
+
+	get seekable() {
+		return this.$$.ctx[1];
+	}
+
+	set seekable(seekable) {
+		this.$set({ seekable });
+	}
+
+	get played() {
+		return this.$$.ctx[2];
+	}
+
+	set played(played) {
+		this.$set({ played });
+	}
+
+	get currentTime() {
+		return this.$$.ctx[3];
+	}
+
+	set currentTime(currentTime) {
+		this.$set({ currentTime });
+	}
+
+	get duration() {
+		return this.$$.ctx[4];
+	}
+
+	set duration(duration) {
+		this.$set({ duration });
+	}
+
+	get paused() {
+		return this.$$.ctx[5];
+	}
+
+	set paused(paused) {
+		this.$set({ paused });
+	}
+
+	get volume() {
+		return this.$$.ctx[6];
+	}
+
+	set volume(volume) {
+		this.$set({ volume });
+	}
+
+	get muted() {
+		return this.$$.ctx[7];
+	}
+
+	set muted(muted) {
+		this.$set({ muted });
+	}
+
+	get playbackRate() {
+		return this.$$.ctx[8];
+	}
+
+	set playbackRate(playbackRate) {
+		this.$set({ playbackRate });
+	}
+
+	get seeking() {
+		return this.$$.ctx[9];
+	}
+
+	set seeking(seeking) {
+		this.$set({ seeking });
+	}
+
+	get ended() {
+		return this.$$.ctx[10];
+	}
+
+	set ended(ended) {
+		this.$set({ ended });
+	}
+
+	get $cty_config() {
+		return {};
+	}
 }
 
 export default Component;

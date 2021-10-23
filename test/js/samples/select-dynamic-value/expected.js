@@ -62,6 +62,18 @@ class Component extends SvelteComponent {
 		super();
 		init(this, options, instance, create_fragment, safe_not_equal, { current: 0 });
 	}
+
+	get current() {
+		return this.$$.ctx[0];
+	}
+
+	set current(current) {
+		this.$set({ current });
+	}
+
+	get $cty_config() {
+		return {};
+	}
 }
 
 export default Component;
