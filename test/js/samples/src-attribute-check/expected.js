@@ -81,6 +81,26 @@ class Component extends SvelteComponent {
 		super();
 		init(this, options, instance, create_fragment, safe_not_equal, { url: 0, slug: 1 });
 	}
+
+	get url() {
+		return this.$$.ctx[0];
+	}
+
+	set url(url) {
+		this.$set({ url });
+	}
+
+	get slug() {
+		return this.$$.ctx[1];
+	}
+
+	set slug(slug) {
+		this.$set({ slug });
+	}
+
+	get $cty_config() {
+		return {};
+	}
 }
 
 export default Component;
