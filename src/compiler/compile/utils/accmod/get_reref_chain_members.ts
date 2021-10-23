@@ -48,9 +48,15 @@ export default function get_reref_chain_members(declaration_node: Node, scope: S
 				return current_decl_node.init.name;
 		
 			case 'ObjectExpression':
-				if (current_decl_node.init.properties[0].type === 'SpreadElement') {
-					return current_decl_node.init.properties[0].argument.name;
+				if (current_decl_node.init.properties.length) {
+					if (current_decl_node.init.properties[0].type === 'SpreadElement') {
+						return current_decl_node.init.properties[0].argument.name;
+					}
+				} else {
+					// if e.g. foo = {}
+					return undefined;
 				}
+				
 				break;
 
 			case 'ArrayExpression':
@@ -79,9 +85,13 @@ export default function get_reref_chain_members(declaration_node: Node, scope: S
 		const name_to_search = get_name_to_search(current_decl_node);
 
 		// check for main context reference first, if true, skip the rest of the check.
-		if (is_in_main_context(name_to_search)) {
-			// SEARCH END!
-			origin_var_name = name_to_search;
+		if (name_to_search) {
+			if (is_in_main_context(name_to_search)) {
+				// SEARCH END!
+				origin_var_name = name_to_search;
+				return;
+			}
+		} else {
 			return;
 		}
 		
