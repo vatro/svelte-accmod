@@ -31,6 +31,10 @@ class Component extends SvelteComponent {
 	get j() {
 		return j;
 	}
+
+	get $cty_config() {
+		return {};
+	}
 }
 
 exports.default = Component;
