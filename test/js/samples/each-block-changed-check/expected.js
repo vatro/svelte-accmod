@@ -168,6 +168,42 @@ class Component extends SvelteComponent {
 		super();
 		init(this, options, instance, create_fragment, safe_not_equal, { comments: 0, elapsed: 1, time: 2, foo: 3 });
 	}
+
+	get comments() {
+		return this.$$.ctx[0];
+	}
+
+	set comments(comments) {
+		this.$set({ comments });
+	}
+
+	get elapsed() {
+		return this.$$.ctx[1];
+	}
+
+	set elapsed(elapsed) {
+		this.$set({ elapsed });
+	}
+
+	get time() {
+		return this.$$.ctx[2];
+	}
+
+	set time(time) {
+		this.$set({ time });
+	}
+
+	get foo() {
+		return this.$$.ctx[3];
+	}
+
+	set foo(foo) {
+		this.$set({ foo });
+	}
+
+	get $cty_config() {
+		return {};
+	}
 }
 
 export default Component;

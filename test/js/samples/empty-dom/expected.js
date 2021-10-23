@@ -11,6 +11,10 @@ class Component extends SvelteComponent {
 		super();
 		init(this, options, instance, null, safe_not_equal, {});
 	}
+
+	get $cty_config() {
+		return {};
+	}
 }
 
 export default Component;
