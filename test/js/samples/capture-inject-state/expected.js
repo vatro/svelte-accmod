@@ -180,19 +180,23 @@ class Component extends SvelteComponentDev {
 	}
 
 	get prop() {
-		throw new Error("<Component>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+		return this.$$.ctx[0];
 	}
 
-	set prop(value) {
-		throw new Error("<Component>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+	set prop(prop) {
+		this.$set({ prop });
 	}
 
 	get alias() {
-		throw new Error("<Component>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+		return this.$$.ctx[1];
 	}
 
-	set alias(value) {
-		throw new Error("<Component>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+	set alias(realName) {
+		this.$set({ alias: realName });
+	}
+
+	get $cty_config() {
+		return {};
 	}
 }
 
