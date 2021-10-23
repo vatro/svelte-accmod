@@ -1,5 +1,6 @@
 import * as assert from 'assert';
 import CustomElement from './main.svelte';
+import { flush } from 'svelte/internal';
 
 export default function (target) {
 	new CustomElement({
@@ -19,7 +20,9 @@ export default function (target) {
 	assert.equal(p4.textContent, 'flagged (static attribute)');
 
 	el.items = ['d', 'e', 'f', 'g', 'h'];
+	flush();
 	el.flagged = true;
+	flush();
 
 	assert.equal(p1.textContent, '5 items');
 	assert.equal(p2.textContent, 'd, e, f, g, h');
