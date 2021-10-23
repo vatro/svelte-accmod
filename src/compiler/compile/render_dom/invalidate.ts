@@ -203,31 +203,32 @@ export function invalidate(renderer: Renderer, scope: Scope, node: Node, names: 
 							wrapNode = false;
 						}
 					}
-				} else {
-					// ### ORIGINAL behavior
-					// extra_args[0]: `head`
-					extra_args.unshift({
-						type: 'Identifier',
-						name: head.name
-					});
-
-					// don't wrap `${node}`: not Assignment- && MemberExpression
-					wrapNode = false;
 				}
-			}
-
-			if (wrapNode) {
-				// ### Wrapping `${node}` in an arrow function prevents immediate accessors-assigment execution on `$$invalidate(...)` call.
-				if (!ccms) {
-					invalidate = x`$$invalidate(${renderer.context_lookup.get(head.name).index}, () => ${node}, ${extra_args})`;
-				} else {
-					invalidate = x`$$invalidate(${renderer.context_lookup.get(head.name).index}, () => ${node}, ${extra_args}, ${ccms})`;
-				}
-				
 			} else {
-				// ### ORIGINAL
-				invalidate = x`$$invalidate(${renderer.context_lookup.get(head.name).index}, ${node}, ${extra_args})`;
+				// ### ORIGINAL behavior
+				// extra_args[0]: `head`
+				extra_args.unshift({
+					type: 'Identifier',
+					name: head.name
+				});
+
+				// don't wrap `${node}`: not Assignment- && MemberExpression
+				wrapNode = false;
 			}
+		}
+
+		if (wrapNode) {
+			// ### Wrapping `${node}` in an arrow function prevents immediate accessors-assigment execution on `$$invalidate(...)` call.
+			if (!ccms) {
+				invalidate = x`$$invalidate(${renderer.context_lookup.get(head.name).index}, () => ${node}, ${extra_args})`;
+			} else {
+				invalidate = x`$$invalidate(${renderer.context_lookup.get(head.name).index}, () => ${node}, ${extra_args}, ${ccms})`;
+			}
+
+		} else {
+			// ### ORIGINAL
+			invalidate = x`$$invalidate(${renderer.context_lookup.get(head.name).index}, ${node}, ${extra_args})`;
+		}
 
 	} else {
 		// skip `$$invalidate` if it is in the main execution context
