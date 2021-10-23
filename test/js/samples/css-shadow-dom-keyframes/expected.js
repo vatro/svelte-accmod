@@ -56,6 +56,10 @@ class Component extends SvelteElement {
 			}
 		}
 	}
+
+	get $cty_config() {
+		return {};
+	}
 }
 
 customElements.define("custom-element", Component);

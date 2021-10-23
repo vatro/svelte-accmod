@@ -29,6 +29,10 @@ class Component extends SvelteComponent {
 	get increment() {
 		return this.$$.ctx[0];
 	}
+
+	get $cty_config() {
+		return {};
+	}
 }
 
 export default Component;

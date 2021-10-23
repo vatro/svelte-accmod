@@ -28,6 +28,18 @@ class Component extends SvelteComponent {
 		super();
 		init(this, options, instance, null, safe_not_equal, { x: 0 });
 	}
+
+	get x() {
+		return this.$$.ctx[0];
+	}
+
+	set x(x) {
+		this.$set({ x });
+	}
+
+	get $cty_config() {
+		return {};
+	}
 }
 
 export default Component;
