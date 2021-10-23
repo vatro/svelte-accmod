@@ -59,6 +59,7 @@ export function invalidate(renderer: Renderer, scope: Scope, node: Node, names: 
 					if (exp_head_decl.type === 'VariableDeclarator') {
 
 						const reref_result = get_reref_chain_members(exp_head_decl, scope, component, node, renderer);
+						if (reref_result.origin_var_name) {
 						const head_index = renderer.context_lookup.get(reref_result.origin_var_name).index;
 
 						// add MemberExpression keys chain (members) to `cty` and get the index of the chain,
@@ -84,6 +85,7 @@ export function invalidate(renderer: Renderer, scope: Scope, node: Node, names: 
 						} else {
 							return x`$$invalidate(${head_index}, () => ${node}, ${extra_args}, ${reref_result.all_ccms})`;
 						}
+					}
 					}
 				}
 			}
