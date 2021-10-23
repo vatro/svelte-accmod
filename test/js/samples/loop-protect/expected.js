@@ -163,6 +163,10 @@ class Component extends SvelteComponentDev {
 			id: create_fragment.name
 		});
 	}
+
+	get $cty_config() {
+		return {};
+	}
 }
 
 export default Component;

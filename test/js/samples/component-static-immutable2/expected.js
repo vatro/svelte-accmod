@@ -50,6 +50,10 @@ class Component extends SvelteComponent {
 		super();
 		init(this, options, instance, create_fragment, not_equal, {});
 	}
+
+	get $cty_config() {
+		return {};
+	}
 }
 
 export default Component;
