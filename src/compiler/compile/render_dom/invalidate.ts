@@ -60,32 +60,32 @@ export function invalidate(renderer: Renderer, scope: Scope, node: Node, names: 
 
 						const reref_result = get_reref_chain_members(exp_head_decl, scope, component, node, renderer);
 						if (reref_result.origin_var_name) {
-						const head_index = renderer.context_lookup.get(reref_result.origin_var_name).index;
+							const head_index = renderer.context_lookup.get(reref_result.origin_var_name).index;
 
-						// add MemberExpression keys chain (members) to `cty` and get the index of the chain,
-						// identical chains will have the same `cty_index`
-						const cty_index = renderer.add_to_cty(`${node.left['start']}`, head_index.value, reref_result.all_keys).members_cty_i;
+							// add MemberExpression keys chain (members) to `cty` and get the index of the chain,
+							// identical chains will have the same `cty_index`
+							const cty_index = renderer.add_to_cty(`${node.left['start']}`, head_index.value, reref_result.all_keys).members_cty_i;
 
-						const extra_args = [];
+							const extra_args = [];
 
-						// extra_args[1]: `cty_index`
-						extra_args.unshift({
-							type: 'Literal',
-							value: cty_index
-						});
+							// extra_args[1]: `cty_index`
+							extra_args.unshift({
+								type: 'Literal',
+								value: cty_index
+							});
 
-						// extra_args[0]: `head`
-						extra_args.unshift({
-							type: 'Identifier',
-							name: reref_result.origin_var_name
-						});
+							// extra_args[0]: `head`
+							extra_args.unshift({
+								type: 'Identifier',
+								name: reref_result.origin_var_name
+							});
 
-						if (!reref_result.all_ccms) {
-							return x`$$invalidate(${head_index}, () => ${node}, ${extra_args})`;
-						} else {
-							return x`$$invalidate(${head_index}, () => ${node}, ${extra_args}, ${reref_result.all_ccms})`;
+							if (!reref_result.all_ccms) {
+								return x`$$invalidate(${head_index}, () => ${node}, ${extra_args})`;
+							} else {
+								return x`$$invalidate(${head_index}, () => ${node}, ${extra_args}, ${reref_result.all_ccms})`;
+							}
 						}
-					}
 					}
 				}
 			}
