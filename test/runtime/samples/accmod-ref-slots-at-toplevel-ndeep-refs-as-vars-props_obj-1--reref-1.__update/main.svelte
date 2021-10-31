@@ -1,7 +1,7 @@
 <script>
-	import { afterUpdate, onMount } from "svelte";
-	import Child from "./Child.svelte";
-	import ChildSlot from "./ChildSlot.svelte";
+	import { afterUpdate, onMount } from 'svelte';
+	import Child from './Child.svelte';
+	import ChildSlot from './ChildSlot.svelte';
 
 	let child;
 	let updates = 0;
@@ -13,6 +13,8 @@
 
 	$: foo ? rs_foo++ : null;
 
+	// TODO  Delete / Update comment below, it's fixed now!!!
+	
 	// IMPORTANT: When the component reference is being rereferenced in a function, 'accmod' behaves the same way as native Svelte,
 	// because the modified invalidation is NOT being used -> accessor-statements are not being wrapped by $$invalidate(..),
 	// so 'accmod' uses the original invalidation routine. This means we will not get unwanted components updates ("FIX"), BUT

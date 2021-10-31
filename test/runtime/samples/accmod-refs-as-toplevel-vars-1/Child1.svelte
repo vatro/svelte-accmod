@@ -1,17 +1,21 @@
 <script>
-	import { afterUpdate } from 'svelte'
-	export let foo =  1;
+	import { afterUpdate } from 'svelte';
+	export let foo = 1;
 
-	let updated = 0
-	let rs = 0
+	let updated = 0;
+	let rs = 0;
 
-	$: foo ? rs++ : null
+	$: foo ? rs++ : null;
 
-	afterUpdate(()=>{
-		updated ++;
-	})
+	afterUpdate(() => {
+		updated++;
+	});
+
+	export function resetFoo() {
+		foo = 1;
+	}
 </script>
 
-<p> child1.foo:     {foo} </p>
-<p> child1 updated: {updated} </p>
-<p> child1.foo rs:  {rs} </p>
+child1.foo: {foo}
+child1 updated: {updated}
+child1.foo rs: {rs}

@@ -1,5 +1,5 @@
 export default {
-	
+
 	async test({ assert, component, target, flush, compileOptions }) {
 
 		// on mount / after first update.
@@ -83,7 +83,7 @@ export default {
 		`);
 
 		// SVELTE 'unmodified': bad -> would trigger main-update +1 (wrong / unwanted) only, nothing else!
-		component.add_item_to_child_foo_at_end([1,2,3]);
+		component.add_item_to_child_foo_at_end([1, 2, 3]);
 		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
@@ -165,7 +165,7 @@ export default {
 		`);
 
 
-		component.recreate_child_foo_clone_spread_new_array(['a','b','c','d','e']);
+		component.recreate_child_foo_clone_spread_new_array(['a', 'b', 'c', 'd', 'e']);
 		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
@@ -179,5 +179,5 @@ export default {
 			child rs_foo_4: 4
 		`);
 	}
-	
+
 };
