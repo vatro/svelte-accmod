@@ -1,6 +1,6 @@
 <script>
-	import { afterUpdate } from "svelte";
-	import { get_current_component } from "svelte/internal";
+	import { afterUpdate } from 'svelte';
+	import { get_current_component } from 'svelte/internal';
 
 	export let foo = undefined;
 	let rs_foo = 0;
