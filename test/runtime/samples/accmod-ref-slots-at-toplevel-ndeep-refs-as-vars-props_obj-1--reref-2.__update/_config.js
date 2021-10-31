@@ -19,10 +19,11 @@ export default {
 		// - modified props should trigger related reactive statements on change!
 
 
+		// TODO  Delete / Update comment below, it's fixed now!!!
 		//
 		// IMPORTANT: When the component reference is being rereferenced in a function, 'accmod' behaves the same way as native Svelte,
 		// because the modified invalidation is NOT being used -> accessor-statements are not being wrapped by $$invalidate(..), 
-		// so 'accmod' uses the original invalidation routine. This means we will not unwanted components updates ("FIX"), BUT
+		// so 'accmod' uses the original invalidation routine. This means we will not get unwanted components updates ("FIX"), BUT
 		// just as with native Svelte changing the 'props_obj' will not trigger related reactive statements and will not update the component / DOM.
 		// 
 		// CONCLUSION: When rereferencing components native and 'accmod' behaviors will be the same, INCL. THE BAD PART of e.g. like here

@@ -18,7 +18,7 @@ export default {
 		// - only modified components and slots should be updated / rerendered!
 		// - modified props should trigger related reactive statements on change!
 
-
+		// TODO  Delete / Update comment below, it's fixed now!!!
 		//
 		// IMPORTANT: When the component reference is being rereferenced in a function, 'accmod' behaves the same way as native Svelte,
 		// because the modified invalidation is NOT being used -> accessor-statements are not being wrapped by $$invalidate(..), 
