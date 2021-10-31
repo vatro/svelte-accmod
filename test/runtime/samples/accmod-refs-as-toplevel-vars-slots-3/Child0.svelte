@@ -1,13 +1,12 @@
 <script>
-	import { afterUpdate } from 'svelte'
+	import { afterUpdate } from 'svelte';
 
-	let updated = 0
+	let updated = 0;
 
-	afterUpdate(()=>{
-		updated ++
-	})
-	
+	afterUpdate(() => {
+		updated++;
+	});
 </script>
 
-child0_updated:{updated}
-<slot/>
+child0 updated: {updated}
+<slot />

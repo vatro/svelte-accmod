@@ -1,8 +1,8 @@
 <script>
-	import { afterUpdate, onMount } from "svelte";
-	import Child from "./Child.svelte";
-	import ChildSlot from "./ChildSlot.svelte";
-	import ChildSlotLoose from "./ChildSlotLoose.svelte";
+	import { afterUpdate, onMount } from 'svelte';
+	import Child from './Child.svelte';
+	import ChildSlot from './ChildSlot.svelte';
+	import ChildSlotLoose from './ChildSlotLoose.svelte';
 
 	let child;
 	let looseSlot;
