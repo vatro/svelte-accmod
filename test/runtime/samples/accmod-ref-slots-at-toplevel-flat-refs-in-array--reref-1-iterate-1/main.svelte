@@ -1,7 +1,7 @@
 <script>
-	import { afterUpdate, onMount } from "svelte";
-	import Child from "./Child.svelte";
-	import ChildSlot from "./ChildSlot.svelte";
+	import { afterUpdate, onMount } from 'svelte';
+	import Child from './Child.svelte';
+	import ChildSlot from './ChildSlot.svelte';
 
 	let child;
 	let updates = 0;
@@ -15,36 +15,36 @@
 
 	onMount(() => {
 		// REMARK: accessors are 'async' (won't trigger immediate flush) before first update per default.
-		for(let i = 0; i < slot_refs.length; i++) {
-			const s = slot_refs[i]
-			s.foo = i + 1
+		for (let i = 0; i < slot_refs.length; i++) {
+			const s = slot_refs[i];
+			s.foo = i + 1;
 		}
 
-		for(let i = 0; i < slot_refs.length; i++) {
-			const s = slot_refs[i]
-			s.foo += 3
+		for (let i = 0; i < slot_refs.length; i++) {
+			const s = slot_refs[i];
+			s.foo += 3;
 		}
 	});
 
 	export function change_all_slots_foo(val0, val1, val2) {
-		for(let i = 0; i < slot_refs.length; i++) {
-			const s = slot_refs[i]
-			s.foo = arguments[i]
+		for (let i = 0; i < slot_refs.length; i++) {
+			const s = slot_refs[i];
+			s.foo = arguments[i];
 		}
 	}
 
 	export function change_childslot_0_foo(value) {
-		const sref0 = slot_refs[0]
+		const sref0 = slot_refs[0];
 		sref0.foo = value;
 	}
 
 	export function change_childslot_1_foo(value) {
-		const sref1 = slot_refs[1]
+		const sref1 = slot_refs[1];
 		sref1.foo = value;
 	}
 
 	export function change_childslot_2_foo(value) {
-		const sref2 = slot_refs[2]
+		const sref2 = slot_refs[2];
 		sref2.foo = value;
 	}
 

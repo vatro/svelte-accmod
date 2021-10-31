@@ -1,7 +1,7 @@
 <script>
-	import { afterUpdate, onMount } from "svelte";
-	import Child from "./Child.svelte";
-	import ChildSlot from "./ChildSlot.svelte";
+	import { afterUpdate, onMount } from 'svelte';
+	import Child from './Child.svelte';
+	import ChildSlot from './ChildSlot.svelte';
 
 	let child;
 	let updates = 0;
@@ -15,10 +15,10 @@
 
 	onMount(() => {
 		// REMARK: accessors are 'async' (won't trigger immediate flush) before first update per default.
-		const local_slot_refs_arr = [...slot_refs] 
-		const sref0 = local_slot_refs_arr[0]
-		const sref1 = local_slot_refs_arr[1]
-		const sref2 = local_slot_refs_arr[2]
+		const local_slot_refs_arr = [...slot_refs];
+		const sref0 = local_slot_refs_arr[0];
+		const sref1 = local_slot_refs_arr[1];
+		const sref2 = local_slot_refs_arr[2];
 
 		sref0.foo = 1;
 		sref1.foo = 2;
@@ -30,10 +30,10 @@
 	});
 
 	export function change_all_slots_foo(val0, val1, val2) {
-		const local_slot_refs_arr = [...slot_refs] 
-		const sref0 = local_slot_refs_arr[0]
-		const sref1 = local_slot_refs_arr[1]
-		const sref2 = local_slot_refs_arr[2]
+		const local_slot_refs_arr = [...slot_refs];
+		const sref0 = local_slot_refs_arr[0];
+		const sref1 = local_slot_refs_arr[1];
+		const sref2 = local_slot_refs_arr[2];
 
 		sref0.foo = val0;
 		sref1.foo = val1;
@@ -41,20 +41,20 @@
 	}
 
 	export function change_childslot_0_foo(value) {
-		const local_slot_refs_arr = [...slot_refs] 
-		const sref0 = local_slot_refs_arr[0]
+		const local_slot_refs_arr = [...slot_refs];
+		const sref0 = local_slot_refs_arr[0];
 		sref0.foo = value;
 	}
 
 	export function change_childslot_1_foo(value) {
-		const local_slot_refs_arr = [...slot_refs] 
-		const sref1 = local_slot_refs_arr[1]
+		const local_slot_refs_arr = [...slot_refs];
+		const sref1 = local_slot_refs_arr[1];
 		sref1.foo = value;
 	}
 
 	export function change_childslot_2_foo(value) {
-		const local_slot_refs_arr = [...slot_refs] 
-		const sref2 = local_slot_refs_arr[2]
+		const local_slot_refs_arr = [...slot_refs];
+		const sref2 = local_slot_refs_arr[2];
 		sref2.foo = value;
 	}
 

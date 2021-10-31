@@ -1,7 +1,7 @@
 <script>
-	import { afterUpdate, onMount } from "svelte";
-	import Child from "./Child.svelte";
-	import ChildSlot from "./ChildSlot.svelte";
+	import { afterUpdate, onMount } from 'svelte';
+	import Child from './Child.svelte';
+	import ChildSlot from './ChildSlot.svelte';
 
 	let child;
 	let updates = 0;
@@ -18,7 +18,7 @@
 
 	onMount(() => {
 		// REMARK: accessors are 'async' (won't trigger immediate flush) before first update per default.
-		const csmd = childslot_max_depth
+		const csmd = childslot_max_depth;
 		csmd.foo = 1;
 		csmd.foo = 2;
 		csmd.foo = 3;
@@ -26,25 +26,25 @@
 
 	// via "FIX" -> same behavior? : YES!
 	export function set_foo_in_max_depth_childslot(value) {
-		const csmd = childslot_max_depth
+		const csmd = childslot_max_depth;
 		csmd.foo = value;
 	}
 
 	// via "FIX" -> same behavior? : YES!
 	export function set_foo_in_childslot_depth_0(value) {
-		const cs0 = childslot_depth_0
+		const cs0 = childslot_depth_0;
 		cs0.foo = value;
 	}
 
 	// via "FIX" -> same behavior? : YES!
 	export function set_foo_in_childslot_depth_1(value) {
-		const cs1 = childslot_depth_1
+		const cs1 = childslot_depth_1;
 		cs1.foo = value;
 	}
 
 	// via "FIX" -> same behavior? : YES!
 	export function set_foo_in_childslot_depth_2(value) {
-		const cs2 = childslot_depth_2
+		const cs2 = childslot_depth_2;
 		cs2.foo = value;
 	}
 
@@ -54,7 +54,7 @@
 
 	// via "FIX" -> same behavior? : YES!
 	export function set_child_foo(value) {
-		const c = child
+		const c = child;
 		c.foo = value;
 	}
 
