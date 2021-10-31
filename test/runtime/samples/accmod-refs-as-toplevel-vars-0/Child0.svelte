@@ -1,5 +1,5 @@
 <script>
-	import { afterUpdate } from "svelte";
+	import { afterUpdate } from 'svelte';
 	export let foo = 1;
 
 	let updated = 0;
@@ -12,14 +12,10 @@
 	});
 
 	export function resetFoo() {
-		// setting foo to a falsy value: updates, but doesn't trigger reactive statement!
-		// foo = 0
-
-		// updates and triggers reactive statement!
 		foo = 1;
 	}
 </script>
 
-<p>child0.foo: {foo}</p>
-<p>child0 updated: {updated}</p>
-<p>child0.foo rs: {rs}</p>
+child0.foo: {foo}
+child0 updated: {updated}
+child0.foo rs: {rs}

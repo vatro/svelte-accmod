@@ -1,7 +1,7 @@
 <script>
-	import { afterUpdate, onMount } from "svelte";
-	import Child from "./Child.svelte";
-	import ChildSlot from "./ChildSlot.svelte";
+	import { afterUpdate, onMount } from 'svelte';
+	import Child from './Child.svelte';
+	import ChildSlot from './ChildSlot.svelte';
 
 	let child;
 	let updates = 0;
@@ -74,7 +74,7 @@
 main updates: {updates}, foo: {foo}, rs_foo: {rs_foo}
 
 <Child bind:this={child}>
-	<ChildSlot ind={0} bind:this={slot_refs["cs0"]} />
-	<ChildSlot ind={1} bind:this={slot_refs["cs1"]} />
-	<ChildSlot ind={2} bind:this={slot_refs["cs2"]} />
+	<ChildSlot ind={0} bind:this={slot_refs['cs0']} />
+	<ChildSlot ind={1} bind:this={slot_refs['cs1']} />
+	<ChildSlot ind={2} bind:this={slot_refs['cs2']} />
 </Child>
