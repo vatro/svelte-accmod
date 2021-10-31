@@ -1,12 +1,12 @@
 <script>
-	import { afterUpdate, onMount } from "svelte";
-	import Child from "./Child.svelte";
-	import ChildSlot from "./ChildSlot.svelte";
+	import { afterUpdate, onMount } from 'svelte';
+	import Child from './Child.svelte';
+	import ChildSlot from './ChildSlot.svelte';
 
 	let child;
 	let updates = 0;
 
-	let slot_refs = []
+	let slot_refs = [];
 
 	let foo = undefined;
 	let rs_foo = 0;
@@ -15,18 +15,18 @@
 
 	onMount(() => {
 		// REMARK: accessors are 'async' (won't trigger immediate flush) before first update per default.
-		for(let i = 0; i < slot_refs.length; i++) {
-			slot_refs[i].foo = i + 1
+		for (let i = 0; i < slot_refs.length; i++) {
+			slot_refs[i].foo = i + 1;
 		}
-		
-		for(let i = 0; i < slot_refs.length; i++) {
-			slot_refs[i].foo += 3
+
+		for (let i = 0; i < slot_refs.length; i++) {
+			slot_refs[i].foo += 3;
 		}
 	});
 
 	export function change_all_slots_foo(val0, val1, val2) {
-		for(let i = 0; i < slot_refs.length; i++) {
-			slot_refs[i].foo = arguments[i]
+		for (let i = 0; i < slot_refs.length; i++) {
+			slot_refs[i].foo = arguments[i];
 		}
 	}
 
