@@ -1,5 +1,5 @@
 <script>
-	import { afterUpdate } from "svelte";
+	import { afterUpdate } from 'svelte';
 
 	export let depth;
 	export let foo = undefined;
@@ -19,6 +19,6 @@
 	});
 </script>
 
-childslot {depth} updates: {updates}, foo: {foo}, rs_foo: {rs_foo}{#if props_obj},
-	props_obj x:{props_obj.x} y:{props_obj.y} z:{props_obj.z}, rs_props_obj: {rs_props_obj}{/if}
+childslot {depth} updates: {updates}, foo: {foo}, rs_foo: {rs_foo}{#if props_obj}, props_obj x:{props_obj.x} y:{props_obj.y}
+	z:{props_obj.z}, rs_props_obj: {rs_props_obj}{/if}
 <slot />

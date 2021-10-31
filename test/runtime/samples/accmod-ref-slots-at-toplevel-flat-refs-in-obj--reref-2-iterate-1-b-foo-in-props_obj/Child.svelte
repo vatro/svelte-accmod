@@ -1,5 +1,5 @@
 <script>
-	import { afterUpdate } from "svelte";
+	import { afterUpdate } from 'svelte';
 
 	export let props_obj = {};
 	let rs_props_obj = 0;

@@ -1,7 +1,7 @@
 <script>
-	import { afterUpdate } from "svelte";
-	import Child from "./Child.svelte";
-	import Parent from "./Parent.svelte";
+	import { afterUpdate } from 'svelte';
+	import Child from './Child.svelte';
+	import Parent from './Parent.svelte';
 
 	export let child;
 	let updates = 0;
