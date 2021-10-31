@@ -1,5 +1,5 @@
 export default {
-	
+
 	async test({ assert, component, target, flush, compileOptions }) {
 
 		// on mount / after first update.

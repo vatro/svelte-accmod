@@ -1,7 +1,7 @@
 <script>
-	import { afterUpdate, onMount } from "svelte";
-	import Child from "./Child.svelte";
-	import ChildSlot from "./ChildSlot.svelte";
+	import { afterUpdate, onMount } from 'svelte';
+	import Child from './Child.svelte';
+	import ChildSlot from './ChildSlot.svelte';
 
 	let child;
 	let updates = 0;
@@ -18,20 +18,20 @@
 		const local_slot_refs_reref = slot_refs;
 
 		for (let slot_key in local_slot_refs_reref) {
-			let s = local_slot_refs_reref[slot_key]
+			let s = local_slot_refs_reref[slot_key];
 			s.props_obj.foo = s.ind + 1;
 		}
 
 		for (let slot_key in local_slot_refs_reref) {
-			let s = local_slot_refs_reref[slot_key]
+			let s = local_slot_refs_reref[slot_key];
 			s.props_obj.foo += 3;
 		}
 	});
-	
+
 	export function change_all_slots_foo(val0, val1, val2) {
 		const local_slot_refs_reref = slot_refs;
 		for (let slot_key in local_slot_refs_reref) {
-			const s = local_slot_refs_reref[slot_key]
+			const s = local_slot_refs_reref[slot_key];
 			s.props_obj.foo = arguments[s.ind];
 		}
 	}
@@ -70,7 +70,7 @@
 main updates: {updates}, props_obj.foo: {props_obj.foo}, rs_props_obj: {rs_props_obj}
 
 <Child bind:this={child}>
-	<ChildSlot ind={0} bind:this={slot_refs["cs0"]} />
-	<ChildSlot ind={1} bind:this={slot_refs["cs1"]} />
-	<ChildSlot ind={2} bind:this={slot_refs["cs2"]} />
+	<ChildSlot ind={0} bind:this={slot_refs['cs0']} />
+	<ChildSlot ind={1} bind:this={slot_refs['cs1']} />
+	<ChildSlot ind={2} bind:this={slot_refs['cs2']} />
 </Child>

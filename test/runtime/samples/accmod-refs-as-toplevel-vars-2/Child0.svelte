@@ -1,14 +1,14 @@
 <script>
-	import { afterUpdate } from 'svelte'
-	import Child1 from './Child1.svelte'
+	import { afterUpdate } from 'svelte';
+	import Child1 from './Child1.svelte';
 
-	export let child1
-	let updated = 0
+	export let child1;
+	let updated = 0;
 
-	afterUpdate(()=>{
-		updated ++;
-	})
+	afterUpdate(() => {
+		updated++;
+	});
 </script>
 
-<p> child0 updated: {updated} </p>
-<Child1 bind:this={child1}/>
+child0 updated: {updated}
+<Child1 bind:this={child1} />
