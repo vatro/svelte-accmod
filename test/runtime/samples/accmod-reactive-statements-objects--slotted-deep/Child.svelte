@@ -1,30 +1,29 @@
 <script>
-	import { afterUpdate } from "svelte";
+	import { afterUpdate } from 'svelte';
 
-	export let foo = {}
+	export let foo = {};
 
-	let rs_foo = 0
+	let rs_foo = 0;
 
-	let rs_foo_a = 0
-	let rs_foo_b = 0
-	let rs_foo_c = 0
-	let rs_foo_d = 0
-	let rs_foo_e = 0
-	
-	let updates = 0
+	let rs_foo_a = 0;
+	let rs_foo_b = 0;
+	let rs_foo_c = 0;
+	let rs_foo_d = 0;
+	let rs_foo_e = 0;
 
-	$: foo ? rs_foo ++ : null
+	let updates = 0;
 
-	$: foo.a ? rs_foo_a ++ : null
-	$: foo.b ? rs_foo_b ++ : null
-	$: foo.c ? rs_foo_c ++ : null
-	$: foo.d ? rs_foo_d ++ : null
-	$: foo.e ? rs_foo_e ++ : null
+	$: foo ? rs_foo++ : null;
 
-	afterUpdate(()=> {
-		updates++
-	})
+	$: foo.a ? rs_foo_a++ : null;
+	$: foo.b ? rs_foo_b++ : null;
+	$: foo.c ? rs_foo_c++ : null;
+	$: foo.d ? rs_foo_d++ : null;
+	$: foo.e ? rs_foo_e++ : null;
 
+	afterUpdate(() => {
+		updates++;
+	});
 </script>
 
 child updates: {updates}
