@@ -1,7 +1,7 @@
 <script>
-	import { afterUpdate, onMount } from "svelte";
-	import Child from "./Child.svelte";
-	import ChildSlot from "./ChildSlot.svelte";
+	import { afterUpdate, onMount } from 'svelte';
+	import Child from './Child.svelte';
+	import ChildSlot from './ChildSlot.svelte';
 
 	let child;
 	let updates = 0;
@@ -30,6 +30,8 @@
 		pobj.z = 6;
 	});
 
+	// TODO  Delete / Update comment below, it's fixed now!!!
+	
 	// IMPORTANT: When the component reference is being rereferenced in a function, 'accmod' behaves the same way as native Svelte,
 	// because the modified invalidation is NOT being used -> accessor-statements are not being wrapped by $$invalidate(..),
 	// so 'accmod' uses the original invalidation routine. This means we will not get unwanted components updates ("FIX"), BUT
@@ -47,10 +49,10 @@
 	// BAD! -> unwanted behavior! (see above)
 	export function set_foo_and_props_obj_in_max_depth_childslot(foo, x, y, z) {
 		debugger;
-		
+
 		const csmd = childslot_max_depth;
 		const pobj = csmd.props_obj;
-	
+
 		csmd.foo = foo;
 		pobj.x = x;
 		pobj.y = y;
