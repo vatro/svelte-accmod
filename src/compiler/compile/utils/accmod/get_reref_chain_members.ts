@@ -71,7 +71,7 @@ export default function get_reref_chain_members(declaration_node: Node, scope: S
 
 			case 'Identifier':
 				return current_decl_node.init.name;
-		
+
 			case 'ObjectExpression':
 				if (current_decl_node.init.properties.length) {
 					if (current_decl_node.init.properties[0].type === 'SpreadElement') {
@@ -81,7 +81,7 @@ export default function get_reref_chain_members(declaration_node: Node, scope: S
 					// if e.g. foo = {}
 					return undefined;
 				}
-				
+
 				break;
 
 			case 'ArrayExpression':
@@ -92,7 +92,7 @@ export default function get_reref_chain_members(declaration_node: Node, scope: S
 				} else {
 					return current_decl_node.init.id.name;
 				}
-				
+
 				break;
 			default:
 				return undefined;
@@ -102,7 +102,7 @@ export default function get_reref_chain_members(declaration_node: Node, scope: S
 
 	function process_decl_node(current_decl_node, decl_scope) {
 
-		let higher_decl_found: {node:Node, scope: Scope} = undefined;
+		let higher_decl_found: { node: Node, scope: Scope } = undefined;
 		let higher_decl_node: Node = undefined;
 		let higher_decl_scope: Scope = undefined;
 
@@ -121,7 +121,7 @@ export default function get_reref_chain_members(declaration_node: Node, scope: S
 		} else {
 			return;
 		}
-		
+
 		// Find higher declaration (node)
 		// e.g. find declaration of 'foo' with current declaration being something like `const baz = foo.bar[...]`
 		higher_decl_found = find_higher_declaration(name_to_search, decl_scope);
@@ -216,7 +216,7 @@ export default function get_reref_chain_members(declaration_node: Node, scope: S
 						throw new Error('Error while searching higher declaration: parent_scope is not a Scope instance!');
 					}
 
-				// scope has no parent -> declaration should be be in main context
+					// scope has no parent -> declaration should be be in main context
 				} else {
 					// SEARCH END!
 					found_higher_decl_node = undefined;
@@ -227,7 +227,7 @@ export default function get_reref_chain_members(declaration_node: Node, scope: S
 
 
 			search_scopes(name, decl_scope);
-			return {node: found_higher_decl_node, scope: current_scope};
+			return { node: found_higher_decl_node, scope: current_scope };
 		}
 
 
