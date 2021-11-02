@@ -38,11 +38,36 @@ export default function get_reref_chain_members(declaration_node: Node, scope: S
 		ccms ? all_ccms = all_ccms.concat(ccms) : null;
 	}
 
+	function find_member_expression_head(decl_node) {
+		let found_identifier = undefined;
+
+		function findIdentifier(current_node_obj) {
+			const curr_node_obj = current_node_obj;
+
+			if (curr_node_obj.object) {
+				if (curr_node_obj.object.type === 'Identifier') {
+					found_identifier = curr_node_obj.object.name;
+					return found_identifier;
+				} else {
+					findIdentifier(curr_node_obj.object);
+				}
+			}
+		}
+
+		findIdentifier(decl_node.init);
+		return found_identifier;
+	}
+
 	function get_name_to_search(current_decl_node) {
 
 		switch (current_decl_node.init.type) {
 			case 'MemberExpression':
-				return current_decl_node.init.object.name;
+				if (current_decl_node.init.object.name) {
+					// TODO  Check / confirm: this doesn't seem to work when >2(1?) members.
+					return current_decl_node.init.object.name;
+				} else {
+					return find_member_expression_head(current_decl_node);
+				}
 
 			case 'Identifier':
 				return current_decl_node.init.name;
@@ -81,8 +106,10 @@ export default function get_reref_chain_members(declaration_node: Node, scope: S
 		let higher_decl_node: Node = undefined;
 		let higher_decl_scope: Scope = undefined;
 
+		let name_to_search = undefined;
+
 		if (current_decl_node.init.type === 'MemberExpression') get_right_members(current_decl_node);
-		const name_to_search = get_name_to_search(current_decl_node);
+		name_to_search = get_name_to_search(current_decl_node);
 
 		// check for main context reference first, if true, skip the rest of the check.
 		if (name_to_search) {
