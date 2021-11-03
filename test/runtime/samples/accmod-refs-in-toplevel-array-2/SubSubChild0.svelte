@@ -1,18 +1,18 @@
 <script>
-	import { afterUpdate } from 'svelte'
-	export let foo =  1
+	import { afterUpdate } from 'svelte';
 
-	let updated = 0
-	let rs = 0
+	export let foo = 1;
 
-	$: foo ? rs++ : null
+	let updated = 0;
+	let rs = 0;
 
-	afterUpdate(()=>{
-		updated ++
-	})
-	
+	$: foo ? rs++ : null;
+
+	afterUpdate(() => {
+		updated++;
+	});
 </script>
 
-subsubchild0.foo:{foo}
-subsubchild0-updated:{updated}
-rs-subsubchild0.foo:{rs}
+subsubchild0.foo: {foo}
+subsubchild0 updated: {updated}
+rs subsubchild0.foo: {rs}
