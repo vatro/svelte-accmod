@@ -4,13 +4,13 @@ export default {
 
 		// on mount
 		assert.htmlEqual(target.innerHTML, `
-			main-updated:1
-			child0-updated:1
-			rs-child0.children:1
-			rs-child0.children[0]:0
-			subchild0.foo:1
-			subchild0-updated:1
-			rs-subchild0.foo:1
+			main updated: 1
+			child0 updated: 1
+			rs child0.children: 2
+			rs child0.children[0]: 1
+			subchild0.foo: 1
+			subchild0 updated: 1
+			rs subchild0.foo: 1
 		`);
 
 
@@ -21,13 +21,13 @@ export default {
 		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
-			main-updated:1
-			child0-updated:1
-			rs-child0.children:1
-			rs-child0.children[0]:0
-			subchild0.foo:2
-			subchild0-updated:2
-			rs-subchild0.foo:2
+			main updated: 1
+			child0 updated: 1
+			rs child0.children: 2
+			rs child0.children[0]: 1
+			subchild0.foo: 2
+			subchild0 updated: 2
+			rs subchild0.foo: 2
 		`);
 
 		// ... again.
@@ -36,13 +36,13 @@ export default {
 		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
-			main-updated:1
-			child0-updated:1
-			rs-child0.children:1
-			rs-child0.children[0]:0
-			subchild0.foo:3
-			subchild0-updated:3
-			rs-subchild0.foo:3
+			main updated: 1
+			child0 updated: 1
+			rs child0.children: 2
+			rs child0.children[0]: 1
+			subchild0.foo: 3
+			subchild0 updated: 3
+			rs subchild0.foo: 3
 		`);
 	}
 };
