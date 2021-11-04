@@ -1,6 +1,6 @@
 export default {
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 
 		// on mount / after first update.
 		// REMARK: accessors are async! before first update per default.
@@ -13,7 +13,7 @@ export default {
 		`);
 
 		component.change_obj_foo_bar_baz_val_benefit('something');
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 2
@@ -24,7 +24,7 @@ export default {
 
 		// change again
 		component.change_obj_foo_bar_baz_val_benefit(100);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 3
@@ -35,7 +35,7 @@ export default {
 
 		// don't change
 		component.change_obj_foo_bar_baz_val_benefit(100);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 3
