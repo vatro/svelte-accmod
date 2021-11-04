@@ -1,6 +1,6 @@
 export default {
 	
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 
 		// on mount / after first update.
 		// REMARK: accessors are async! before first update per default.
@@ -28,7 +28,7 @@ export default {
 		// also NO component update will be triggered, which is correct / wanted behavior!
 
 		component.set_new_key_in_child_foo_obj('a', 1);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1
@@ -42,7 +42,7 @@ export default {
 		`);
 
 		component.set_new_key_in_child_foo_obj('b', 1);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1
@@ -56,7 +56,7 @@ export default {
 		`);
 
 		component.set_new_key_in_child_foo_obj('c', 1);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1
@@ -72,7 +72,7 @@ export default {
 
 		// change one of the values
 		component.change_key_in_child_foo_obj('c', 2);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1
@@ -87,7 +87,7 @@ export default {
 
 		// don't change value
 		component.change_key_in_child_foo_obj('c', 2);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1
@@ -103,7 +103,7 @@ export default {
 		// benefit
 
 		component.set_new_key_in_child_foo_obj_benefit('d', 1);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1
@@ -118,7 +118,7 @@ export default {
 
 
 		component.change_key_in_child_foo_obj_benefit('d', 2);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1
@@ -133,7 +133,7 @@ export default {
 
 		// don't change value
 		component.change_key_in_child_foo_obj_benefit('d', 2);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1
