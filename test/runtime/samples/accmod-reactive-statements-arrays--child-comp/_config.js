@@ -24,8 +24,6 @@ export default {
 		// also NO component update will be triggered, which is correct / wanted behavior!
 
 		// SVELTE 'unmodified': bad -> would trigger main-update +1 (wrong / unwanted) only, nothing else!
-		// TODO  if we set 'useAccMod' and 'accessorsAsync' to 'false' and test, we don't get the (unwanted) additional 'main' update,
-		// this is different than in REPL, WHY?
 		component.add_item_to_child_foo_at_specific_index(0, 'a');
 		compileOptions.accessorsAsync ? flush() : null;
 
@@ -40,7 +38,6 @@ export default {
 			child rs_foo_4: 0
 		`);
 
-		/*
 		// SVELTE 'unmodified': bad -> would trigger main-update +1 (wrong / unwanted) only, nothing else!
 		component.add_item_to_child_foo_at_specific_index(3, 'b');
 		compileOptions.accessorsAsync ? flush() : null;
@@ -182,7 +179,6 @@ export default {
 			child rs_foo_3: 7
 			child rs_foo_4: 4
 		`);
-		*/
-	}
 
+	}
 };
