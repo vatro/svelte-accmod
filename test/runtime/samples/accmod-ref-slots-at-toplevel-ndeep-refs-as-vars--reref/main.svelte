@@ -11,7 +11,7 @@
 	let childslot_depth_1;
 	let childslot_depth_2;
 
-	let foo = undefined;
+	let foo = 0;
 	let rs_foo = 0;
 
 	$: foo ? rs_foo++ : null;

@@ -1,8 +1,8 @@
 <script>
-	import { afterUpdate, onMount } from "svelte";
-	import { get_current_component } from "svelte/internal";
+	import { afterUpdate, onMount } from 'svelte';
+	import { get_current_component } from 'svelte/internal';
 
-	let foo = undefined;
+	let foo = 0;
 	let rs_foo = 0;
 
 	$: foo ? rs_foo++ : null;
@@ -10,11 +10,11 @@
 	onMount(() => {});
 
 	export function change_foo() {
-		// FAILS / Test obsolete --> Error: Function called outside component initialization
-		// means we're no allowed to get_current_component() in a function. only at top level.
-		const comp = get_current_component()
-		const c = comp
-		c.foo = get_foo_value()
+		// SVELTE : FAILS / Test obsolete --> Error: Function called outside component initialization
+		// means we're not allowed to use get_current_component() in a function, only at top level.
+		const comp = get_current_component();
+		const c = comp;
+		c.foo = get_foo_value();
 	}
 
 	function get_foo_value() {
@@ -23,8 +23,8 @@
 
 		const vals = {
 			start_value,
-			incr
-		}
+			incr,
+		};
 
 		const vals_reref1 = vals;
 		const vals_reref2 = vals_reref1;
@@ -33,12 +33,12 @@
 		vals_reref3.start_value = 2;
 		vals_reref3.incr = 20;
 
-		const val = vals_reref3.start_value + vals_reref3.incr
+		const val = vals_reref3.start_value + vals_reref3.incr;
 
-		return val
+		return val;
 	}
 
-	let updates = 0
+	let updates = 0;
 
 	afterUpdate(() => {
 		updates++;
