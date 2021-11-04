@@ -6,13 +6,12 @@ export default {
 		// REMARK: accessors are async! before first update per default.
 
 		// on mount
-		// remarks:
-		//  IMPORTANT  here rs-subchild0.children get's triggered only ONCE on mount because of 'immutable:true'!
 		// 1. children is truthy at init
 		// 2. we change the value of an existing 'undefined' element via bind:this={children[0]}
 
-		//  IMPORTANT  rs-subchild0.children[0] won't be triggered we change the value of
-		// an existing 'undefined' (children[0]) element via bind:this={children[0]} because of 'immutable:true'!
+		// IMPORTANT  REMARK (immutable version):
+		// 'subchild0.children' doesn't trigger related reactive statements, but component update behavior is OK / as intended!
+		
 		assert.htmlEqual(target.innerHTML, `
 			main-updated:1
 			child0-updated:1
@@ -24,8 +23,6 @@ export default {
 			rs-subsubchild0.foo:1
 		`);
 
-
-		
 		// using a component reference saved inside an array to access 'SubSubChild0' / change 'subsubchild0.foo'
 		// - update ONLY the referenced 'SubSubChild0'-component (child0.subchild0.children[0]) -> do NOT update 'main', 'Child0' or 'SubChild0' components!
 		// - don't trigger 'children'-array's reactive statements -> we don't change the child0.subchild0.children array (only using references inside it)!
