@@ -83,8 +83,8 @@ describe('runtime', () => {
 			compileOptions.hydratable = hydrate;
 			compileOptions.immutable = config.immutable;
 			compileOptions.accessors = 'accessors' in config ? config.accessors : true;
-			compileOptions.useAccMod = true;
-			compileOptions.accessorsAsync = true;
+			compileOptions.useAccMod = 'useAccMod' in config ? config.useAccMod : true;
+			compileOptions.accessorsAsync = 'accessorsAsync' in config ? config.accessorsAsync : true;
 
 			cleanRequireCache();
 
