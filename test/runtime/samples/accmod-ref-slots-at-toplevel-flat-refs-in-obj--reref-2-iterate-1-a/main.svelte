@@ -8,7 +8,7 @@
 
 	let slot_refs = {};
 
-	let foo = undefined;
+	let foo = 0;
 	let rs_foo = 0;
 
 	$: foo ? rs_foo++ : null;
@@ -18,8 +18,7 @@
 		const local_slot_refs_reref = slot_refs;
 
 		for (let slot_key in local_slot_refs_reref) {
-			local_slot_refs_reref[slot_key].foo =
-				local_slot_refs_reref[slot_key].ind + 1;
+			local_slot_refs_reref[slot_key].foo = local_slot_refs_reref[slot_key].ind + 1;
 		}
 
 		for (let slot_key in local_slot_refs_reref) {
@@ -30,8 +29,7 @@
 	export function change_all_slots_foo(val0, val1, val2) {
 		const local_slot_refs_reref = slot_refs;
 		for (let slot_key in local_slot_refs_reref) {
-			local_slot_refs_reref[slot_key].foo =
-				arguments[local_slot_refs_reref[slot_key].ind];
+			local_slot_refs_reref[slot_key].foo = arguments[local_slot_refs_reref[slot_key].ind];
 		}
 	}
 
