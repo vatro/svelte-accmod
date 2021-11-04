@@ -1,6 +1,6 @@
 export default {
 	immutable: true,
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 
 		// on mount / after first update.
 		// REMARK: accessors are async! before first update per default.
@@ -29,7 +29,7 @@ export default {
 		// 'main.children' doesn't trigger related reactive statements, but component update behavior is OK / as intended!
 		
 		component.set_foo_of_children_child0(2);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main-updated:1
@@ -43,7 +43,7 @@ export default {
 		// ... again.
 		// again check: ok
 		component.set_foo_of_children_child0(3);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main-updated:1
