@@ -1,6 +1,6 @@
 <script>
-	import { afterUpdate } from "svelte";
-	import SubChild0 from "./SubChild0.svelte";
+	import { afterUpdate } from 'svelte';
+	import SubChild0 from './SubChild0.svelte';
 
 	export let subchild0;
 	let updated = 0;

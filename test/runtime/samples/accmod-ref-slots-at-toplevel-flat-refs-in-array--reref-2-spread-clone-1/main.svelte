@@ -8,7 +8,7 @@
 
 	let slot_refs = [];
 
-	let foo = undefined;
+	let foo = 0;
 	let rs_foo = 0;
 
 	$: foo ? rs_foo++ : null;

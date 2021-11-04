@@ -5,15 +5,14 @@ export default {
 		// on mount / after first update.
 		// REMARK: accessors are async! before first update per default.
 		assert.htmlEqual(target.innerHTML, `
-			main updates: 1, foo: undefined, rs_foo: 0
-			child updates: 1, foo: undefined, rs_foo: 0
+			main updates: 1, foo: 0, rs_foo: 0
+			child updates: 1, foo: 0, rs_foo: 0
 			childslot updates: 1, foo: 2, rs_foo: 1
 			childslot updates: 1, foo: 3, rs_foo: 1
 			childslot updates: 1, foo: 4, rs_foo: 1
-			childslot updates: 1, foo: undefined, rs_foo: 0
+			childslot updates: 1, foo: 0, rs_foo: 0
 		`);
 
-		// after first update ...
 		// - only modified components and slots should be updated / rerendered!
 		// - modified props should trigger related reactive statements on change!
 
@@ -21,12 +20,12 @@ export default {
 		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
-			main updates: 1, foo: undefined, rs_foo: 0
-			child updates: 1, foo: undefined, rs_foo: 0
+			main updates: 1, foo: 0, rs_foo: 0
+			child updates: 1, foo: 0, rs_foo: 0
 			childslot updates: 2, foo: 1, rs_foo: 2
 			childslot updates: 2, foo: 2, rs_foo: 2
 			childslot updates: 2, foo: 3, rs_foo: 2
-			childslot updates: 1, foo: undefined, rs_foo: 0
+			childslot updates: 1, foo: 0, rs_foo: 0
 		`);
 
 
@@ -34,8 +33,8 @@ export default {
 		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
-			main updates: 1, foo: undefined, rs_foo: 0
-			child updates: 1, foo: undefined, rs_foo: 0
+			main updates: 1, foo: 0, rs_foo: 0
+			child updates: 1, foo: 0, rs_foo: 0
 			childslot updates: 2, foo: 1, rs_foo: 2
 			childslot updates: 2, foo: 2, rs_foo: 2
 			childslot updates: 2, foo: 3, rs_foo: 2
@@ -47,7 +46,7 @@ export default {
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 2, foo: 20, rs_foo: 1
-			child updates: 1, foo: undefined, rs_foo: 0
+			child updates: 1, foo: 0, rs_foo: 0
 			childslot updates: 2, foo: 1, rs_foo: 2
 			childslot updates: 2, foo: 2, rs_foo: 2
 			childslot updates: 2, foo: 3, rs_foo: 2
