@@ -1,6 +1,6 @@
 export default {
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 
 		// on mount / after first update.
 		// REMARK: accessors are async! before first update per default.
@@ -25,7 +25,7 @@ export default {
 
 		// SVELTE 'unmodified': bad -> would trigger main-update +1 (wrong / unwanted) only, nothing else!
 		component.add_item_to_child_foo_at_specific_index(0, 'a');
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1
@@ -40,7 +40,7 @@ export default {
 
 		// SVELTE 'unmodified': bad -> would trigger main-update +1 (wrong / unwanted) only, nothing else!
 		component.add_item_to_child_foo_at_specific_index(3, 'b');
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1
@@ -55,7 +55,7 @@ export default {
 
 		// SVELTE 'unmodified': bad -> would trigger main-update +1 (wrong / unwanted) only, nothing else!
 		component.add_item_to_child_foo_at_specific_index(1, {});
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1
@@ -70,7 +70,7 @@ export default {
 
 		// SVELTE 'unmodified': bad -> would trigger main-update +1 (wrong / unwanted) only, nothing else!
 		component.add_item_to_child_foo_at_specific_index(2, 20);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1
@@ -85,7 +85,7 @@ export default {
 
 		// SVELTE 'unmodified': bad -> would trigger main-update +1 (wrong / unwanted) only, nothing else!
 		component.add_item_to_child_foo_at_end([1, 2, 3]);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1
@@ -100,7 +100,7 @@ export default {
 
 		// SVELTE 'unmodified': bad -> would trigger main-update +1 (wrong / unwanted) only, nothing else!
 		component.change_item_in_child_foo_at_specific_index(0, 'ax');
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1
@@ -119,7 +119,7 @@ export default {
 		// also NO component update will be triggered, which is correct / wanted behavior!
 
 		component.change_item_in_child_foo_at_specific_index(0, 'ax');
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1
@@ -134,7 +134,7 @@ export default {
 
 		// SVELTE 'unmodified': bad -> would trigger nothing (double wrong / double unwanted)!
 		component.add_key_value_pair_to_obj_in_child_foo(1, 'bar', 1000);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1
@@ -152,7 +152,7 @@ export default {
 		// also NO component update will be triggered, which is correct / wanted behavior!
 
 		component.add_key_value_pair_to_obj_in_child_foo(1, 'bar', 1000);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1
@@ -167,7 +167,7 @@ export default {
 
 
 		component.recreate_child_foo_clone_spread_new_array(['a', 'b', 'c', 'd', 'e']);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 1
