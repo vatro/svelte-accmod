@@ -1,5 +1,5 @@
 <script>
-	import { afterUpdate } from "svelte";
+	import { afterUpdate } from 'svelte';
 	export let foo = 1;
 
 	let updated = 0;
