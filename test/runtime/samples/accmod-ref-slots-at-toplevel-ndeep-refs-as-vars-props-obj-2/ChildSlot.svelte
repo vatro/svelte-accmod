@@ -2,7 +2,7 @@
 	import { afterUpdate } from 'svelte';
 
 	export let depth;
-	export let foo = undefined;
+	export let foo = 0;
 	let rs_foo = 0;
 
 	$: foo ? rs_foo++ : null;
