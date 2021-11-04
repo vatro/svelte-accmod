@@ -10,7 +10,7 @@
 	let childslot_1;
 	let childslot_2;
 
-	let foo = undefined;
+	let foo = 0;
 	let rs_foo = 0;
 
 	$: foo ? rs_foo++ : null;
