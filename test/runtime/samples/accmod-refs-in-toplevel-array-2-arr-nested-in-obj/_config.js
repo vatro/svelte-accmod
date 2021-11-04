@@ -45,7 +45,7 @@ export default {
 		// this would normally be sync (accessors default behavior) and trigger an additional (unwanted) 'main' update.
 		// if 'useAccMod' and 'accessorsAsync' are set to 'false': test fails here due to an additional (unwanted) 'main' update.
 		component.set_foo_of_child0_subchild0_children_all_0(3);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updated: 1
