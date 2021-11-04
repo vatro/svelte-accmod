@@ -1,6 +1,6 @@
 export default {
 	immutable: true,
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 
 		// on mount / after first update.
 		// REMARK: accessors are async! before first update per default.
@@ -29,7 +29,7 @@ export default {
 
 		/**/
 		component.set_foo_of_subsubchild0_a(2);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main-updated:1
@@ -44,7 +44,7 @@ export default {
 
 		/*again _a*/
 		component.set_foo_of_subsubchild0_a(3);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main-updated:1
@@ -59,7 +59,7 @@ export default {
 
 		/*same as _a*/
 		component.set_foo_of_subsubchild0_b(4);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main-updated:1
@@ -74,7 +74,7 @@ export default {
 
 		/*same as _a*/
 		component.set_foo_of_subsubchild0_c(5);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main-updated:1

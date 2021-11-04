@@ -1,6 +1,6 @@
 export default {
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 
 		// on mount / after first update.
 		// REMARK: accessors are async! before first update per default.
@@ -13,7 +13,7 @@ export default {
 		`);
 
 		component.change_items_of_obj_foo_bar_baz_arr_benefit([4, 5, 6]);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 2
@@ -24,7 +24,7 @@ export default {
 
 		// change again
 		component.change_items_of_obj_foo_bar_baz_arr_benefit([7, 8, 9]);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 3
@@ -39,7 +39,7 @@ export default {
 		// only be triggered if the items change, this applies only for primitive values in an array
 		// setting object type items in an array (Object or Array) will always trigger updates ('immutable:false' --> 'safe_not_equal')
 		component.change_items_of_obj_foo_bar_baz_arr_benefit([7, 8, 9]);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 3
@@ -50,7 +50,7 @@ export default {
 
 		// change again
 		component.change_items_of_obj_foo_bar_baz_arr_benefit([10, 11, 12]);
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			main updates: 4
