@@ -14,7 +14,6 @@ export default {
 			childslot 2 updates: 1, props_obj.foo: 6, rs_props_obj: 2
 		`);
 
-		// after first update ...
 		// - only modified components and slots should be updated / rerendered!
 		// - modified props should trigger related reactive statements on change!
 

@@ -2,7 +2,7 @@
 	import { afterUpdate } from 'svelte';
 	import { get_current_component } from 'svelte/internal';
 
-	export let foo = undefined;
+	export let foo = 0;
 	let rs_foo = 0;
 
 	$: foo ? rs_foo++ : null;

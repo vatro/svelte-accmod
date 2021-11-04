@@ -1,7 +1,7 @@
 <script>
-	import { afterUpdate, onMount } from "svelte";
+	import { afterUpdate, onMount } from 'svelte';
 
-	let foo = undefined;
+	let foo = 0;
 	let rs_foo = 0;
 
 	$: foo ? rs_foo++ : null;
@@ -9,7 +9,7 @@
 	onMount(() => {});
 
 	export function change_foo() {
-		foo = get_foo_value()
+		foo = get_foo_value();
 	}
 
 	function get_foo_value() {
@@ -18,8 +18,8 @@
 
 		const vals = {
 			start_value,
-			incr
-		}
+			incr,
+		};
 
 		const vals_reref1 = vals;
 		const vals_reref2 = vals_reref1;
@@ -28,12 +28,12 @@
 		vals_reref3.start_value = 2;
 		vals_reref3.incr = 20;
 
-		const val = vals_reref3.start_value + vals_reref3.incr
+		const val = vals_reref3.start_value + vals_reref3.incr;
 
-		return val
+		return val;
 	}
 
-	let updates = 0
+	let updates = 0;
 
 	afterUpdate(() => {
 		updates++;
