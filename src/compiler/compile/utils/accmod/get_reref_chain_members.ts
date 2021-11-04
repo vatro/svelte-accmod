@@ -63,34 +63,34 @@ export default function get_reref_chain_members(declaration_node: Node, scope: S
 		switch (current_decl_node.init.type) {
 			case 'MemberExpression':
 				if (current_decl_node.init.object.name) {
-					// TODO  Check / confirm: this doesn't seem to work when >2(1?) members.
+					// if only one member e.g. `const _bar = foo.bar` or `const _bar = foo[x]` -> will search for higher 'foo' declaration
 					return current_decl_node.init.object.name;
 				} else {
+					// if more than one member e.g. `const _baz = foo.bar.baz` or `const _baz = foo.bar[x]` -> will search for higher 'foo' declaration
 					return find_member_expression_head(current_decl_node);
 				}
 
 			case 'Identifier':
+				// in case e.g. `const _foo = foo` -> will invalidate top-level declared 'foo'
 				return current_decl_node.init.name;
 
 			case 'ObjectExpression':
 				if (current_decl_node.init.properties.length) {
 					if (current_decl_node.init.properties[0].type === 'SpreadElement') {
+						// if e.g. `const _foo = { ...foo }` -> will search for higher 'foo' declaration
 						return current_decl_node.init.properties[0].argument.name;
 					}
-				} else {
-					// if e.g. foo = {}
-					return undefined;
 				}
 
 				break;
 
 			case 'ArrayExpression':
 				if (current_decl_node.init.elements.length) {
+					// works only for one spreaded element (currently? -> potential  TODO )
 					if (current_decl_node.init.elements[0].type === 'SpreadElement') {
+						// if e.g. `const _arr = [ ...arr ]` -> will search for higher 'arr' declaration
 						return current_decl_node.init.elements[0].argument.name;
 					}
-				} else {
-					return current_decl_node.init.id.name;
 				}
 
 				break;
@@ -98,6 +98,8 @@ export default function get_reref_chain_members(declaration_node: Node, scope: S
 				return undefined;
 
 		}
+
+		return undefined;
 	}
 
 	function process_decl_node(current_decl_node, decl_scope) {
