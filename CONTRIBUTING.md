@@ -57,9 +57,7 @@ see [https://github.com/sveltejs/svelte/blob/master/CONTRIBUTING.md](https://git
 
 ## License
 
-<<<<<<< HEAD
+
 By contributing to 'svelte-accmod', you agree that your contributions will be licensed under its [MIT license](https://github.com/vatro/svelte-accmod/blob/main/LICENSE.md).
-=======
-By contributing to 'svelte-accmod', you agree that your contributions will be licensed under its [MIT license](https://github.com/sveltejs/svelte/blob/master/LICENSE).
->>>>>>> 03b60700b (Setup initial CONTRIBUTING.md)
+
 
