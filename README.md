@@ -1,75 +1,198 @@
-[![Cybernetically enhanced web apps: Svelte](https://sveltejs.github.io/assets/banner.png)](https://svelte.dev)
+# svelte-accmod
+
+**svelte-accmod** is an **opinionated** (*modified*) version of [Svelte](https://github.com/sveltejs/svelte) favoring accessors (*modified functionality*) over $set-syntax as default syntax incl. some reactivity and lifecycle behavior changes related to accessors-usage.
+
+- see ["Motivations"](#motivations)
+- see ["Remarks and Features"](#remarks-and-features)
+- see ["Drawbacks"](#drawbacks)
 
 
-[![npm version](https://img.shields.io/npm/v/svelte.svg)](https://www.npmjs.com/package/svelte) [![license](https://img.shields.io/npm/l/svelte.svg)](LICENSE.md) [![Chat](https://img.shields.io/discord/457912077277855764?label=chat&logo=discord)](https://svelte.dev/chat)
 
 
-## What is Svelte?
 
-Svelte is a new way to build web applications. It's a compiler that takes your declarative components and converts them into efficient JavaScript that surgically updates the DOM.
+## Getting Started
 
-Learn more at the [Svelte website](https://svelte.dev), or stop by the [Discord chatroom](https://svelte.dev/chat).
+For a quick start it's best to use the [svelte-accmod-app](https://github.com/vatro/svelte-accmod-app) template which is a modified version of the [official svelte starter template](https://github.com/sveltejs/template) using [svelte-accmod](https://github.com/vatro/svelte-accmod) instead of [svelte](https://github.com/sveltejs/svelte). The installation process is basically the same. All standard deployment workflows described on the [original repo](https://github.com/sveltejs/template) should also be the same (! *not tested yet* !).
 
-
-## Supporting Svelte
-
-Svelte is an MIT-licensed open source project with its ongoing development made possible entirely by fantastic volunteers. If you'd like to support their efforts, please consider:
-
-- [Becoming a backer on Open Collective](https://opencollective.com/svelte).
-
-Funds donated via Open Collective will be used for compensating expenses related to Svelte's development such as hosting costs. If sufficient donations are received, funds may also be used to support Svelte's development more directly.
-
-
-## Development
-
-Pull requests are encouraged and always welcome. [Pick an issue](https://github.com/sveltejs/svelte/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc) and help us out!
-
-To install and work on Svelte locally:
+Using [degit](https://github.com/Rich-Harris/degit):
 
 ```bash
-git clone https://github.com/sveltejs/svelte.git
-cd svelte
+npx degit vatro/svelte-accmod-template svelte-accmod-app
+cd svelte-accmod-app
 npm install
 ```
 
-> Do not use Yarn to install the dependencies, as the specific package versions in `package-lock.json` are used to build and test Svelte.
-
-To build the compiler and all the other modules included in the package:
+If you want to use TypeScript, after installation (*or right after cloning the template via e.g. degit, see above.*):
 
 ```bash
-npm run build
+node scripts/setupTypeScript.js
 ```
 
-To watch for changes and continually rebuild the package (this is useful if you're using [npm link](https://docs.npmjs.com/cli/link.html) to test out changes in a project locally):
+👉 **Use svelte-accmod as you would use 'unmodified' Svelte!**
 
-```bash
-npm run dev
-```
+svelte-accmod should generally allow you to **care *less*** rather than to care *more* about something. Accessors usage is favored / encouraged, but you can use $set(...) only or alongside accessors with **no restrictions**! Only accessors will behave differently, actually the same if you were using $set(...) -> simply **try to use accessors for everything you'd normally use $set(...)**.
 
-The compiler is written in [TypeScript](https://www.typescriptlang.org/), but don't let that put you off — it's basically just JavaScript with type annotations. You'll pick it up in no time. If you're using an editor other than [Visual Studio Code](https://code.visualstudio.com/), you may need to install a plugin in order to get syntax highlighting and code hints, etc.
-
-
-### Running Tests
-
-```bash
-npm run test
-```
-
-To filter tests, use `-g` (aka `--grep`). For example, to only run tests involving transitions:
-
-```bash
-npm run test -- -g transition
-```
+- see ["Remarks and Features"](#remarks-and-features)
+- see ["Drawbacks"](#drawbacks)
 
 
-## svelte.dev
 
-The source code for https://svelte.dev, including all the documentation, lives in the [site](site) directory. The site is built with [Sapper](https://sapper.svelte.dev).
 
-### Is svelte.dev down?
 
-Probably not, but it's possible. If you can't seem to access any `.dev` sites, check out [this SuperUser question and answer](https://superuser.com/q/1413402).
+### Compatibility
 
-## License
+**svelte-accmod** is basically Svelte + some modifications **passing all standard Svelte tests** except of the newly ONE added (`binding-select-unmatched` *-> can't see anything wrong with it in "real life" though* 🤷‍♂️). It **should break** accessors-centric projects relying on synchronous updating, respectively exploiting all the things being "'wrong" with accessors from svelte-accmod's perspective.
 
-[MIT](LICENSE.md)
+- see ["Remarks and Features"](#remarks-and-features)
+- see ["Drawbacks"](#drawbacks)
+
+
+
+
+
+## Motivations
+
+#### svelthree
+
+This project was started as an attempt to address / "fix" several [accessors-usage](#favoring-accessors-syntax)-caveats *(identified as such -> opinionated)* that popped up during [svelthree](https://github.com/vatro/svelthree) development, especially components' update behavior in complex default-slot-based component structures *(like component based threejs scene graphs)* using top-level declared (*or saved inside top-level declared objects and arrays*) component references (*resulting in much lower performance compared to using $set*) and reactivity of exported (*accessed via accessors-syntax*) objects and arrays, in order to bend the overall svelthree developer experience in the wanted direction.
+
+
+
+#### Favoring Accessors-Syntax
+
+🤩
+
+The accessors-syntax means less writing, is more readable and more intuitive than the default [$set](https://svelte.dev/docs#$set)-syntax. It's basically `component.foo=1` vs. `component.$set({foo:1})`. 
+
+😕
+
+Unfortunately accessors usage comes with several disadvantages and caveats *(identified as such -> opinionated)* compared to using $set. One of the main ones are e.g. accessors-syntax being hard-wired to synchronous (*after first component update only!*) component updating (*immediate flush() after $set(..) in accessor-setters*) loosing all performance benefits of the asynchronous (*scheduled*) $set-syntax, see ["Remarks and Features"](#remarks-and-features) for more details.
+
+Additionally accessors-syntax was kind of *thrown under the bus* at some point, with `accessors:false` being the default compiler options setting all because its hard-wired "core"-functionality (*synchronous updating*) turns out to be something not necessarily needed, see [Rich Harris himself stating](https://github.com/sveltejs/svelte/pull/2242#issuecomment-473671557) :
+
+> "**Is there a situation where it's necessary to update a component synchronously** (as opposed to `$set(...)` followed by `await tick()`, which has the same result as far as the user is concerned)**?** **I'm inclined to file it under YAGNI* until proven otherwise**" 
+
+**You Aren't Gonna Need It*
+
+*Remark: Svelte tests heavily rely on accessors' synchronous update functionality, so all tests using accessors had to be modified for 'svelte-accmod' where accessors are asynchronous, see ["Remarks and Features"](#remarks-and-features)*
+
+
+
+#### Accessors Revamped - From YAGNI to Standard-Syntax
+
+**svelte-accmod** addresses several main accessors-usage issues *(identified as such -> opinionated)* and additionally equips accessors with some extra functionality / behavior aiming to make the accessors-syntax if not better, then at least a true alternative to the $set-syntax.
+
+
+
+
+
+## Remarks and Features 
+
+*work in progress (more detailed with svelte-accmod vs. unmodified Svelte examples)...*
+
+**svelte-accmod** aims to make the already great Svelte developer experience even more intuitive / **more vanilla**. You should be able to use accessors without having to worry about unexpected / unwanted component updates (*unexpected / unwanted lifecycle behavior*) possibly resulting in confusion and performance issues. Accessing and modifying component's props programmatically should result in intuitively expected, predictable component updates and triggering of reactive statements, basically equal to effects of using $set(...) + some extra goodies.
+
+
+
+- **Compile option `accessors` is hard-set to `true`**, changing it to `false` *will have no effect*.
+
+  
+
+- **Accessor-statements are asynchronous** / scheduled (*just like $set-statements*), **the synchronous update functionality originally bound to accessors-usage has been removed** because svelte-accmod presupposes / proposes a **consequent deprecation of the "synchronous update syntax"**. 💡 You can (*as always*) use `await tick()` if you need to sync DOM at a certain point in your code.
+
+  
+
+- **Made for the standard** `immutable:false` **mode**. `immutable:true` will prevent some intuitively expected triggering of reactive statements, yet the correct / intended components update behavior will *not be affected* by `immutable:true`.
+
+
+
+- **Fixes** issues with **unexpected component update behavior** containing accessor-statements **using top-level (main context) declared component-references**. (**!!!**) In unmodified Svelte these issues are especially critical with **complex (*deep*), default-slot-nested component-structures** (*like e.g. complex [svelthree](https://github.com/vatro/svelthree) scene graphs*) being modified very frequently (*like e.g. on every AnimationFrame / e.g. 60 times per second*).
+
+
+
+- **Fixes** issues with **unexpected component update behavior** while simply **using / accessing component-references saved inside top-level (*main context*) declared objects and arrays**.
+
+
+
+- ⚡ **No need to re-assign objects and arrays in order to trigger component updates or corresponding reactive statements**, just **export** the object or the array that needs to cause a component update / trigger reactive statements on change! 
+
+  *see [https://svelte.dev/tutorial/updating-arrays-and-objects](https://svelte.dev/tutorial/updating-arrays-and-objects)*
+
+  For example this **will** trigger reactivity on `obj.foo.bar` :
+
+  ```svelte
+  const foo = obj.foo;
+  foo.bar = 'baz';
+  ```
+
+  you **don't have to** follow it up with `obj = obj` .
+
+  
+
+  You can actually go pretty wild, with e.g. something like this:
+
+  *see **test** [accmod-benefit-updating-arrays-and-objects--obj-extreme-1-b](https://github.com/vatro/svelte-accmod/tree/main/test/runtime/samples)*
+
+  ```svelte
+  <!-- ComponentA.svelte -->
+  <script>
+  
+  // needs to be exported!
+  export let obj = { foo:{ bar: { baz: { val: 0, }, }, }, };
+  
+  let current_val = 0 // will be reactively set to the value of 'foo.bar.baz.val'
+  
+  $: current_val = obj.foo.bar.baz.val // will be triggered if 'foo.bar.baz.val' changes
+  
+  export function change(value) {
+  
+  	const _obj = obj;
+  	const _foo = _obj.foo;
+  	const _bar = _foo.bar;
+  	const _baz = _bar.baz;
+  
+  	_baz.val = value; // will change 'foo.bar.baz.val' and trigger the reactive statement above!
+  }
+  
+  </script>
+  ```
+
+  and this will also work if you're targeting `obj` from some other component, like:
+
+  ```svelte
+  <!-- ComponentB.svelte -->
+  
+  <script>
+  import { onMount, tick } from 'svelte'
+  import ComponentA from 'ComponentA.svelte'
+  
+  let compA
+  
+  onMount(() => {
+  	await tick()
+  	
+  	// will be async / reactive! -> reactive statement in ComponentA will be triggered only ONCE!
+  	compA.obj.foo.bar.val = 1
+  	compA.change( 2 )
+  })
+  
+  </script>
+  
+  <ComponentA bind:this={compA}/>
+  
+  ```
+
+  
+
+*to be continued ...*
+
+
+
+
+
+### Drawbacks
+
+- **Slight performance loss** (*currently about 20% slower, which should be noticable only in extremely performance-hungry apps (edge cases) running on slow machines -> e.g. when [svelthree](https://github.com/vatro/svelthree) is running at 6x slowdown in Chrome*) compared to using the $set-syntax. The performance is also depending on the total amount of different assignments, member expressions etc. using top-level declared variables (*need to be invalidated*) in your code. (***needs more testing 'in the wild' / performance reports!***)
+- **Slightly bigger bundle size** depending on the amount of different assignments, member expressions etc. using top-level declared variables (*need to be invalidated*). (***needs more testing 'in the wild' / bundle size increase reports!***)
+
+'svelte-accmod' benefits should ideally at least make up for these drawbacks, but this is up to you to decide, happy trying out!  🚀
