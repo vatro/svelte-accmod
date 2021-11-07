@@ -1,7 +1,7 @@
 {
-  "name": "svelte",
+  "name": "svelte-accmod",
   "version": "3.46.1",
-  "description": "Cybernetically enhanced web apps",
+  "description": "Modified version of Svelte with revamped accessors functionality",
   "module": "index.mjs",
   "main": "index",
   "files": [
@@ -101,7 +101,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sveltejs/svelte.git"
+    "url": "https://github.com/vatro/svelte-accmod.git"
   },
   "keywords": [
     "UI",
@@ -109,12 +109,12 @@
     "templates",
     "templating"
   ],
-  "author": "Rich Harris",
+  "author": "Vatroslav Vrbanic",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sveltejs/svelte/issues"
+    "url": "https://github.com/vatro/svelte-accmod/issues"
   },
-  "homepage": "https://github.com/sveltejs/svelte#README",
+  "homepage": "https://github.com/vatro/svelte-accmod#readme",
   "devDependencies": {
     "@ampproject/remapping": "^0.3.0",
     "@rollup/plugin-commonjs": "^11.0.0",
