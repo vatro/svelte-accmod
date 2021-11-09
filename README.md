@@ -1,3 +1,10 @@
+***FYI**: This project was initally meant to be a contribution to Svelte (part of an RFC, see branch of forked Svelte: [accmod-v.0.1.x-optional](https://github.com/vatro/svelte/tree/accmod-v.0.1.x-optional)), but I then decided to publish it first. Why?*
+
+- *I need it for [svelthree](https://github.com/vatro/svelthree) anyway.*
+- *I'd like to see if this idea gets any attention (interest) at all before filing an RFC, since it originates in a pretty special Svelte use case.*
+
+---
+
 # svelte-accmod
 
 **svelte-accmod** is an **opinionated** (*modified*) version of [Svelte](https://github.com/sveltejs/svelte) favoring accessors (*modified functionality*) over $set-syntax as default syntax incl. some reactivity and lifecycle behavior changes related to accessors-usage.
