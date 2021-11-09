@@ -375,7 +375,7 @@ export function init(component, options, instance, create_fragment, not_equal, p
 					// this will just update the value of the prop / chain endpoint.
 					const new_value = ret();
 
-					// In case of `immutable:true` nothing will be made `dirty` (no update will be scheduled), no reactive statements will be triggered.
+					// INCONSISTENCY  with `immutable:true`: reactive statements bound to changed object type props will not be triggered! 
 					// We're not setting the value here we're just checking old against new (current, already updated via ret()!)
 					if (not_equal(old_value, new_value)) {
 						if (!clean.comp.$$.skip_bound && clean.comp.$$.bound[clean_prop_index]) clean.comp.$$.bound[clean_prop_index](new_value);
