@@ -1,4 +1,4 @@
-***FYI**: This project was initally meant to be a contribution to Svelte (part of an RFC, see branch of forked Svelte: [accmod-v.0.1.x-optional](https://github.com/vatro/svelte/tree/accmod-v.0.1.x-optional)), but I then decided to publish it first. Why?*
+***FYI**: This project was initially meant to be a contribution to Svelte (part of an RFC, but I then decided to publish it first. Why?*
 
 - *I need it for [svelthree](https://github.com/vatro/svelthree) anyway.*
 - *I'd like to see if this idea gets any attention (interest) at all before filing an RFC, since it originates in a pretty special Svelte use case.*
@@ -19,7 +19,9 @@
 
 ## Getting Started
 
-For a quick start it's best to use the [svelte-accmod-app](https://github.com/vatro/svelte-accmod-app) template which is a modified version of the [official svelte starter template](https://github.com/sveltejs/template) using [svelte-accmod](https://github.com/vatro/svelte-accmod) instead of [svelte](https://github.com/sveltejs/svelte). The installation process is basically the same. All standard deployment workflows described on the [original repo](https://github.com/sveltejs/template) should also be the same (! *not tested yet* !).
+#### Fresh start using svelte-accmod as dev dependency
+
+For a fresh Svelte project having svelte-accmod as dev dependency instead of original [Svelte](https://github.com/sveltejs/svelte) it's best to use the [svelte-accmod-app](https://github.com/vatro/svelte-accmod-app) template which is a modified version of the [official svelte starter template](https://github.com/sveltejs/template). The installation process is basically the same. All standard deployment workflows described on the [original repo](https://github.com/sveltejs/template) should also be the same (! *not tested yet* !).
 
 Using [degit](https://github.com/Rich-Harris/degit):
 
@@ -34,6 +36,28 @@ If you want to use TypeScript, after installation (*or right after cloning the t
 ```bash
 node scripts/setupTypeScript.js
 ```
+
+
+
+#### Patching existing Svelte projects (also [SvelteKit](https://kit.svelte.dev/) templates)
+
+For existing Svelte and SvelteKit projects you can use the handy [**svelte-accmod-patch**](https://github.com/vatro/svelte-accmod-patch):
+
+```bas
+npm install svelte-accmod-patch --save-dev
+npx svelte-accmod-patch
+```
+
+or simply:
+
+```
+npx svelte-accmod-patch
+```
+
+if you don't want to install svelte-accmod-patch locally as dependency.
+See [svelte-accmod-patch](https://github.com/vatro/svelte-accmod-patch#readme) for more informations.
+
+
 
 👉 **Use svelte-accmod as you would use 'unmodified' Svelte!**
 
