@@ -60,7 +60,30 @@ export function invalidate(renderer: Renderer, scope: Scope, node: Node, names: 
 
 						const reref_result = get_reref_chain_members(exp_head_decl, scope, component, node, renderer);
 						if (reref_result.origin_var_name) {
-							const head_index = renderer.context_lookup.get(reref_result.origin_var_name).index;
+							const head_context_member = renderer.context_lookup.get(reref_result.origin_var_name);
+
+							
+							// [FIX] Using a reference to an item of an unexported top-level declared array in a member expression inside a loop, e.g.:
+							// ``` const element_of_foo = foo[i]; element_of_foo.bar = baz ```
+							// we need to have the 'head' in $$.ctx, since we're using 'head_ctx_i' in '$cty_config'!
+							// if an unexported variable was found as reref-head, it will not be in $$.ctx and 'head_ctx_i' will point to 'undefined'!
+							// check if it's in 'initial_context' ($$.ctx) already, if not, add it manually.
+
+							// TODO  RECONSIDER  Don't put head in $$.ctx (it feels too hacky), instead put it (somehow?!) in $$.cty, just like it
+							// would live in $$.ctx. Should be 'a bit' more complicated. I've already tried passing the 'Identifier' object via
+							// 'head_ctx_1', but it was always 'undefined', hmmm...
+							if (renderer.initial_context.includes(head_context_member) === false) {
+								// the component's 'inital_context' has already been built at this point, so we're just going to
+								// push the head into the 'initial_context' ($$.ctx) manually.
+
+								head_context_member.is_contextual = true;
+								head_context_member.is_non_contextual = false;
+
+								renderer.initial_context.push(head_context_member);
+								head_context_member.index.value = renderer.initial_context.indexOf(head_context_member);
+							}
+							
+							const head_index = head_context_member.index;
 
 							// add MemberExpression keys chain (members) to `cty` and get the index of the chain,
 							// identical chains will have the same `cty_index`
@@ -149,7 +172,9 @@ export function invalidate(renderer: Renderer, scope: Scope, node: Node, names: 
 
 						// don't wrap `${node}` if there are no expression keys left (after filtering out the ones named '_index')
 						if (cty_chain_keys?.length) {
-							const head_index = renderer.context_lookup.get(head.name).index.value;
+
+							const head_context_member = renderer.context_lookup.get(head.name);
+							const head_index = head_context_member.index.value;
 
 							// add MemberExpression keys chain (members) to `cty` and get the index of the chain,
 							// identical chains will have the same `cty_index`
