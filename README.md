@@ -1,7 +1,11 @@
-***FYI**: This project was initially meant to be a contribution to Svelte (part of an RFC, but I then decided to publish it first. Why?*
+**DISCLAIMER**:
 
-- *I need it for [svelthree](https://github.com/vatro/svelthree) anyway.*
-- *I'd like to see if this idea gets any attention (interest) at all before filing an RFC, since it originates in a pretty special Svelte use case.*
+This is **NOT an official Svelte project**! All of the **listed contributors (*other than myself*) are the official / original Svelte version contributors**, **NOT *svelte-accmod* contributors**.
+
+This project was initially meant to be a contribution to Svelte (*part of an RFC*), but I then decided to publish it first. Why?
+
+- I need it for [svelthree](https://github.com/vatro/svelthree) anyway.
+- I'd like to see if this idea gets any attention (interest) at all before filing an RFC, since it originates in a pretty special Svelte use case (*svelthree*).
 
 ---
 
