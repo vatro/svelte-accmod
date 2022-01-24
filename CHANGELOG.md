@@ -1,6 +1,27 @@
 # svelte-accmod changelog
 *Release version matches Svelte version.*
 
+## 3.44.2-1
+
+- **FIX**  for using a reference to an item of an unexported top-level declared array in a member expression inside a loop, e.g.:
+  ```html
+	<!-- App.svelte -->
+	
+    <script>
+    // Additional REMARK: since 'foo' is not exported, changes won't be reactive.
+    // Exporting 'foo' would make it reactive and the below (see loop) would work without the current fix.
+    let foo = [{}, {}, {}]
+	
+    function fn() {    
+        for (let i = 0; i < foo.length; i++) {
+            // this previously worked only if 'foo' was exported!
+            const element_of_foo = foo[i];
+            element_of_foo.bar = baz
+        } 
+    }
+    </script>
+  ```
+
 ## 3.44.2
 
 - Rebased to Svelte 3.44.2
