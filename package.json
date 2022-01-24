@@ -1,6 +1,6 @@
 {
   "name": "svelte-accmod",
-  "version": "3.44.2",
+  "version": "3.44.2-1",
   "description": "Modified version of Svelte with revamped accessors functionality",
   "module": "index.mjs",
   "main": "index",
