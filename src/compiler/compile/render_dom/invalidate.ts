@@ -203,7 +203,6 @@ export function invalidate(renderer: Renderer, scope: Scope, node: Node, names: 
 							wrapNode = false;
 						}
 					}
-				}
 			} else {
 				// ### ORIGINAL behavior
 				// extra_args[0]: `head`
