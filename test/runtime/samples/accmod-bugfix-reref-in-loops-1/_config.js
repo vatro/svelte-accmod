@@ -1,12 +1,12 @@
 export default {
 
-	async test({ assert, component, target, flush, compileOptions }) {
+	async test({ assert, component, target, flush }) {
 
 		// on mount / after first update.
 		// REMARK: accessors are async! before first update per default.
 
 		component.process_array();
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, `
 			script_error?: no
