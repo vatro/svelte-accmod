@@ -43,7 +43,7 @@ What happens from here is:
 
 - `main` has to be rebased on the updated `dev-3-release` and force pushed, and finally:
 
-  -  the `CHANGELOG.md` has to be updated (*vX.Y.Z*), tagged (*accmod-vX.Y.Z*) and **commited** (not force pushed)
+  -  the `CHANGELOG.md` has to be **updated** (*X.Y.Z*), **tagged** (*X.Y.Z*) and **commited** (not force pushed)
 
   
 
@@ -57,9 +57,4 @@ see [https://github.com/sveltejs/svelte/blob/master/CONTRIBUTING.md](https://git
 
 ## License
 
-<<<<<<< HEAD
 By contributing to 'svelte-accmod', you agree that your contributions will be licensed under its [MIT license](https://github.com/vatro/svelte-accmod/blob/main/LICENSE.md).
-=======
-By contributing to 'svelte-accmod', you agree that your contributions will be licensed under its [MIT license](https://github.com/sveltejs/svelte/blob/master/LICENSE).
->>>>>>> 03b60700b (Setup initial CONTRIBUTING.md)
-
