@@ -157,52 +157,52 @@ export function invalidate(renderer: Renderer, scope: Scope, node: Node, names: 
 		let wrapNode = false;
 		let ccms = undefined;
 
-			// ### MODIFICATION -> if 'head' is available!
-			if (pass_value) {
+		// ### MODIFICATION -> if 'head' is available!
+		if (pass_value) {
 
-				// ### handles 'standard' and 'deep' accessor assignments
-				if (node.type === 'AssignmentExpression' && node.left.type === 'MemberExpression') {
-					if (node.left.type === 'MemberExpression') {
+			// ### handles 'standard' and 'deep' accessor assignments
+			if (node.type === 'AssignmentExpression' && node.left.type === 'MemberExpression') {
+				if (node.left.type === 'MemberExpression') {
 
-						const for_accmod = get_for_accmod(node.left, renderer);
-						const cty_chain_keys = for_accmod.keys;
-						ccms = for_accmod.computed_members;
+					const for_accmod = get_for_accmod(node.left, renderer);
+					const cty_chain_keys = for_accmod.keys;
+					ccms = for_accmod.computed_members;
 
-						// don't wrap `${node}` if there are no expression keys left (after filtering out the ones named '_index')
-						if (cty_chain_keys?.length) {
+					// don't wrap `${node}` if there are no expression keys left (after filtering out the ones named '_index')
+					if (cty_chain_keys?.length) {
 
-							const head_context_member = renderer.context_lookup.get(head.name);
-							const head_index = head_context_member.index.value;
+						const head_context_member = renderer.context_lookup.get(head.name);
+						const head_index = head_context_member.index.value;
 
-							// add MemberExpression keys chain (members) to `cty` and get the index of the chain,
-							// identical chains will have the same `cty_index`
-							const cty_index = renderer.add_to_cty(`${node.left['start']}`, head_index, cty_chain_keys).members_cty_i;
+						// add MemberExpression keys chain (members) to `cty` and get the index of the chain,
+						// identical chains will have the same `cty_index`
+						const cty_index = renderer.add_to_cty(`${node.left['start']}`, head_index, cty_chain_keys).members_cty_i;
 
-							// extra_args[1]: `cty_index`
-							extra_args.unshift({
-								type: 'Literal',
-								value: cty_index
-							});
+						// extra_args[1]: `cty_index`
+						extra_args.unshift({
+							type: 'Literal',
+							value: cty_index
+						});
 
-							// extra_args[0]: `head`
-							extra_args.unshift({
-								type: 'Identifier',
-								name: head.name
-							});
+						// extra_args[0]: `head`
+						extra_args.unshift({
+							type: 'Identifier',
+							name: head.name
+						});
 
-							wrapNode = true;
-						} else {
-							// ### ORIGINAL behavior
-							// extra_args[0]: `head`
-							extra_args.unshift({
-								type: 'Identifier',
-								name: head.name
-							});
+						wrapNode = true;
+					} else {
+						// ### ORIGINAL behavior
+						// extra_args[0]: `head`
+						extra_args.unshift({
+							type: 'Identifier',
+							name: head.name
+						});
 
-							// don't wrap `${node}`: no expression keys
-							wrapNode = false;
-						}
+						// don't wrap `${node}`: no expression keys
+						wrapNode = false;
 					}
+				}
 			} else {
 				// ### ORIGINAL behavior
 				// extra_args[0]: `head`
