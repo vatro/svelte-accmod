@@ -1,6 +1,10 @@
 # svelte-accmod changelog
 *Release version matches Svelte version.*
 
+## 3.44.3
+
+- Rebased to Svelte 3.44.3
+
 ## 3.44.2-1
 
 - **FIX**  for using a reference to an item of an unexported top-level declared array in a member expression inside a loop, e.g.:
