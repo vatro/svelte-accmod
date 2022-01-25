@@ -1,6 +1,6 @@
 // binding member expression shouldn't invalidate the property name
 export default {
-	async test({ assert, component, target, window }) {
+	async test({ assert, component, target, window, flush, compileOptions }) {
 		const input = target.querySelector('input');
 		assert.deepEqual(component.logs.length, 1);
 		assert.equal(input.value, 'abc');
@@ -12,6 +12,8 @@ export default {
 		assert.deepEqual(component.logs.length, 1);
 		
 		component.paths = ['b'];
+		compileOptions.accessorsAsync ? flush() : null;
+		
 		assert.deepEqual(component.logs.length, 2);
 		assert.equal(input.value, 'def');		
 	}
