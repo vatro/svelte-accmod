@@ -3,9 +3,9 @@ export default {
 		<p style="color: red;"></p>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.myColor = 'blue';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, '<p style="color: blue;"></p>');
 	}
 };
