@@ -1,8 +1,11 @@
 export default {
 	html: '<div>12 120 70, 30+4=34</div>',
-	async test({ component, target, assert }) {
+	async test({ component, target, assert, flush, compileOptions }) {
 		component.promise1 = Promise.resolve({width: 5, height: 6});
+		compileOptions.accessorsAsync ? flush() : null;
+
 		component.promise2 = Promise.reject({width: 6, height: 7});
+		compileOptions.accessorsAsync ? flush() : null;
 
 		await Promise.resolve();
 		assert.htmlEqual(target.innerHTML, `
@@ -11,6 +14,8 @@ export default {
 		`);
 
 		component.constant = 20;
+		compileOptions.accessorsAsync ? flush() : null;
+
 		assert.htmlEqual(target.innerHTML, `
 			<div>30 600 220, 100+6=106</div>
 			<div>42 840 260, 120+7=127</div>
