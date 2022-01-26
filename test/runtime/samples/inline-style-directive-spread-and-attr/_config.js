@@ -3,21 +3,21 @@ export default {
 		<p style="color: green;"></p>
 	`,
 
-	test({ assert, component, target, window, flush, compileOptions }) {
+	test({ assert, component, target, window, flush }) {
 		const p = target.querySelector('p');
 
 		let styles = window.getComputedStyle(p);
 		assert.equal(styles.color, 'green');
 
 		component.color = null;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, '<p style=""></p>');
 		styles = window.getComputedStyle(p);
 		assert.equal(styles.color, '');
 
 		component.spread = { style: 'color: yellow; padding: 30px;' };
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(target.innerHTML, '<p style="padding: 30px;"></p>');
 		styles = window.getComputedStyle(p);
@@ -26,7 +26,7 @@ export default {
 
 		component.spread = {};
 		component.style = 'color: blue; background-color: green;';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(
 			target.innerHTML,
@@ -37,8 +37,8 @@ export default {
 		assert.equal(styles.backgroundColor, 'green');
 
 		component.color = 'purple';
-		compileOptions.accessorsAsync ? flush() : null;
-		
+		flush();
+
 		assert.htmlEqual(
 			target.innerHTML,
 			'<p style="background-color: green; color: purple;"></p>'
