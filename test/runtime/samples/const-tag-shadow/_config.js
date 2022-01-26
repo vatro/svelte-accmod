@@ -9,7 +9,7 @@ export default {
 		<u>27</u>
 		<i>19</i>
 	`,
-	async test({ component, target, assert }) {
+	async test({ component, target, assert, flush, compileOptions }) {
 		component.numbers = [
 			{
 				a: 4,
@@ -28,6 +28,7 @@ export default {
 				]
 			}
 		];
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<b>9</b>
