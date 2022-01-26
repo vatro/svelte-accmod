@@ -4,8 +4,9 @@ export default {
 		<div>35 350 120, 50+7=57</div>
 		<div>48 480 140, 60+8=68</div>
 	`,
-	async test({ component, target, assert }) {
+	async test({ component, target, assert, flush, compileOptions }) {
 		component.constant = 20;
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<div>12 240 140, 60+4=64</div>
@@ -19,6 +20,7 @@ export default {
 			{width: 5, height: 6},
 			{width: 6, height: 7}
 		];
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<div>12 240 140, 60+4=64</div>
