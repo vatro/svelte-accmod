@@ -4,15 +4,15 @@ export default {
 		<p style="color: red;"></p>
 	`,
 
-	test({ assert, component, target, window, flush, compileOptions }) {
+	test({ assert, component, target, window, flush }) {
 		const [p1, p2] = target.querySelectorAll('p');
 
 		assert.equal(window.getComputedStyle(p1).color, 'red');
 		assert.equal(window.getComputedStyle(p2).color, 'red');
 
 		component.color = 'blue';
-		compileOptions.accessorsAsync ? flush() : null;
-		
+		flush();
+
 		assert.htmlEqual(
 			target.innerHTML,
 			`
