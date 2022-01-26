@@ -3,7 +3,7 @@ export default {
 		<p style="color: green; transform: translateX(45px); border: 100px solid pink;"></p>
 	`,
 
-	test({ assert, component, target, window }) {
+	test({ assert, component, target, window, flush, compileOptions }) {
 		const p = target.querySelector('p');
 
 		const styles = window.getComputedStyle(p);
@@ -14,6 +14,7 @@ export default {
 		component.translate_x = '100%';
 		component.border_width = 20;
 		component.border_color = 'yellow';
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(
 			target.innerHTML,
