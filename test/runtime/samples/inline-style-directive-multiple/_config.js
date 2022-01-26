@@ -3,7 +3,7 @@ export default {
 		<p style="color: red; width: 65px; font-weight: 700;"></p>
 	`,
 
-	test({ assert, component, target, window, flush, compileOptions }) {
+	test({ assert, component, target, window, flush }) {
 		const p = target.querySelector('p');
 
 		let styles = window.getComputedStyle(p);
@@ -13,7 +13,7 @@ export default {
 		component.width = '100vh';
 		component.absolute = true;
 		component.bold = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		styles = window.getComputedStyle(p);
 		assert.htmlEqual(
