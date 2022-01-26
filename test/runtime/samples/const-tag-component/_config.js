@@ -12,8 +12,10 @@ export default {
 		<div>12 120 70, 30+4=34</div>
 		<div>12 120 70, 30+4=34</div>
 	`,
-	async test({ component, target, assert }) {
+	async test({ component, target, assert, flush, compileOptions }) {
 		component.constant = 20;
+		compileOptions.accessorsAsync ? flush() : null;
+
 		assert.htmlEqual(target.innerHTML, `
 			<div>12 240 140, 60+4=64</div>
 			<div>12 240 140, 60+4=64</div>
@@ -29,6 +31,8 @@ export default {
 		`);
 
 		component.box = {width: 5, height: 6};
+		compileOptions.accessorsAsync ? flush() : null;
+		
 		assert.htmlEqual(target.innerHTML, `
 			<div>30 600 220, 100+6=106</div>
 			<div>30 600 220, 100+6=106</div>
