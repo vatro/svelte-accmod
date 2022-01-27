@@ -4,8 +4,9 @@ export default {
 			<p>#00FF00</p>
 			<p>#0000FF</p>
 	`,
-	async test({ component, target, assert }) {
+	async test({ component, target, assert, flush, compileOptions }) {
 		component.constant = 20;
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<p>#FF0000</p>
@@ -35,6 +36,7 @@ export default {
 				color: '#FFFFFF'
 			}
 		];
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<p>#FF0000</p>
