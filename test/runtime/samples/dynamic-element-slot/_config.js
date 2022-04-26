@@ -1,6 +1,6 @@
 export default {
 	props: {
-		x: true
+		x: true,
 	},
 
 	html: `
@@ -13,11 +13,13 @@ export default {
 		</div>
 	`,
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.tag = 'h2';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
-		assert.htmlEqual(target.innerHTML, `
+		assert.htmlEqual(
+			target.innerHTML,
+			`
 			<h1>Foo</h1>
 			<div id="default">
 				<h2>This is default slot</h2>
@@ -25,6 +27,7 @@ export default {
 			<div id="other">
 				<h2 slot='other'>This is other slot</h2>
 			</div>
-		`);
-	}
+		`
+		);
+	},
 };

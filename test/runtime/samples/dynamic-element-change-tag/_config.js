@@ -1,12 +1,12 @@
 export default {
 	props: {
-		tag: 'div'
+		tag: 'div',
 	},
 	html: '<div>Foo</div>',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		component.tag = 'h1';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(
 			target.innerHTML,
@@ -14,5 +14,5 @@ export default {
 			<h1>Foo</h1>
 		`
 		);
-	}
+	},
 };
