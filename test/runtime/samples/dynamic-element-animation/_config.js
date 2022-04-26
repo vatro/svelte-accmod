@@ -18,11 +18,15 @@ export default {
 		<div>e</div>
 	`,
 
-	test({ assert, component, target, raf }) {
+	test({ assert, component, target, raf, flush, compileOptions }) {
 		component.tag = 'p';
+		compileOptions.accessorsAsync ? flush() : null;
+
 		assert.equal(target.querySelectorAll('p').length, 5);
 
 		component.tag = 'div';
+		compileOptions.accessorsAsync ? flush() : null;
+
 		let divs = target.querySelectorAll('div');
 		divs.forEach(div => {
 			div.getBoundingClientRect = function() {
@@ -45,6 +49,7 @@ export default {
 			{ id: 4, name: 'd' },
 			{ id: 1, name: 'a' }
 		];
+		compileOptions.accessorsAsync ? flush() : null;
 
 		divs = target.querySelectorAll('div');
 		assert.ok(~divs[0].style.animation.indexOf('__svelte'));

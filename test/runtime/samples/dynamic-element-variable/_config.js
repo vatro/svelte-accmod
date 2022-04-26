@@ -5,10 +5,11 @@ export default {
 	},
 	html: '<div>Foo</div>',
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		const div = target.firstChild;
 		component.tag = 'nav';
 		component.text = 'Bar';
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(target.innerHTML, `
 			<nav>Bar</nav>

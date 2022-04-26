@@ -11,16 +11,18 @@ export default {
 		logs = [];
 	},
 
-	async test({ assert, component, target }) {
+	async test({ assert, component, target, flush, compileOptions }) {
 		assert.equal(component.tag, 'h1');
 
 		assert.deepEqual(logs, ['create: h1,opt1']);
 		component.opt = 'opt2';
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.equal(component.tag, 'h1');
 		assert.deepEqual(logs, ['create: h1,opt1', 'update: h1,opt2']);
 
 		component.tag = 'h2';
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.equal(component.tag, 'h2');
 		assert.deepEqual(logs, [
@@ -32,6 +34,8 @@ export default {
 		assert.htmlEqual(target.innerHTML, '<h2>tag is h2.</h2>');
 
 		component.tag = false;
+		compileOptions.accessorsAsync ? flush() : null;
+		
 		assert.deepEqual(logs, [
 			'create: h1,opt1',
 			'update: h1,opt2',
