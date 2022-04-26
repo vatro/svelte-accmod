@@ -4,9 +4,10 @@ export default {
 	},
 	html: '<h1>This is h1 tag</h1>',
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		const h1 = target.firstChild;
 		component.size = 2;
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(
 			target.innerHTML,

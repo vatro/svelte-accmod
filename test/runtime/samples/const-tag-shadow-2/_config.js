@@ -7,8 +7,10 @@ export default {
 		<p>3</p>
 		<p>3,6,9</p>
 	`,
-	test({ component, target, assert }) {
+	test({ component, target, assert, flush, compileOptions }) {
 		component.baz = 5;
+		compileOptions.accessorsAsync ? flush() : null;
+		
 		assert.htmlEqual(
 			target.innerHTML,
 			`
@@ -22,6 +24,8 @@ export default {
 		);
 
 		component.array = [3, 4, 5];
+		compileOptions.accessorsAsync ? flush() : null;
+
 		assert.htmlEqual(
 			target.innerHTML,
 			`
