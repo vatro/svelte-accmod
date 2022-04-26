@@ -4,7 +4,7 @@ export default {
 			<p>bar: 1,2,3,1,1,2,3,2, num: 1</p>
 			<p>bar: 0,2,4,1,0,2,4,2, num: 2</p>
 	`,
-	async test({ component, target, assert }) {
+	async test({ component, target, assert, flush, compileOptions }) {
 		assert.htmlEqual(
 			target.innerHTML,
 			`
@@ -15,6 +15,7 @@ export default {
 		);
 
 		component.nums = [1, 2, 3];
+		compileOptions.accessorsAsync ? flush() : null;
 
 		assert.htmlEqual(
 			target.innerHTML,
