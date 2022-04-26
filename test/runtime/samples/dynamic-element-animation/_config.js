@@ -5,9 +5,9 @@ export default {
 			{ id: 2, name: 'b' },
 			{ id: 3, name: 'c' },
 			{ id: 4, name: 'd' },
-			{ id: 5, name: 'e' }
+			{ id: 5, name: 'e' },
 		],
-		tag: 'div'
+		tag: 'div',
 	},
 
 	html: `
@@ -18,18 +18,18 @@ export default {
 		<div>e</div>
 	`,
 
-	test({ assert, component, target, raf, flush, compileOptions }) {
+	test({ assert, component, target, raf, flush }) {
 		component.tag = 'p';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.equal(target.querySelectorAll('p').length, 5);
 
 		component.tag = 'div';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		let divs = target.querySelectorAll('div');
-		divs.forEach(div => {
-			div.getBoundingClientRect = function() {
+		divs.forEach((div) => {
+			div.getBoundingClientRect = function () {
 				const index = [...this.parentNode.children].indexOf(this);
 				const top = index * 30;
 
@@ -37,7 +37,7 @@ export default {
 					left: 0,
 					right: 100,
 					top,
-					bottom: top + 20
+					bottom: top + 20,
 				};
 			};
 		});
@@ -47,9 +47,9 @@ export default {
 			{ id: 2, name: 'b' },
 			{ id: 3, name: 'c' },
 			{ id: 4, name: 'd' },
-			{ id: 1, name: 'a' }
+			{ id: 1, name: 'a' },
 		];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		divs = target.querySelectorAll('div');
 		assert.ok(~divs[0].style.animation.indexOf('__svelte'));
@@ -59,9 +59,6 @@ export default {
 		assert.ok(~divs[4].style.animation.indexOf('__svelte'));
 
 		raf.tick(100);
-		assert.deepEqual([
-			divs[0].style.animation,
-			divs[4].style.animation
-		], ['', '']);
-	}
+		assert.deepEqual([divs[0].style.animation, divs[4].style.animation], ['', '']);
+	},
 };

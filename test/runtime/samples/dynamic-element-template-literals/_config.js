@@ -1,13 +1,13 @@
 export default {
 	props: {
-		size: 1
+		size: 1,
 	},
 	html: '<h1>This is h1 tag</h1>',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		const h1 = target.firstChild;
 		component.size = 2;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(
 			target.innerHTML,
@@ -18,5 +18,5 @@ export default {
 
 		const h2 = target.firstChild;
 		assert.notEqual(h1, h2);
-	}
+	},
 };
