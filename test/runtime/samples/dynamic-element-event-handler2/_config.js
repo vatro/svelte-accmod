@@ -1,25 +1,25 @@
 let clicked = false;
 function handler() {
-  clicked = true;
+	clicked = true;
 }
 
 export default {
 	props: {
 		tag: 'div',
-		handler
+		handler,
 	},
 	html: '<div>Foo</div>',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		assert.equal(clicked, false);
 
 		component.tag = 'button';
-		compileOptions.accessorsAsync ? flush() : null;
-		
+		flush();
+
 		const button = target.querySelector('button');
 		const click = new window.MouseEvent('click');
 		button.dispatchEvent(click);
 
 		assert.equal(clicked, true);
-	}
+	},
 };
