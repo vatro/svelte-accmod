@@ -13,6 +13,6 @@ export default {
 
 		component.foo = 43;
 		compileOptions.accessorsAsync ? flush() : null;
-		assert.strictEqual( textarea.value, '\n\t<p>not actually an element. 43</p>\n' );
+		assert.strictEqual( textarea.value, '\t<p>not actually an element. 43</p>\n' );
 	}
 };

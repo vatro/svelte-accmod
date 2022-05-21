@@ -8,13 +8,14 @@ export default {
 	},
 	html: '<button disabled type="button" data-named="foo">Click me</button>',
 
-	test({ assert, component, target }) {
+	test({ assert, component, target, flush, compileOptions }) {
 		const button = target.querySelector('button');
 		assert.equal(button.disabled, true);
 		assert.equal(button.type, 'button');
 		assert.equal(button.dataset.named, 'foo');
 
 		component.props = { type: 'submit' };
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(target.innerHTML, '<button type="submit">Click me</button>');
 		assert.equal(button.disabled, false);
 		assert.equal(button.type, 'submit');

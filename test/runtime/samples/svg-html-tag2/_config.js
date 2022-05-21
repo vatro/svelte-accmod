@@ -7,7 +7,7 @@ export default {
 				</rect>
 			</svg>
 		`,
-	test({ assert, target, component }) {
+	test({ assert, target, component, flush, compileOptions }) {
 
 		let svg = target.querySelector('svg');
 		let circles = target.querySelectorAll('circle');
@@ -18,6 +18,7 @@ export default {
 
 		component.width = 200;
 		component.height = 120;
+		compileOptions.accessorsAsync ? flush() : null;
 		assert.htmlEqual(
 			target.innerHTML,
 			`
