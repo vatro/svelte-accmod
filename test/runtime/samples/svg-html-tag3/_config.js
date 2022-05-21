@@ -6,8 +6,7 @@ export default {
 				</foreignObject>
 			</svg>
 		`,
-	test({ assert, target, component, flush, compileOptions }) {
-
+	test({ assert, target, component, flush }) {
 		let svg = target.querySelector('svg');
 		let circle = target.querySelector('circle');
 		assert.equal(svg.namespaceURI, 'http://www.w3.org/2000/svg');
@@ -15,7 +14,7 @@ export default {
 
 		component.width = 200;
 		component.height = 120;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(
 			target.innerHTML,
 			`

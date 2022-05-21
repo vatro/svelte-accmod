@@ -1,6 +1,6 @@
 export default {
 	props: {
-		x: true,
+		x: true
 	},
 
 	html: `
@@ -29,5 +29,5 @@ export default {
 			</div>
 		`
 		);
-	},
+	}
 };

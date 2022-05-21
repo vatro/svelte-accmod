@@ -4,16 +4,16 @@ export default {
 		y: 1
 	},
 
-	test({ assert, component, target, raf, flush, compileOptions }) {
+	test({ assert, component, target, raf, flush }) {
 		component.x = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		let div = target.querySelector('div');
 		assert.equal(div.foo, undefined);
 
 		// play both in and out transition when changed with `{#key}`
 		component.y = 2;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, '<div></div><div></div>');
 		const [leaving, incoming] = target.querySelectorAll('div');
 
@@ -28,12 +28,12 @@ export default {
 
 		// do not play out transition when removed by `{#if}`
 		component.x = false;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, '');
 
 		// do not play in transition when added back with `{#if}`
 		component.x = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, '<div></div>');
 		div = target.querySelector('div');
 		assert.equal(div.foo, undefined);

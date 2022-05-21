@@ -1,6 +1,6 @@
 export default {
 	props: {
-		size: 1,
+		size: 1
 	},
 	html: '<h1>This is h1 tag</h1>',
 
@@ -18,5 +18,5 @@ export default {
 
 		const h2 = target.firstChild;
 		assert.notEqual(h1, h2);
-	},
+	}
 };

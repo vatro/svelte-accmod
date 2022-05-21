@@ -1,6 +1,6 @@
 export default {
 	props: {
-		tag: 'div',
+		tag: 'div'
 	},
 	html: '<div>Foo</div>',
 
@@ -14,5 +14,5 @@ export default {
 			<h1>Foo</h1>
 		`
 		);
-	},
+	}
 };

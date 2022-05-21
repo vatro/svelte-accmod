@@ -1,7 +1,7 @@
 export default {
 	props: {
 		tag: 'div',
-		text: 'Foo',
+		text: 'Foo'
 	},
 	html: '<div>Foo</div>',
 
@@ -20,5 +20,5 @@ export default {
 
 		const h1 = target.firstChild;
 		assert.notEqual(div, h1);
-	},
+	}
 };

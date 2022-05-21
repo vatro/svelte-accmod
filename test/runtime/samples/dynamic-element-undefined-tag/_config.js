@@ -25,5 +25,5 @@ export default {
 		flush();
 
 		assert.htmlEqual(target.innerHTML, '<span>Foo</span>');
-	},
+	}
 };

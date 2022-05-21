@@ -4,12 +4,12 @@ export default {
 	},
 	html: '<button>Click me</button>',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		const button = target.querySelector('button');
 		assert.equal(button.disabled, false);
 
 		component.disabled = true;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, '<button disabled>Click me</button>');
 		assert.equal(button.disabled, true);
 	}
