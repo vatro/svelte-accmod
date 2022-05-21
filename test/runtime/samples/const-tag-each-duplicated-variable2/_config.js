@@ -29,5 +29,5 @@ export default {
 				<p>bar: 1,2,3,2,4,, num: 4</p>
 		`
 		);
-	},
+	}
 };

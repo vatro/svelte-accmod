@@ -5,7 +5,7 @@ export default {
 		<h1>tag is h1.</h1>
 	`,
 	props: {
-		logs,
+		logs
 	},
 	after_test() {
 		logs = [];
@@ -34,5 +34,5 @@ export default {
 		assert.deepEqual(logs, ['create: h1,opt1', 'update: h1,opt2', 'destroy', 'create: h2,opt2', 'destroy']);
 
 		assert.htmlEqual(target.innerHTML, '');
-	},
+	}
 };

@@ -5,9 +5,9 @@ export default {
 			{ id: 2, name: 'b' },
 			{ id: 3, name: 'c' },
 			{ id: 4, name: 'd' },
-			{ id: 5, name: 'e' },
+			{ id: 5, name: 'e' }
 		],
-		tag: 'div',
+		tag: 'div'
 	},
 
 	html: `
@@ -37,7 +37,7 @@ export default {
 					left: 0,
 					right: 100,
 					top,
-					bottom: top + 20,
+					bottom: top + 20
 				};
 			};
 		});
@@ -47,7 +47,7 @@ export default {
 			{ id: 2, name: 'b' },
 			{ id: 3, name: 'c' },
 			{ id: 4, name: 'd' },
-			{ id: 1, name: 'a' },
+			{ id: 1, name: 'a' }
 		];
 		flush();
 
@@ -60,5 +60,5 @@ export default {
 
 		raf.tick(100);
 		assert.deepEqual([divs[0].style.animation, divs[4].style.animation], ['', '']);
-	},
+	}
 };

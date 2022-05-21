@@ -6,7 +6,7 @@ function handler() {
 export default {
 	props: {
 		tag: 'div',
-		handler,
+		handler
 	},
 	html: '<div>Foo</div>',
 
@@ -21,5 +21,5 @@ export default {
 		button.dispatchEvent(click);
 
 		assert.equal(clicked, true);
-	},
+	}
 };

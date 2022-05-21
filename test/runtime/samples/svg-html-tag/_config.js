@@ -5,8 +5,7 @@ export default {
 				<circle cx="75" cy="30" r="24" fill="#118AB2"></circle>
 			</svg>
 		`,
-	test({ assert, target, component, flush, compileOptions }) {
-
+	test({ assert, target, component, flush }) {
 		let svg = target.querySelector('svg');
 		let circles = target.querySelectorAll('circle');
 		assert.equal(svg.namespaceURI, 'http://www.w3.org/2000/svg');
@@ -16,7 +15,7 @@ export default {
 
 		component.width = 200;
 		component.height = 120;
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(
 			target.innerHTML,
 			`

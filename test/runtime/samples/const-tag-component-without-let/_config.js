@@ -4,13 +4,16 @@ export default {
 		<div>static dynamic</div>
 		<div>static dynamic</div>
 	`,
-	async test({ component, target, assert, flush, compileOptions }) {
+	async test({ component, target, assert, flush }) {
 		component.props = 'xxx';
-		compileOptions.accessorsAsync ? flush() : null;
-		assert.htmlEqual(target.innerHTML, `
+		flush();
+		assert.htmlEqual(
+			target.innerHTML,
+			`
 			<div>static xxx</div>
 			<div>static xxx</div>
 			<div>static xxx</div>
-		`);
+		`
+		);
 	}
 };

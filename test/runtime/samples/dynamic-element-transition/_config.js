@@ -19,5 +19,5 @@ export default {
 		flush();
 
 		assert.equal(h2.style.animation, '__svelte_3750847757_0 100ms linear 0ms 1 both');
-	},
+	}
 };

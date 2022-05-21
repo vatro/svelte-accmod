@@ -4,10 +4,10 @@ export default {
 	},
 	html: '<h1></h1><col><img><hr><input><br>',
 
-	test({ assert, component, target, flush, compileOptions }) {
+	test({ assert, component, target, flush }) {
 		assert.htmlEqual(target.innerHTML, '<h1></h1><col><img><hr><input><br>');
 		component.propTag = 'link';
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, '<h1></h1><col><img><link><input><br>');
 	}
 };

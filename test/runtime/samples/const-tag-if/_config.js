@@ -3,9 +3,9 @@ export default {
 	props: {
 		boxes: [{ width: 10, height: 34 }]
 	},
-	async test({ component, target, assert, flush, compileOptions }) {
+	async test({ component, target, assert, flush }) {
 		component.boxes = [{ width: 20, height: 40 }];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(
 			target.innerHTML,
@@ -15,11 +15,11 @@ export default {
 		);
 
 		component.boxes = [];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 		assert.htmlEqual(target.innerHTML, '');
 
 		component.boxes = [{ width: 18, height: 48 }];
-		compileOptions.accessorsAsync ? flush() : null;
+		flush();
 
 		assert.htmlEqual(
 			target.innerHTML,
