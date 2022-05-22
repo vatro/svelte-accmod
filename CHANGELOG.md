@@ -1,6 +1,10 @@
 # svelte-accmod changelog
 *Release version matches Svelte version.*
 
+## 3.48.0
+
+- Rebased onto Svelte 3.48.0
+
 ## 3.47.0
 
 - Rebased onto Svelte 3.47.0
